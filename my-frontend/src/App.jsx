@@ -43,15 +43,4 @@ function Home() {
   )
 }
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/new" element={<NewPage />} />
-      </Routes>
-    </Router>
-  )
-}
-
-export default App
+export default Home;
