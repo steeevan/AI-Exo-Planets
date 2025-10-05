@@ -7,6 +7,7 @@ import NewPage from './NewPage.jsx';
 import ExoplanetPage from './exoplanetpage';
 import MemberPage from './MemberPage.jsx';
 import RenderExoplanets from './RenderExoplanets.jsx';
+import ExoplanetPage from './ExoplanetPage.jsx';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
