@@ -180,16 +180,20 @@ export default function Home() {
 function Section({ id, title, children }) {
   return (
     <section id={id} style={{ margin: "2rem auto", maxWidth: 960 }}>
-      <h2 style={{
-        margin: 0,
-        marginBottom: "0.25rem",
-        fontSize: "1.1rem",
-        fontWeight: 700,
-        color: "white"
-      }}>
+      <h2
+        className="gray-box-hd"   
+        style={{
+          margin: 0,
+          marginBottom: "0.25rem",
+          fontSize: "1.1rem",
+          fontWeight: 700,
+          color: "white"
+        }}
+      >
         {title}
       </h2>
       <div className="card">{children}</div>
     </section>
-  )
+  );
 }
+
