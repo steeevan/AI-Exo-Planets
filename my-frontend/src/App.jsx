@@ -28,7 +28,7 @@ export default function Home() {
     history.replaceState(null, '', `#${id}`)
   }
 
-  const HEADER_H = 96
+  const HEADER_H = 80
   const NAV_H = 50
 
   return (
@@ -47,14 +47,13 @@ export default function Home() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: "8px 16px 0",    // ← small top padding so the title isn't tight to the top
+          padding: "8px 16px 0",   
           zIndex: 10,
           color: "white",
           background: "linear-gradient(90deg, #0b1020 0%, #101a3a 50%, #0b1020 100%)",
           boxShadow: "0 2px 10px rgba(0,0,0,0.25)",
         }}
       >
-        {/* Logo & wordmark on the left */}
         <div
           style={{
             position: "absolute",
@@ -88,7 +87,7 @@ export default function Home() {
             letterSpacing: "0.3px",
             fontWeight: 700,
             textAlign: "center",
-            lineHeight: 1.15,       // a touch more line-height looks nicer with padding
+            lineHeight: 1.15,       
           }}
         >
           Mapping the Unknown Universe — One Exoplanet at a Time
@@ -114,8 +113,8 @@ export default function Home() {
           margin: 0,
           padding: "0 0.75rem",
           display: "flex",
-          alignItems: "center",      // keep the words vertically centered
-          height: "44px",            // fixed nav height
+          alignItems: "center",     
+          height: "44px",            
           gap: "0.75rem",
           listStyle: "none",
           overflowX: "auto",
