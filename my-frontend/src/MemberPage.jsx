@@ -14,9 +14,9 @@ export default function MemberPage() {
   const images = [
     { id: 1, src: Estevan, alt: "Image of Estevan", header: "Estevan", paragraph: "T" },
     { id: 2, src: Lily, alt: "Image of Lily", header: "Lily", paragraph: "A" },
-    { id: 3, src: Brista, alt: "Image of Brista", header: "Brista", paragraph: "F" },
-    { id: 4, src: Alisa, alt: "Image of Alisa", header: "Alisa", paragraph: "E" },
-    { id: 5, src: Yanming, alt: "Image of Yanming", header: "Yanming", paragraph: "Hello. My name is Yanming and I am currently in 7th grade in Suzanne Middle School." },
+    { id: 3, src: Brista, alt: "Image of Brista", header: "Brista", paragraph: "Hello. My name is Brista and I am currently in 9th grade in Diamond Bar High School. I am immune to getting ragebaited." },
+    { id: 4, src: Alisa, alt: "Image of Alisa", header: "Alisa", paragraph: "Hello. My name is Alisa and I am currently in 8th grade in Chaparral Middle School.dfsdff" },
+    { id: 5, src: Yanming, alt: "Image of Yanming", header: "Yanming", paragraph: "Hello. My name is Yanming and I am currently in 7th grade in Suzanne Middle School. I am a programmer in the team. I am nonchalant. " },
   ];
 
   return (

@@ -4,7 +4,6 @@ import { useMemo } from 'react';
 import * as THREE from 'three';
 import { LevaPanel, useControls, useCreateStore } from 'leva';
 
-// Define a list of exoplanets with spherical coordinates (r: distance from sun, theta, phi)
 const EXOPLANETS = [
   { name: 'Exoplanet A', r: 5, theta: 0, phi: 90, color: 'red', size: 0.5 },
   { name: 'Exoplanet B', r: 10, theta: 90, phi: 45, color: 'blue', size: 0.7 },
@@ -13,127 +12,132 @@ const EXOPLANETS = [
   { name: 'Exoplanet E', x: 12, y: 0, z: 0, color: 'orange', size: 0.9 },
 ];
 
-// 3D grid
 const Cartesian3DGrid = ({ size = 50, divisions = 10, colorCenter = '#888888', colorGrid = '#444444', planeCount = 3 }) => {
   const step = size / (planeCount - 1);
 
-  const xzGrids = useMemo(() => {
+  const makeGrids = (axis, rot) => {
     const arr = [];
     for (let i = 0; i < planeCount; i++) {
-      const y = -size / 2 + i * step;
+      const pos = -size / 2 + i * step;
       const grid = new THREE.GridHelper(size, divisions, colorCenter, colorGrid);
-      arr.push(<primitive key={`xz-${i}`} object={grid} position={[0, y, 0]} rotation={[-Math.PI / 2, 0, 0]} />);
+      const position = axis === 'x' ? [pos, 0, 0] : axis === 'y' ? [0, pos, 0] : [0, 0, pos];
+      arr.push(<primitive key={`${axis}-${i}`} object={grid} position={position} rotation={rot} />);
     }
     return arr;
-  }, [size, divisions, colorCenter, colorGrid, planeCount]);
+  };
 
-  const xyGrids = useMemo(() => {
-    const arr = [];
-    for (let i = 0; i < planeCount; i++) {
-      const z = -size / 2 + i * step;
-      const grid = new THREE.GridHelper(size, divisions, colorCenter, colorGrid);
-      arr.push(<primitive key={`xy-${i}`} object={grid} position={[0, 0, z]} />);
-    }
-    return arr;
-  }, [size, divisions, colorCenter, colorGrid, planeCount]);
-
-  const yzGrids = useMemo(() => {
-    const arr = [];
-    for (let i = 0; i < planeCount; i++) {
-      const x = -size / 2 + i * step;
-      const grid = new THREE.GridHelper(size, divisions, colorCenter, colorGrid);
-      arr.push(<primitive key={`yz-${i}`} object={grid} position={[x, 0, 0]} rotation={[0, Math.PI / 2, 0]} />);
-    }
-    return arr;
-  }, [size, divisions, colorCenter, colorGrid, planeCount]);
-
-  return <group>{xzGrids}{xyGrids}{yzGrids}</group>;
+  return (
+    <group>
+      {makeGrids('y', [-Math.PI / 2, 0, 0])}
+      {makeGrids('x', [0, Math.PI / 2, 0])}
+      {makeGrids('z', [0, 0, 0])}
+    </group>
+  );
 };
 
 const ExoplanetScene = () => {
-  // 1) Create a local Leva store and 2) bind useControls to it
   const store = useCreateStore();
-  const { maxDistance } = useControls(
-    { maxDistance: { value: 25, min: 0, max: 50, step: 1 } },
-    { store }
-  );
+  const { maxDistance } = useControls({ maxDistance: { value: 25, min: 0, max: 50, step: 1 } }, { store });
 
-  const filteredExoplanets = EXOPLANETS.filter(p => {
-    if (p.r !== undefined) return p.r <= maxDistance;
-    if (p.x !== undefined && p.y !== undefined && p.z !== undefined) {
-      const r = Math.sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
-      return r <= maxDistance;
-    }
-    return false;
+  const filteredExoplanets = EXOPLANETS.filter((p) => {
+    const r = p.r ?? Math.sqrt((p.x ?? 0) ** 2 + (p.y ?? 0) ** 2 + (p.z ?? 0) ** 2);
+    return r <= maxDistance;
   });
 
   return (
     <>
-      <header className='gray-box'>
-        Exoplanets orbiting the sun (filtered by max distance: {maxDistance} units), positioned using spherical coordinates on a 3D Cartesian grid.
+      <header className="gray-box">
+        Exoplanets orbiting the sun (filtered by max distance: {maxDistance} units),
+        positioned using spherical coordinates on a 3D Cartesian grid.
       </header>
 
-      {/* Simulation wrapper */}
+      {/* Simulation area */}
       <div
         style={{
           position: 'relative',
           width: '100%',
-          height: '80vh',
-          backgroundColor: '#000000',
+          backgroundColor: '#000',
           borderRadius: '10px',
           overflow: 'hidden',
+          padding: '1rem',
+          marginBottom: '2rem',
         }}
       >
-        {/* 3) Render LevaPanel INSIDE the wrapper with the SAME store */}
-        <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10 }}>
+        {/* Leva settings on right side INSIDE simulation area */}
+        <div
+          style={{
+            position: 'absolute',
+            top: '1rem',
+            right: '1rem',
+            zIndex: 5,
+            transform: 'scale(0.9)',
+            transformOrigin: 'top right',
+          }}
+        >
           <LevaPanel
             store={store}
-            titleBar={{ title: 'Settings For Simulation', drag: false }} // fixed, not draggable
-            collapsed={true}
+            flat
+            collapsed={false}
             fill={false}
+            titleBar={{ title: '', drag: false }}
+            theme={{
+              colors: {
+                elevation1: 'rgba(20,20,20,0.85)',
+                highlight1: '#00bfff',
+                accent1: '#00bfff',
+                folderTextColor: '#ffffff',
+              },
+            }}
+            style={{
+              width: '220px',
+              borderRadius: '8px',
+              boxShadow: '0 0 12px rgba(0,0,0,0.6)',
+              backdropFilter: 'blur(8px)',
+            }}
           />
         </div>
 
-        <Canvas camera={{ position: [30, 30, 30], fov: 50 }} style={{ width: '100%', height: '100%' }}>
-          <hemisphereLight color="white" groundColor="#222222" intensity={0.5} />
-          <ambientLight intensity={0.3} />
-          <pointLight position={[0, 0, 0]} intensity={2} color="yellow" />
+        {/* 3D Simulation Canvas */}
+        <div style={{ width: '100%', height: '70vh' }}>
+          <Canvas camera={{ position: [30, 30, 30], fov: 50 }}>
+            <hemisphereLight color="white" groundColor="#222222" intensity={0.5} />
+            <ambientLight intensity={0.3} />
+            <pointLight position={[0, 0, 0]} intensity={2} color="yellow" />
 
-          <group position={[0, 0, 0]}>
-            <mesh position={[0, 0, 0]}>
-              <sphereGeometry args={[1.5, 32, 32]} />
-              <meshStandardMaterial color="yellow" emissive="orange" emissiveIntensity={0.5} />
-            </mesh>
+            <group position={[0, 0, 0]}>
+              {/* Sun */}
+              <mesh>
+                <sphereGeometry args={[1.5, 32, 32]} />
+                <meshStandardMaterial color="yellow" emissive="orange" emissiveIntensity={0.5} />
+              </mesh>
 
-            {filteredExoplanets.map((planet, i) => {
-              let x, y, z;
-              if (planet.x !== undefined) {
-                ({ x, y, z } = planet);
-              } else {
-                const theta = planet.theta * (Math.PI / 180);
-                const phi = planet.phi * (Math.PI / 180);
-                x = planet.r * Math.cos(theta) * Math.sin(phi);
-                y = planet.r * Math.cos(phi);
-                z = planet.r * Math.sin(theta) * Math.sin(phi);
-              }
-              return (
-                <group key={i}>
-                  <mesh position={[x, y, z]}>
-                    <sphereGeometry args={[planet.size, 32, 32]} />
-                    <meshStandardMaterial color={planet.color} />
-                  </mesh>
-                  <Text position={[x, y + planet.size + 0.5, z]} fontSize={0.5} color="white" anchorX="center" anchorY="bottom">
-                    {planet.name}
-                  </Text>
-                </group>
-              );
-            })}
+              {/* Planets */}
+              {filteredExoplanets.map((planet, i) => {
+                const theta = (planet.theta ?? 0) * (Math.PI / 180);
+                const phi = (planet.phi ?? 0) * (Math.PI / 180);
+                const x = planet.x ?? planet.r * Math.cos(theta) * Math.sin(phi);
+                const y = planet.y ?? planet.r * Math.cos(phi);
+                const z = planet.z ?? planet.r * Math.sin(theta) * Math.sin(phi);
+                return (
+                  <group key={i}>
+                    <mesh position={[x, y, z]}>
+                      <sphereGeometry args={[planet.size, 32, 32]} />
+                      <meshStandardMaterial color={planet.color} />
+                    </mesh>
+                    <Text position={[x, y + planet.size + 0.5, z]} fontSize={0.5} color="white" anchorX="center" anchorY="bottom">
+                      {planet.name}
+                    </Text>
+                  </group>
+                );
+              })}
 
-            <Cartesian3DGrid size={50} divisions={10} planeCount={3} />
-          </group>
+              {/* 3D Grid */}
+              <Cartesian3DGrid size={50} divisions={10} planeCount={3} />
+            </group>
 
-          <OrbitControls makeDefault />
-        </Canvas>
+            <OrbitControls makeDefault />
+          </Canvas>
+        </div>
       </div>
     </>
   );
