@@ -5,7 +5,6 @@ import './index.css'
 import App from './App';
 import NewPage from './NewPage.jsx';
 import MemberPage from './MemberPage.jsx';
-import RenderExoplanets from './RenderExoplanets.jsx';
 import ExoplanetPage from './ExoplanetPage.jsx';
 
 createRoot(document.getElementById("root")).render(
@@ -20,7 +19,6 @@ createRoot(document.getElementById("root")).render(
 
         <Route path="/exoplanetinfo" element={<ExoplanetPage />} />
         <Route path="/mem" element={<MemberPage />} />
-        <Route path="/renderexo" element={<RenderExoplanets />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
