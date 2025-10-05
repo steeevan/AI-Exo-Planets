@@ -1,17 +1,18 @@
-import { Carousel } from "flowbite-react";
+
 function ExoplanetPage() {
     return (
         <div>
-        <p>What are exoplanets?</p>
+        <h1>What are exoplanets?</h1>
         <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
-        <Carousel>
-            <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg" alt="..." />
-            <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" alt="..." />
-            <img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" alt="..." />
-            <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" alt="..." />
-            <img src="https://flowbite.com/docs/images/carousel/carousel-5.svg" alt="..." />
-        </Carousel>
         </div>
+        <h2 className="text-center">Exoplanets are planets that orbit stars outside our solar system.</h2>
+        <p className="text-left"> Planets are rocky icy or gaseous bodies that do not radiate light, and orbit a star. 
+            They also clear their orbital path, and need to have enough gravity to be in a spherical shape, 
+            from hydrostatic equilibrium. We often find exoplanets by the periodic dimming of stars. 
+            This works because when the planet passes in front of the star it blocks the light, so you are able to calculate orbital period from that aswell.
+            Another way is radial velocity. We are checking to see if the star's movement seems to be affected by an exoplanet.
+            It gives it red shift or blue shift depending on the direction of the star's movement relative to us, from the Doppler effect.
+        </p>
         </div>
     )
 };
