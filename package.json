@@ -1,5 +1,23 @@
 {
   "dependencies": {
-    "react-router-dom": "^7.9.1"
-  }
+    "react-router-dom": "^7.9.3"
+  },
+  "name": "ai-exo-planets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steeevan/AI-Exo-Planets.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/steeevan/AI-Exo-Planets/issues"
+  },
+  "homepage": "https://github.com/steeevan/AI-Exo-Planets#readme"
 }
