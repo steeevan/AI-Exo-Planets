@@ -1,9 +1,8 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, useGLTF, ContactShadows } from '@react-three/drei';
-import { useRef } from 'react';
-import { Suspense, useDeferredValue } from 'react'
-import { useControls } from 'leva'
-import tunnel from 'tunnel-rat'
+import { useRef, useState, Suspense, useDeferredValue } from 'react';
+import { useControls, useCreateStore, LevaPanel } from 'leva'; // 👈 added store + panel
+import tunnel from 'tunnel-rat';
 
 const status = tunnel()
 
@@ -128,7 +127,25 @@ const CameraLight = () => {
 };
 
 const ModelScene = () => {
-  const { model } = useControls({ model: { value: 'Beech', options: Object.keys(MODELS) } })
+  // ─────────────────────────────────────────────────────────────────────────────
+  // Leva: use a dedicated store so we can render the panel inline (not fixed)
+  // ─────────────────────────────────────────────────────────────────────────────
+  const store = useCreateStore();
+
+  // Keep your existing control for "model", and add a few more useful knobs.
+  const { model, camDist, fov, lightIntensity, bg, modelScale, autoRotate } = useControls(
+    'Scene',
+    {
+      model: { value: 'Beech', options: Object.keys(MODELS) },
+      camDist: { value: 40, min: 10, max: 80, step: 1 },     // camera distance (z)
+      fov: { value: 50, min: 20, max: 90, step: 1 },         // camera field of view
+      lightIntensity: { value: 0.9, min: 0, max: 3, step: 0.1 }, // ambient/scene light
+      bg: { value: '#f0f0f0' },                              // background color
+      modelScale: { value: 1, min: 0.2, max: 3, step: 0.1 }, // uniform scale for the model
+      autoRotate: { value: false },                          // OrbitControls auto-rotate
+    },
+    { store }
+  );
 
   return (
     // <Canvas style={{ height: "80vh", border: "2px solid black", backgroundColor: "black" }}>
@@ -148,18 +165,32 @@ const ModelScene = () => {
         <br />
         <status.Out />
       </header>
-      <Canvas camera={{ position: [-10, 10, 40], fov: 50 }} style={{ height: "80vh", backgroundColor: "#f0f0f0" }}>
-        <hemisphereLight color="white" groundColor="blue" intensity={0.75} />
-        <ambientLight intensity={0.9} />
-        <spotLight position={[50, 50, 10]} angle={0.15} penumbra={1} />
-        <group position={[0, -10, 0]}>
-          <Suspense fallback={<status.In>Loading ...</status.In>}>
-            <Model position={[0, 0.25, 0]} url={MODELS[model]} />
-          </Suspense>
-          <ContactShadows scale={20} blur={10} far={20} />
-        </group>
-        <OrbitControls />
-      </Canvas>
+
+      {/* Relative wrapper so we can pin the LevaPanel at the Canvas’ top-right */}
+      <div style={{ position: 'relative', height: '80vh', borderRadius: 12, overflow: 'hidden', backgroundColor: bg }}>
+        {/* Inline (non-fixed) Leva panel aligned to the image’s top-right */}
+        <div style={{ position: 'absolute', top: 12, right: 12, zIndex: 2 }}>
+          <LevaPanel store={store} fill titleBar={false} />
+        </div>
+
+        <Canvas camera={{ position: [-10, 10, camDist], fov }} style={{ height: '100%', width: '100%' }}>
+          {/* Set Canvas background color (matches the wrapper) */}
+          <color attach="background" args={[bg]} />
+
+          <hemisphereLight color="white" groundColor="blue" intensity={0.75} />
+          <ambientLight intensity={lightIntensity} />
+          <spotLight position={[50, 50, 10]} angle={0.15} penumbra={1} />
+
+          <group position={[0, -10, 0]} scale={modelScale}>
+            <Suspense fallback={<status.In>Loading ...</status.In>}>
+              <Model position={[0, 0.25, 0]} url={MODELS[model]} />
+            </Suspense>
+            <ContactShadows scale={20} blur={10} far={20} />
+          </group>
+
+          <OrbitControls autoRotate={autoRotate} autoRotateSpeed={0.6} />
+        </Canvas>
+      </div>
     </>
   );
 };
@@ -175,6 +206,7 @@ function Model({ url, ...props }) {
   // <primitive object={...} mounts an already existing object
   return <primitive object={scene} {...props} />
 }
+
 
 // Uncomment in order to silently pre-load all models
 Object.values(MODELS).forEach(useGLTF.preload)

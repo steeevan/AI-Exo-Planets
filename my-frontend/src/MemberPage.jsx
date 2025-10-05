@@ -1,12 +1,18 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function MemberPage() {
+   useEffect(() => {
+    document.body.classList.add("member-blue");
+    return () => document.body.classList.remove("member-blue");
+  }, []);
+
   const images = [
     { id: 1, src: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", alt: "Image of Estevan", header: "Estevan", paragraph: "T" },
     { id: 2, src: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", alt: "Image of Lily", header: "Lily", paragraph: "A" },
     { id: 3, src: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", alt: "Image of Brista", header: "Brista", paragraph: "F" },
-    { id: 4, src: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", alt: "Image of Alisa", header: "Alisa", paragraph: "e" },
-    { id: 5, src: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", alt: "Image of Yanming", header: "Yanming", paragraph: "tq" },
+    { id: 4, src: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", alt: "Image of Alisa", header: "Alisa", paragraph: "E" },
+    { id: 5, src: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", alt: "Image of Yanming", header: "Yanming", paragraph: "Q" },
   ];
 
   return (
@@ -22,18 +28,22 @@ export default function MemberPage() {
           zIndex: 10,
           color: "white",
           display: "flex",
+          fontWeight: 700,
+          paddingTop: "3rem",
+          // keep your original header styling here if you had one
         }}
       >
         <h1>Team Members</h1>
       </header>
 
-      <main style={{ padding: "1rem", marginTop: "1rem" }}>
+      <main style={{ padding: "1rem", marginTop: "3rem" }}>
         <div
           style={{
             display: "flex",
             flexWrap: "wrap",
             gap: "1rem",
             justifyContent: "center",
+            fontWeight: 500,
           }}
         >
           {images.map((image) => (
@@ -46,7 +56,7 @@ export default function MemberPage() {
                 backgroundColor: "#222",
                 borderRadius: "10px",
                 padding: "10px",
-                width: "300px",
+                width: "375px",
               }}
             >
               <h3
@@ -80,7 +90,7 @@ export default function MemberPage() {
                     marginTop: "10px",
                     textAlign: "center",
                     color: "white",
-                    fontSize: "25px",
+                    fontSize: "1.4rem",
                     width: "100%",
                     boxSizing: "border-box",
                   }}

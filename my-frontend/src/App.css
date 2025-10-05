@@ -1,9 +1,10 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  margin: 0;
   padding: 2rem;
   text-align: center;
+  background: transparent; /* Don’t override body background */ 
 }
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -32,13 +33,10 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
 .link {
   display: inline-block;
   padding: 12px 24px;
-  background-color: gray;
+  background-color: navy;
   color: white;
   text-decoration: none;
   font-weight: bold;
@@ -53,13 +51,70 @@
 }
 
 .member-page {
-  display: inline-block; 
-  margin-top: 10px;
-  padding: 12px 24px;
-  background-color: gray;
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: navy;
   color: white;
   text-decoration: none;
   font-weight: bold;
   border-radius: 5px;
-  
 }
+
+.toplink {
+  font-weight: 700;
+}
+
+html, body, #root {
+  margin: 0;
+  min-height: 100dvh;  /* match the body’s height */
+}
+
+
+/* -------- HOME PAGE -------- */
+body.home-bg {
+  background-color: #0b1020;
+  background-image: url("/space-bg.png");
+  background-size: cover;
+  background-position: center;
+  /* background-attachment: fixed;   <-- remove this line */
+  background-repeat: no-repeat;
+
+  /* Use modern viewport units so iOS/Android don’t leave a gap */
+  min-height: 100dvh;   /* or 100svh; both are better than 100vh */
+}
+
+/* Section backgrounds stay transparent */
+.section-bg {
+  background: transparent;
+}
+
+/* Gray box behind paragraphs */
+.gray-box {
+  background-color: rgba(50, 50, 50, 0.85);
+  padding: 1rem;
+  border-radius: 10px;
+  color: white;
+  margin-top: 0.5rem;
+  line-height: 1.6;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  text-align: left;
+}
+
+/* -------- MEMBER PAGE -------- */
+body.member-blue {
+  background-color: #0b122e; /* lighter deep blue tone */
+  color: white;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+html { background-color: #0b1020; }
