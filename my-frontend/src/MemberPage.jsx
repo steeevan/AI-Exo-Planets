@@ -24,7 +24,7 @@ export default function MemberPage() {
           display: "flex",
         }}
       >
-        <h1>Member Page</h1>
+        <h1>Team Members</h1>
       </header>
 
       <main style={{ padding: "1rem", marginTop: "1rem" }}>
