@@ -59,47 +59,47 @@ const planetImageStyle = {
   border: '1px solid rgba(255, 255, 255, 0.3)',
 };
 
-export default function NewPage() {
-  return (
-    <main style={{
-      textAlign: "center",
-      padding: "2rem",
-      // Background style similar to the reference image (space nebula)
-      backgroundImage: 'url("https://wallpapers.com/images/hd/4k-space-background-gx2rdfrem5bvjbqi.jpg")', // Placeholder URL for a nebula/space image. **Replace this with a local image or a suitable URL.**             backgroundSize: 'cover',
-      backgroundAttachment: 'fixed',
-      minHeight: '100vh',
-    }}>
-      <h1 style={{ color: 'white', textShadow: '0 0 10px #FFD700' }}>Exoplanets List</h1>
-      <p style={{ color: 'white', marginBottom: '2rem' }}>A catalogue of confirmed and candidate exoplanets.</p>
+// export default function NewPage() {
+//   return (
+//     <main style={{
+//       textAlign: "center",
+//       padding: "2rem",
+//       // Background style similar to the reference image (space nebula)
+//       backgroundImage: 'url("https://wallpapers.com/images/hd/4k-space-background-gx2rdfrem5bvjbqi.jpg")', // Placeholder URL for a nebula/space image. **Replace this with a local image or a suitable URL.**             backgroundSize: 'cover',
+//       backgroundAttachment: 'fixed',
+//       minHeight: '100vh',
+//     }}>
+//       <h1 style={{ color: 'white', textShadow: '0 0 10px #FFD700' }}>Exoplanets List</h1>
+//       <p style={{ color: 'white', marginBottom: '2rem' }}>A catalogue of confirmed and candidate exoplanets.</p>
 
-      {/* Grid layout for the cards, similar to the 5-column layout in the reference */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', // Responsive 5-column or more
-        gap: '1rem',
-        maxWidth: '1600px', // Max width for the whole grid
-        margin: '0 auto', // Center the grid
-      }}>
-        {exoplanetData.map((planet) => (
-          // Exoplanet Card
-          <div key={planet.id} style={cardStyle}>
-            <div style={{ flexGrow: 1 }}>
-              <img
-                src={planet.imageUrl}
-                alt={`Conceptual image of ${planet.name}`}
-                style={planetImageStyle}
-              />
-              <p style={planetNameStyle}>Name: {planet.name}</p>
-              <p>ID: {planet.id}</p>
-              <p>Estimated Diameter: {planet.estimatedDiameter}</p>
-              <p>Orbiting Body: {planet.orbitingBody}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </main>
-  );
-}
+//       {/* Grid layout for the cards, similar to the 5-column layout in the reference */}
+//       <div style={{
+//         display: 'grid',
+//         gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', // Responsive 5-column or more
+//         gap: '1rem',
+//         maxWidth: '1600px', // Max width for the whole grid
+//         margin: '0 auto', // Center the grid
+//       }}>
+//         {exoplanetData.map((planet) => (
+//           // Exoplanet Card
+//           <div key={planet.id} style={cardStyle}>
+//             <div style={{ flexGrow: 1 }}>
+//               <img
+//                 src={planet.imageUrl}
+//                 alt={`Conceptual image of ${planet.name}`}
+//                 style={planetImageStyle}
+//               />
+//               <p style={planetNameStyle}>Name: {planet.name}</p>
+//               <p>ID: {planet.id}</p>
+//               <p>Estimated Diameter: {planet.estimatedDiameter}</p>
+//               <p>Orbiting Body: {planet.orbitingBody}</p>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </main>
+//   );
+// }
 
 // You will need to replace the placeholder background image URL and the planet image URLs
 // with actual images for the final result.
