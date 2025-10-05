@@ -1,5 +1,5 @@
 import EmblaCarousel from "./EmblaCarousel";
-import ModelScene from "./ModelScene";
+
 
 function RenderExoplanets() {
 
