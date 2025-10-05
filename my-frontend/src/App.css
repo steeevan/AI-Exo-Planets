@@ -92,7 +92,7 @@ body.home-bg {
 /* Gray box behind paragraphs */
 .gray-box {
   background-color: rgba(50, 50, 50, 0.85);
-  padding: 1rem;
+  padding: 0.75rem;
   border-radius: 10px;
   color: white;
   margin-top: 0.5rem;

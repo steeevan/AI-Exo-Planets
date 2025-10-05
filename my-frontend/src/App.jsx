@@ -28,7 +28,7 @@ export default function Home() {
     history.replaceState(null, '', `#${id}`)
   }
 
-  const HEADER_H = 80
+  const HEADER_H = 96
   const NAV_H = 50
 
   return (
@@ -69,12 +69,12 @@ export default function Home() {
             src={LightThing}
             alt="Luminescence logo"
             style={{
-              height: 80,
+              height: 100,
               width: "auto",
               display: "block",
             }}
           />
-          <span style={{ fontWeight: 700, fontSize: "1.05rem", lineHeight: 1 }}>
+          <span style={{ fontWeight: 700, fontSize: "1.5rem", lineHeight: 1 }}>
             Luminescence
           </span>
         </div>
@@ -85,7 +85,7 @@ export default function Home() {
             fontSize: "1.6rem",
             margin: 0,
             letterSpacing: "0.3px",
-            fontWeight: 700,
+            fontWeight: 800,
             textAlign: "center",
             lineHeight: 1.15,       
           }}
@@ -179,7 +179,7 @@ export default function Home() {
 
 function Section({ id, title, children }) {
   return (
-    <section id={id} style={{ margin: "1rem auto", maxWidth: 960 }}>
+    <section id={id} style={{ margin: "2rem auto", maxWidth: 960 }}>
       <h2 style={{
         margin: 0,
         marginBottom: "0.25rem",

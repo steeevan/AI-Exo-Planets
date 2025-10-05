@@ -69,7 +69,7 @@ const ExoplanetScene = () => {
 
   return (
     <>
-      <header>
+      <header className='gray-box'>
         Exoplanets orbiting the sun (filtered by max distance: {maxDistance} units), positioned using spherical coordinates on a 3D Cartesian grid.
       </header>
 
@@ -88,7 +88,7 @@ const ExoplanetScene = () => {
         <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 10 }}>
           <LevaPanel
             store={store}
-            titleBar={{ title: 'Settings', drag: false }} // fixed, not draggable
+            titleBar={{ title: 'Settings For Simulation', drag: false }} // fixed, not draggable
             collapsed={true}
             fill={false}
           />
