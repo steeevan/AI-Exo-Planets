@@ -1,9 +1,12 @@
+
 import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import NewPage from './NewPage'
 
-function App() {
+function Home() {
   const [count, setCount] = useState(0)
 
   return (
@@ -28,8 +31,16 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+
+      <Link to="/new" className="link">
+        Go to New Page
+      </Link>
+
+      <div>
+        <Link to="/mem" className="member-page"> Go to Member Page </Link>
+      </div>
     </>
   )
 }
 
-export default App
+export default Home;
