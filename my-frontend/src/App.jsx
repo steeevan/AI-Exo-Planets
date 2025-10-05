@@ -75,7 +75,7 @@ export default function Home() {
             }}
           />
           <span style={{ fontWeight: 700, fontSize: "1.5rem", lineHeight: 1 }}>
-            Luminescence
+            Exo-Existence
           </span>
         </div>
 
@@ -109,40 +109,68 @@ export default function Home() {
           zIndex: 9,
         }}
       >
-        <ul style={{
-          margin: 0,
-          padding: "0 0.75rem",
-          display: "flex",
-          alignItems: "center",     
-          height: "44px",            
-          gap: "0.75rem",
-          listStyle: "none",
-          overflowX: "auto",
-          whiteSpace: "nowrap",
-          fontSize: "1.1rem",
-        }}>
-          {[
-            ["what", "What"],
-            ["why", "Why"],
-            ["how", "How"],
-            ["simulation", "Simulation"],
-            ["team", "Team"],
-          ].map(([id, label]) => (
-            <li key={id}>
-              <a
-                href={`#${id}`}
-                className="toplink"
-                onClick={(e) => { e.preventDefault(); scrollToSectionCenter(id); }}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-          <li style={{ marginLeft: "auto" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            height: "44px",
+            padding: "0 0.75rem",
+            gap: "0.75rem",
+          }}
+        >
+          {/* LEFT: section links */}
+          <ul
+            style={{
+              margin: 0,
+              padding: 0,
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              listStyle: "none",
+              overflowX: "auto",
+              whiteSpace: "nowrap",
+              fontSize: "1.1rem",
+              flex: "1 1 0",
+              minWidth: 0,
+            }}
+          >
+            {[
+              ["what", "What"],
+              ["why", "Why"],
+              ["how", "How"],
+              ["simulation", "Simulation"],
+              ["team", "Team"],
+            ].map(([id, label]) => (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  className="toplink"
+                  onClick={(e) => { e.preventDefault(); scrollToSectionCenter(id); }}
+                >
+                  {label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div style={{ flex: "0 0 auto" }}>
+            <Link
+              to="/renderexo"
+              className="member-page"
+            >
+              Carousel →
+            </Link>
+          </div>
+
+          {/* RIGHT: member page link */}
+          <div style={{ flex: "0 0 auto" }}>
             <Link to="/mem" className="member-page">Team Member Page →</Link>
-          </li>
-        </ul>
+          </div>
+        </div>
       </nav>
+
+
 
       {/* MAIN CONTENT */}
       <main id="main" style={{ padding: "0.75rem", marginTop: `${HEADER_H + NAV_H - 50}px` }}>

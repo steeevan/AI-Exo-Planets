@@ -1,12 +1,8 @@
 import EmblaCarousel from "./EmblaCarousel";
-
+import { Link } from "react-router-dom";
 
 function RenderExoplanets() {
-
-  const OPTIONS = { dragFree: true, loop: true }
-  const SLIDE_COUNT = 5
-  const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
-
+  const OPTIONS = { dragFree: true, loop: true };
   const IMAGES123 = [
     "https://flowbite.com/docs/images/carousel/carousel-1.svg",
     "https://flowbite.com/docs/images/carousel/carousel-2.svg",
@@ -15,16 +11,22 @@ function RenderExoplanets() {
     "https://flowbite.com/docs/images/carousel/carousel-5.svg",
   ];
 
-  // useEffect(() => {
-  //   console.log(">>> IMAGES:", IMAGES);
-  // }, []);
-
-  return (<div>
+  return (
+    <div style={{ textAlign: "center", padding: "1.5rem 0" }}>
+      {/* Carousel */}
       <EmblaCarousel slides={IMAGES123} options={OPTIONS} />
-      <p> </p>
-      
+
+      {/* Spacer */}
+      <div style={{ height: "1rem" }} />
+
+      {/* Centered button */}
+      <div style={{ flex: "0 0 auto" }}>
+        <Link to="/" className="member-page">
+          Go Back
+        </Link>
+      </div>
     </div>
-  )
-};
+  );
+}
 
 export default RenderExoplanets;

@@ -4,6 +4,7 @@ import Alisa from './assets/alisa.png'
 import Brista from './assets/brista.png'
 import Yanming from './assets/yanming.png'
 import Estevan from './assets/estevan.png'
+import Lily from './assets/lily.png'
 export default function MemberPage() {
    useEffect(() => {
     document.body.classList.add("member-blue");
@@ -12,7 +13,7 @@ export default function MemberPage() {
 
   const images = [
     { id: 1, src: Estevan, alt: "Image of Estevan", header: "Estevan", paragraph: "T" },
-    { id: 2, src: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png", alt: "Image of Lily", header: "Lily", paragraph: "A" },
+    { id: 2, src: Lily, alt: "Image of Lily", header: "Lily", paragraph: "A" },
     { id: 3, src: Brista, alt: "Image of Brista", header: "Brista", paragraph: "F" },
     { id: 4, src: Alisa, alt: "Image of Alisa", header: "Alisa", paragraph: "E" },
     { id: 5, src: Yanming, alt: "Image of Yanming", header: "Yanming", paragraph: "Hello. My name is Yanming and I am currently in 7th grade in Suzanne Middle School." },
@@ -79,7 +80,7 @@ export default function MemberPage() {
                   alt={image.alt}
                   style={{
                     width: "100%",
-                    height: "400px",
+                    height: "475px",
                     objectFit: "cover",
                     borderRadius: "10px",
                   }}
