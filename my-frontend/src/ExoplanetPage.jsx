@@ -46,24 +46,6 @@ function ExoplanetPage() {
   const [fileContent, setFileContent] = useState('');
   const [fileName, setFileName] = useState('');
 
-  // const handleFileChange = (event) => {
-  //   const file = event.target.files[0];
-  //   if (file) {
-  //     setFileName(file.name);
-  //     const reader = new FileReader();
-
-  //     reader.onload = (e) => {
-  //       setFileContent(e.target.result);
-  //     };
-
-  //     // Read the file content as text
-  //     reader.readAsText(file);
-  //   } else {
-  //     setFileName('');
-  //     setFileContent('');
-  //   }
-  // };
-
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file && file.type === 'application/json') {
@@ -123,13 +105,6 @@ function ExoplanetPage() {
           <p className="text-sm text-green-700">
             Selected File: <span className="font-medium">{fileName}</span>
           </p>
-        )}
-
-        {fileContent && (
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">File Content:</h3>
-            {/* <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">{fileContent}</pre> */}
-          </div>
         )}
       </div>
       <ExoplanetScene fileContent={fileContent} />

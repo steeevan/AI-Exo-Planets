@@ -3,6 +3,7 @@ import { OrbitControls, Text } from '@react-three/drei';
 import { useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { Leva, useControls } from 'leva';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
 
 // Define a list of exoplanets with spherical coordinates (distanceR: distance from sun, theta: azimuthal angle in degrees, phi: polar angle in degrees from zenith)
 const EXOPLANETS_ONE = [
@@ -16,7 +17,7 @@ const EXOPLANETS_ONE = [
 // Custom 3D Cartesian grid with three sets of perpendicular planes, evenly distributed
 const Cartesian3DGrid = ({ size = 50, divisions = 10, colorCenter = '#888888', colorGrid = '#444444', planeCount = 3, showLabels = true }) => {
   const step = size / (planeCount - 1); // Spacing between parallel planes
-  const labelSize = 0.4;
+  const labelSize = 1;
   const labelColor = 'white';
   const labelStep = size / divisions; // Distance between labels on grid lines
 
@@ -155,42 +156,37 @@ const Cartesian3DGrid = ({ size = 50, divisions = 10, colorCenter = '#888888', c
 
 const ExoplanetScene = ({ fileContent }) => {
   const [exoplanets, setExoplanets] = useState(fileContent || EXOPLANETS_ONE);
-  const [invalidPlanetNames, setInvalidPlanetNames] = useState();
+  const [invalidPlanetNames, setInvalidPlanetNames] = useState([]);
   const { maxDistance, showGridLabels } = useControls({
-    maxDistance: { value: 500, min: 0, max: 1000, step: 1 },
+    maxDistance: { value: 10000000, min: 0, max: 20000000, step: 1000 },
     showGridLabels: { value: true, label: 'Show Grid Labels' },
   });
 
   useEffect(() => {
-    console.log(">>>ep fileContent:", fileContent);
-
-    if (fileContent) {
-      const invalidPlanets = [];
-      const filteredExoplanets = fileContent.filter(planet => {
-        if (planet.distanceR !== undefined) {
-          return (planet.distanceR / 50000) <= maxDistance;
-        } else if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
-          const r = Math.sqrt(planet.x * planet.x + planet.y * planet.y + planet.z * planet.z);
-          return r <= maxDistance;
-        }
-        invalidPlanets.push(planet.planetName || 'Unnamed Planet');
-        return false; // Exclude planets with invalid coordinates
-      });
-      setInvalidPlanetNames(invalidPlanets);
-      setExoplanets(filteredExoplanets)
-    } else {
-      setExoplanets(EXOPLANETS_ONE);
-    }
-  }, [fileContent]);
+    const source = fileContent || EXOPLANETS_ONE;
+    const invalidPlanets = [];
+    const filteredExoplanets = source.filter(planet => {
+      if (planet.distanceR !== undefined) {
+        return planet.distanceR <= maxDistance;
+      } else if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
+        const r = Math.sqrt(planet.x * planet.x + planet.y * planet.y + planet.z * planet.z);
+        return r <= maxDistance;
+      }
+      invalidPlanets.push(planet.planetName || 'Unnamed Planet');
+      return false;
+    });
+    setInvalidPlanetNames(invalidPlanets);
+    setExoplanets(filteredExoplanets);
+  }, [fileContent, maxDistance]);
 
   return (
     <>
       {/* Header */}
-      <header className="px-6 pt-4 text-center">
+      <header className="px-6 pt-4 text-center text-white">
         <h2 className="text-xl font-semibold">
           Exoplanets Orbiting the Sun
         </h2>
-        <p className="text-sm mt-1">
+        <p className="text-sm mt-1 text-gray-300">
           Filtered by max distance: <span className="font-medium">{maxDistance}</span> units,
           positioned using spherical coordinates on a 3D Cartesian grid.
         </p>
@@ -208,75 +204,85 @@ const ExoplanetScene = ({ fileContent }) => {
         </section>
       )}
 
-      <Leva position={{ x: 100, y: 500 }} />
+      {/* Scene Container */}
+      <div className="flex flex-col items-center max-w-screen-xl p-4">
+        <div className="w-full rounded-md overflow-hidden shadow-lg">
+          <Canvas
+            camera={{ position: [30, 30, 30], fov: 50 }}
+            style={{ height: "80vh", backgroundColor: "#000000" }}
+          >
+            <hemisphereLight color="white" groundColor="#222222" intensity={0.5} />
+            <ambientLight intensity={0.3} />
+            <pointLight position={[0, 0, 0]} intensity={2} color="yellow" />
 
-      {/* 3D Canvas */}
-      <div className="rounded-md overflow-hidden shadow-lg max-w-screen-xl">
-        <Canvas
-          camera={{ position: [30, 30, 30], fov: 50 }}
-          style={{ height: "80vh", backgroundColor: "#000000" }}
-        >
-          <hemisphereLight color="white" groundColor="#222222" intensity={0.5} />
-          <ambientLight intensity={0.3} />
-          <pointLight position={[0, 0, 0]} intensity={2} color="yellow" />
+            <group position={[0, 0, 0]}>
+              {/* Sun */}
+              <mesh position={[0, 0, 0]}>
+                <sphereGeometry args={[10, 32, 32]} />
+                <meshStandardMaterial color="yellow" emissive="orange" emissiveIntensity={1} toneMapped={false} />
+              </mesh>
 
-          <group position={[0, 0, 0]}>
-            {/* Sun */}
-            <mesh position={[0, 0, 0]}>
-              <sphereGeometry args={[10, 32, 32]} />
-              <meshStandardMaterial color="yellow" emissive="orange" emissiveIntensity={0.5} />
-            </mesh>
+              {/* Exoplanets */}
+              {exoplanets.map((planet, index) => {
+                let x, y, z;
+                if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
+                  x = planet.x;
+                  y = planet.y;
+                  z = planet.z;
+                } else {
+                  const theta = (planet.theta ?? 0) * (Math.PI / 180);
+                  const phi = planet.phi * (Math.PI / 180);
+                  x = (planet.distanceR / 50000) * Math.cos(theta) * Math.sin(phi);
+                  y = (planet.distanceR / 50000) * Math.cos(phi);
+                  z = (planet.distanceR / 50000) * Math.sin(theta) * Math.sin(phi);
+                }
 
-            {/* Exoplanets */}
-            {exoplanets.map((planet, index) => {
-              let x, y, z;
-              if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
-                x = planet.x;
-                y = planet.y;
-                z = planet.z;
-              } else {
-                const theta = planet.theta * (Math.PI / 180);
-                const phi = planet.phi * (Math.PI / 180);
-                x = (planet.distanceR / 50000) * Math.cos(theta) * Math.sin(phi);
-                y = (planet.distanceR / 50000) * Math.cos(phi);
-                z = (planet.distanceR / 50000) * Math.sin(theta) * Math.sin(phi);
-              }
+                let planetSize = planet.planetRadiusSize > 5 ? planet.planetRadiusSize / 10 : planet.planetRadiusSize;
+                if (planet.planetRadiusSize > 100) {
+                  planetSize = planet.planetRadiusSize / 50;
+                } else if (planet.planetRadiusSize > 10) {
+                  planetSize = planet.planetRadiusSize / 5;
+                } else {
+                  planetSize = planet.planetRadiusSize / .5;
+                }
+                planetSize = planet.planetRadiusSize;
 
-              let planetSize = planet.planetRadiusSize > 5 ? planet.planetRadiusSize / 10 : planet.planetRadiusSize;
-              if (planet.planetRadiusSize > 100) {
-                planetSize = planet.planetRadiusSize / 500;
-              } else if (planet.planetRadiusSize > 10) {
-                planetSize = planet.planetRadiusSize / 50;
-              } else {
-                planetSize = planet.planetRadiusSize / 5;
-              }
+                return (
+                  <group key={index}>
+                    <mesh position={[x, y, z]}>
+                      <sphereGeometry args={[planetSize, 32, 32]} />
+                      <meshStandardMaterial color={planet.color} />
+                    </mesh>
+                    <Text
+                      position={[x, y + planetSize + 0.5, z]}
+                      fontSize={0.5}
+                      color="white"
+                      anchorX="center"
+                      anchorY="bottom"
+                    >
+                      {planet.planetName}
+                    </Text>
+                  </group>
+                );
+              })}
 
-              return (
-                <group key={index}>
-                  <mesh position={[x, y, z]}>
-                    <sphereGeometry args={[planetSize, 32, 32]} />
-                    <meshStandardMaterial color={planet.color} />
-                  </mesh>
-                  <Text
-                    position={[x, y + planetSize + 0.5, z]}
-                    fontSize={0.5}
-                    color="white"
-                    anchorX="center"
-                    anchorY="bottom"
-                  >
-                    {planet.planetName}
-                  </Text>
-                </group>
-              );
-            })}
+              {/* Grid */}
+              <Cartesian3DGrid size={3000} divisions={300} planeCount={3} showLabels={showGridLabels} />
+            </group>
 
-            {/* Grid */}
-            <Cartesian3DGrid size={900} divisions={90} planeCount={3} showLabels={showGridLabels} />
-          </group>
-
-          <OrbitControls />
-        </Canvas>
+            <EffectComposer>
+              <Bloom
+                intensity={2}
+                // radius={0.7}
+                luminanceThreshold={0.3}
+              />
+            </EffectComposer>
+            <OrbitControls />
+          </Canvas>
+        </div>
+        <div className="w-full max-w-xs mt-4"></div>
       </div>
+      <Leva />
     </>
   );
 };
