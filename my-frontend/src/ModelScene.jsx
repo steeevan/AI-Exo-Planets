@@ -1,182 +1,145 @@
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, useGLTF, ContactShadows } from '@react-three/drei';
-import { useRef } from 'react';
-import { Suspense, useDeferredValue } from 'react'
-import { useControls } from 'leva'
-import tunnel from 'tunnel-rat'
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Text } from '@react-three/drei';
+import { useMemo } from 'react';
+import * as THREE from 'three';
+import { useControls } from 'leva';
 
-const status = tunnel()
+// Define a list of exoplanets with spherical coordinates (r: distance from sun, theta: azimuthal angle in degrees, phi: polar angle in degrees from zenith)
+const EXOPLANETS = [
+  { name: 'Exoplanet A', r: 5, theta: 0, phi: 90, color: 'red', size: 0.5 }, // In XZ plane
+  { name: 'Exoplanet B', r: 10, theta: 90, phi: 45, color: 'blue', size: 0.7 }, // Above XZ plane
+  { name: 'Exoplanet C', r: 15, theta: 180, phi: 135, color: 'green', size: 0.6 }, // Below XZ plane
+  { name: 'Exoplanet D', r: 20, theta: 270, phi: 60, color: 'purple', size: 0.8 }, // Above XZ plane
+  { name: 'Exoplanet E', x: 12, y: 0, z: 0, color: 'orange', size: 0.9 }, // Cartesian input
+];
 
-const MODELS = {
-  Beech: 'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/tree-beech/model.gltf',
-  Lime: 'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/tree-lime/model.gltf',
-  Spruce: 'https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/tree-spruce/model.gltf'
-}
+// Custom 3D Cartesian grid with three sets of perpendicular planes, evenly distributed
+const Cartesian3DGrid = ({ size = 50, divisions = 10, colorCenter = '#888888', colorGrid = '#444444', planeCount = 3 }) => {
+  const step = size / (planeCount - 1); // Spacing between parallel planes
 
-const Cube = ({ position, size, color }) => {
-  const ref = useRef();
+  // XZ planes (floor-like, parallel to XZ, varying Y)
+  const xzGrids = useMemo(() => {
+    const grids = [];
+    for (let i = 0; i < planeCount; i++) {
+      const y = -size / 2 + i * step;
+      const grid = new THREE.GridHelper(size, divisions, colorCenter, colorGrid);
+      grids.push(<primitive key={`xz-${i}`} object={grid} position={[0, y, 0]} rotation={[-Math.PI / 2, 0, 0]} />);
+    }
+    return grids;
+  }, [size, divisions, colorCenter, colorGrid, planeCount]);
 
-  useFrame((_, delta) => {
-    ref.current.rotation.x += delta * 0.5;
-    ref.current.rotation.y += delta * 0.75;
-  });
+  // XY planes (back wall-like, parallel to XY, varying Z)
+  const xyGrids = useMemo(() => {
+    const grids = [];
+    for (let i = 0; i < planeCount; i++) {
+      const z = -size / 2 + i * step;
+      const grid = new THREE.GridHelper(size, divisions, colorCenter, colorGrid);
+      grids.push(<primitive key={`xy-${i}`} object={grid} position={[0, 0, z]} />);
+    }
+    return grids;
+  }, [size, divisions, colorCenter, colorGrid, planeCount]);
 
-  return (
-    <mesh ref={ref} position={position}>
-      <boxGeometry args={size} />
-      <meshStandardMaterial color={color} />
-    </mesh>
-  );
-};
-
-const Sphere = ({ position, radius = 1, color = 'skyblue' }) => {
-  const ref = useRef();
-
-  useFrame((_, delta) => {
-    ref.current.rotation.y += delta * 0.5;
-  });
-
-  return (
-    <mesh ref={ref} position={position}>
-      <sphereGeometry args={[radius, 32, 32]} />
-      <meshStandardMaterial color={color} />
-    </mesh>
-  );
-};
-
-const Triangle3D = ({ position, color = 'orange' }) => {
-  const ref = useRef();
-
-  useFrame((_, delta) => {
-    ref.current.rotation.y += delta * 0.5;
-  });
-
-  return (
-    <mesh ref={ref} position={position}>
-      <tetrahedronGeometry args={[1, 0]} />
-      <meshStandardMaterial color={color} />
-    </mesh>
-  );
-};
-
-const Sun = ({ position = [0, 2, 0], coreRadius = 0.5, rayLength = 0.4, rayCount = 12 }) => {
-  const groupRef = useRef();
-
-  useFrame((_, delta) => {
-    groupRef.current.rotation.y += delta * 0.3; // Slowly rotate the whole sun
-  });
-
-  const rays = Array.from({ length: rayCount }, (_, i) => {
-    const angle = (i / rayCount) * Math.PI * 2;
-    const distance = coreRadius + rayLength / 2;
-
-    // Calculate ray position in circle around origin (XZ plane)
-    const x = Math.cos(angle) * distance;
-    const z = Math.sin(angle) * distance;
-
-    // Create a ref to rotate cone to point outward
-    const rayRef = useRef();
-
-    useFrame(() => {
-      if (rayRef.current) {
-        rayRef.current.lookAt(0, 0, 0); // Point toward the center
-        rayRef.current.rotateX(Math.PI); // Flip to point outward
-      }
-    });
-
-    return (
-      <mesh
-        key={i}
-        ref={rayRef}
-        position={[x, 0, z]} // placed on XZ circle
-      >
-        <coneGeometry args={[0.1, rayLength, 8]} />
-        <meshStandardMaterial color="yellow" />
-      </mesh>
-    );
-  });
+  // YZ planes (side wall-like, parallel to YZ, varying X)
+  const yzGrids = useMemo(() => {
+    const grids = [];
+    for (let i = 0; i < planeCount; i++) {
+      const x = -size / 2 + i * step;
+      const grid = new THREE.GridHelper(size, divisions, colorCenter, colorGrid);
+      grids.push(<primitive key={`yz-${i}`} object={grid} position={[x, 0, 0]} rotation={[0, Math.PI / 2, 0]} />);
+    }
+    return grids;
+  }, [size, divisions, colorCenter, colorGrid, planeCount]);
 
   return (
-    <group ref={groupRef} position={position}>
-      {/* Sun core */}
-      <mesh>
-        <sphereGeometry args={[coreRadius, 32, 32]} />
-        <meshStandardMaterial emissive="yellow" emissiveIntensity={1.5} color="gold" />
-        <pointLight position={position} intensity={1.5} color="yellow" />
-      </mesh>
-
-      {/* Rays */}
-      {rays}
+    <group>
+      {xzGrids}
+      {xyGrids}
+      {yzGrids}
     </group>
   );
 };
 
+const ExoplanetScene = () => {
+  const { maxDistance } = useControls({ maxDistance: { value: 25, min: 0, max: 50, step: 1 } });
 
-const CameraLight = () => {
-  const { camera } = useThree();
-  const lightRef = useRef();
-
-  useFrame(() => {
-    if (lightRef.current) {
-      lightRef.current.position.copy(camera.position);
+  const filteredExoplanets = EXOPLANETS.filter(planet => {
+    if (planet.r !== undefined) {
+      return planet.r <= maxDistance;
+    } else if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
+      const r = Math.sqrt(planet.x * planet.x + planet.y * planet.y + planet.z * planet.z);
+      return r <= maxDistance;
     }
+    return false; // Exclude planets with invalid coordinates
   });
 
   return (
-    <directionalLight ref={lightRef} intensity={1} />
-  );
-};
-
-const ModelScene = () => {
-  const { model } = useControls({ model: { value: 'Beech', options: Object.keys(MODELS) } })
-
-  return (
-    // <Canvas style={{ height: "80vh", border: "2px solid black", backgroundColor: "black" }}>
-    //   <CameraLight />
-    //   <ambientLight intensity={0.4} />
-
-    //   <Cube position={[-2, 0, 0]} size={[1, 1, 1]} color="tomato" />
-    //   {/* <Sphere position={[0, 0, 0]} radius={0.75} color="skyblue" /> */}
-    //   <Triangle3D position={[2, 0, 0]} color="orange" />
-    //   <Sun position={[0, 2, 0]} />
-    //   <OrbitControls />
-    // </Canvas>
-
     <>
       <header>
-        This is a {model.toLowerCase()} tree.
-        <br />
-        <status.Out />
+        Exoplanets orbiting the sun (filtered by max distance: {maxDistance} units), positioned using spherical coordinates on a 3D Cartesian grid.
       </header>
-      <Canvas camera={{ position: [-10, 10, 40], fov: 50 }} style={{ height: "80vh", backgroundColor: "#f0f0f0" }}>
-        <hemisphereLight color="white" groundColor="blue" intensity={0.75} />
-        <ambientLight intensity={0.9} />
-        <spotLight position={[50, 50, 10]} angle={0.15} penumbra={1} />
-        <group position={[0, -10, 0]}>
-          <Suspense fallback={<status.In>Loading ...</status.In>}>
-            <Model position={[0, 0.25, 0]} url={MODELS[model]} />
-          </Suspense>
-          <ContactShadows scale={20} blur={10} far={20} />
+      <Canvas camera={{ position: [30, 30, 30], fov: 50 }} style={{ height: "80vh", backgroundColor: "#000000" }}>
+        <hemisphereLight color="white" groundColor="#222222" intensity={0.5} />
+        <ambientLight intensity={0.3} />
+        <pointLight position={[0, 0, 0]} intensity={2} color="yellow" /> {/* Sun light */}
+
+        <group position={[0, 0, 0]}>
+          {/* Sun at the center */}
+          <mesh position={[0, 0, 0]}>
+            <sphereGeometry args={[1.5, 32, 32]} />
+            <meshStandardMaterial color="yellow" emissive="orange" emissiveIntensity={0.5} />
+          </mesh>
+
+          {/* Render filtered exoplanets using spherical to Cartesian conversion */}
+          {filteredExoplanets.map((planet, index) => {
+            let x, y, z;
+            if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
+              x = planet.x;
+              y = planet.y;
+              z = planet.z;
+            } else {
+              const theta = planet.theta * (Math.PI / 180); // Convert degrees to radians
+              const phi = planet.phi * (Math.PI / 180); // Convert degrees to radians
+              // Spherical coordinates formulas:
+              // Forward conversion (r, theta, phi to x, y, z):
+              // x = r * cos(theta) * sin(phi)
+              // y = r * cos(phi)
+              // z = r * sin(theta) * sin(phi)
+              // Inverse conversion (x, y, z to r, theta, phi):
+              // r = sqrt(x^2 + y^2 + z^2)
+              // phi = acos(y / r)  // Range [0, π] radians, or [0, 180] degrees
+              // theta = atan2(z, x)  // Range [-π, π] radians, or [-180, 180] degrees
+              x = planet.r * Math.cos(theta) * Math.sin(phi);
+              y = planet.r * Math.cos(phi);
+              z = planet.r * Math.sin(theta) * Math.sin(phi);
+            }
+            return (
+              <group key={index}>
+                <mesh position={[x, y, z]}>
+                  <sphereGeometry args={[planet.size, 32, 32]} />
+                  <meshStandardMaterial color={planet.color} />
+                </mesh>
+                {/* Label for the exoplanet name */}
+                <Text
+                  position={[x, y + planet.size + 0.5, z]}
+                  fontSize={0.5}
+                  color="white"
+                  anchorX="center"
+                  anchorY="bottom"
+                >
+                  {planet.name}
+                </Text>
+              </group>
+            );
+          })}
+
+          {/* 3D Cartesian grid with evenly distributed planes */}
+          <Cartesian3DGrid size={50} divisions={10} planeCount={3} />
         </group>
+
         <OrbitControls />
       </Canvas>
     </>
   );
 };
 
-
-function Model({ url, ...props }) {
-  // useDeferredValue allows us to defer updates, the component is market by React
-  // so that it does *not* run into the fallback when something new loads
-  const deferred = useDeferredValue(url)
-  // We can find out the loading state by comparing the current value with the deferred value
-  // const isLoading = url !== deferred
-  const { scene } = useGLTF(deferred)
-  // <primitive object={...} mounts an already existing object
-  return <primitive object={scene} {...props} />
-}
-
-// Uncomment in order to silently pre-load all models
-Object.values(MODELS).forEach(useGLTF.preload)
-
-export default ModelScene;
+export default ExoplanetScene;
