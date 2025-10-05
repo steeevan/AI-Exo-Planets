@@ -14,33 +14,48 @@ const EXOPLANETS = [
   { name: 'Exoplanet E', x: 12, y: 0, z: 0, color: 'orange', size: 0.9 }, // Cartesian input
 ];
 
-// Custom 3D Cartesian grid with one plane per axis (XZ, XY, YZ) at origin, with internal grids and colored axes
-const Cartesian3DGrid = ({ size = 50, divisions = 10 }) => {
-  // XZ plane (floor-like, at y=0): grid with internal lines
-  const xzGrid = useMemo(() => {
-    const grid = new THREE.GridHelper(size, divisions, '#ff0000', '#555555'); // Red X-axis, gray grid
-    grid.material.transparent = true;
-    grid.material.opacity = 0.5; // Light transparency for clean look
-    return <primitive object={grid} position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]} />;
-  }, [size, divisions]);
+// Custom 3D Cartesian grid with one plane per axis (XZ, XY, YZ) at origin, styled like the SVG coordinate system
+const Cartesian3DGrid = ({ size = 50 }) => {
+  // XZ plane (floor-like, at y=0): boundary only, no internal grid
+  const xzPlane = useMemo(() => {
+    const geometry = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(-size / 2, 0, -size / 2), // Bottom-left
+      new THREE.Vector3(size / 2, 0, -size / 2),  // Bottom-right
+      new THREE.Vector3(size / 2, 0, size / 2),   // Top-right
+      new THREE.Vector3(-size / 2, 0, size / 2),  // Top-left
+      new THREE.Vector3(-size / 2, 0, -size / 2), // Close loop
+    ]);
+    const material = new THREE.LineBasicMaterial({ color: '#555555', linewidth: 2 });
+    return <line geometry={geometry} material={material} />;
+  }, [size]);
 
-  // XY plane (back wall-like, at z=0): grid with internal lines
-  const xyGrid = useMemo(() => {
-    const grid = new THREE.GridHelper(size, divisions, '#00ff00', '#555555'); // Green Y-axis, gray grid
-    grid.material.transparent = true;
-    grid.material.opacity = 0.5;
-    return <primitive object={grid} position={[0, 0, 0]} />;
-  }, [size, divisions]);
+  // XY plane (back wall-like, at z=0): boundary only
+  const xyPlane = useMemo(() => {
+    const geometry = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(-size / 2, -size / 2, 0),
+      new THREE.Vector3(size / 2, -size / 2, 0),
+      new THREE.Vector3(size / 2, size / 2, 0),
+      new THREE.Vector3(-size / 2, size / 2, 0),
+      new THREE.Vector3(-size / 2, -size / 2, 0),
+    ]);
+    const material = new THREE.LineBasicMaterial({ color: '#555555', linewidth: 2 });
+    return <line geometry={geometry} material={material} />;
+  }, [size]);
 
-  // YZ plane (side wall-like, at x=0): grid with internal lines, highlighted for Exoplanet B and D
-  const yzGrid = useMemo(() => {
-    const grid = new THREE.GridHelper(size, divisions, '#0000ff', '#aaaaaa'); // Blue Z-axis, lighter gray grid
-    grid.material.transparent = true;
-    grid.material.opacity = 0.7; // More opaque for emphasis
-    return <primitive object={grid} position={[0, 0, 0]} rotation={[0, Math.PI / 2, 0]} />;
-  }, [size, divisions]);
+  // YZ plane (side wall-like, at x=0): boundary only, highlighted for Exoplanet B and D
+  const yzPlane = useMemo(() => {
+    const geometry = new THREE.BufferGeometry().setFromPoints([
+      new THREE.Vector3(0, -size / 2, -size / 2),
+      new THREE.Vector3(0, -size / 2, size / 2),
+      new THREE.Vector3(0, size / 2, size / 2),
+      new THREE.Vector3(0, size / 2, -size / 2),
+      new THREE.Vector3(0, -size / 2, -size / 2),
+    ]);
+    const material = new THREE.LineBasicMaterial({ color: '#aaaaaa', linewidth: 3 }); // Highlighted
+    return <line geometry={geometry} material={material} />;
+  }, [size]);
 
-  // Axis lines (X: red, Y: green, Z: blue) for extra prominence
+  // Axis lines (X: red, Y: green, Z: blue)
   const axes = useMemo(() => {
     const geometry = new THREE.BufferGeometry().setFromPoints([
       // X-axis (red)
@@ -55,7 +70,7 @@ const Cartesian3DGrid = ({ size = 50, divisions = 10 }) => {
     ]);
     const material = new THREE.LineBasicMaterial({
       vertexColors: true,
-      linewidth: 4, // Thicker for visibility
+      linewidth: 4,
     });
     geometry.setAttribute(
       'color',
@@ -70,9 +85,9 @@ const Cartesian3DGrid = ({ size = 50, divisions = 10 }) => {
 
   return (
     <group>
-      {xzGrid}
-      {xyGrid}
-      {yzGrid}
+      {xzPlane}
+      {xyPlane}
+      {yzPlane}
       {axes}
     </group>
   );
@@ -152,8 +167,8 @@ const ExoplanetScene = () => {
             );
           })}
 
-          {/* 3D Cartesian grid with internal grids and colored axes */}
-          <Cartesian3DGrid size={50} divisions={10} />
+          {/* 3D Cartesian grid styled like the SVG coordinate system */}
+          <Cartesian3DGrid size={50} />
         </group>
 
         <OrbitControls />
