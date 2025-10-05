@@ -159,7 +159,7 @@ export default function Home() {
         </Section>
 
         <Section id="simulation" title="Simulation (3D Demo)">
-          <p className="gray-box">Simple 3D scene with orbit controls and a switchable GLTF tree model.</p>
+          <p className="gray-box">Simple 3D scene with orbit controls and exoplanets.</p>
           <div className="section-bg section-bg--cover">
             <ModelScene />
           </div>
