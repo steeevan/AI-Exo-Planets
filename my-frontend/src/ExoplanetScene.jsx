@@ -2,45 +2,38 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Text } from '@react-three/drei';
 import { useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
-import { Leva, useControls } from 'leva';
+import { LevaPanel, useControls, useCreateStore } from 'leva';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 
-// Define a list of exoplanets with spherical coordinates (distanceR: distance from sun, theta: azimuthal angle in degrees, phi: polar angle in degrees from zenith)
+// Define a list of exoplanets with spherical coordinates
 const EXOPLANETS_ONE = [
-  { planetName: 'Exoplanet A', distanceR: 5, theta: 0, phi: 90, color: 'red', planetRadiusSize: 0.5 }, // In XZ plane
-  { planetName: 'Exoplanet B', distanceR: 10, theta: 90, phi: 45, color: 'blue', planetRadiusSize: 0.7 }, // Above XZ plane
-  { planetName: 'Exoplanet C', distanceR: 15, theta: 180, phi: 135, color: 'green', planetRadiusSize: 0.6 }, // Below XZ plane
-  { planetName: 'Exoplanet D', distanceR: 20, phi: 60, color: 'purple', planetRadiusSize: 0.8 }, // Above XZ plane
-  { planetName: 'Exoplanet E', x: 12, y: 10, z: 0, color: 'orange', planetRadiusSize: 0.9 }, // Cartesian input
+  { planetName: 'Exoplanet A', x: 20, y: 30, z: 10,          color: 'red',    planetRadiusSize: 0.5 },
+  { planetName: 'Exoplanet B', x: -10, y: 5, z: 6,          color: 'blue',   planetRadiusSize: 0.7 },
+  { planetName: 'Exoplanet C', x: -22, y: -10, z: -6,          color: 'green',  planetRadiusSize: 0.6 },
+  { planetName: 'Exoplanet D', x: 23, y: 23, z: 4,          color: 'purple', planetRadiusSize: 0.8 },
+  { planetName: 'Exoplanet E', x: -6, y: 15, z: -25,                       color: 'orange', planetRadiusSize: 0.9 },
 ];
 
-// Custom 3D Cartesian grid with three sets of perpendicular planes, evenly distributed
-const Cartesian3DGrid = ({ size = 50, divisions = 10, colorCenter = '#888888', colorGrid = '#444444', planeCount = 3, showLabels = true }) => {
-  const step = size / (planeCount - 1); // Spacing between parallel planes
+// 3D grid with three perpendicular planes
+const Cartesian3DGrid = ({
+  size = 50, divisions = 10, colorCenter = '#888888', colorGrid = '#444444', planeCount = 3, showLabels = true
+}) => {
+  const step = size / (planeCount - 1);
   const labelSize = 1;
   const labelColor = 'white';
-  const labelStep = size / divisions; // Distance between labels on grid lines
+  const labelStep = size / divisions;
 
-  // XZ planes (floor-like, parallel to XZ, varying Y)
   const xzGrids = useMemo(() => {
     const grids = [];
     for (let i = 0; i < planeCount; i++) {
       const y = -size / 2 + i * step;
       const grid = new THREE.GridHelper(size, divisions, colorCenter, colorGrid);
-      const labels = showLabels && Math.abs(y) < 0.001 ? ( // Only show labels for plane at Y=0
+      const labels = showLabels && Math.abs(y) < 0.001 ? (
         <>
-          {/* Labels along X-axis where Z=0 */}
           {[...Array(divisions + 1)].map((_, idx) => {
             const x = -size / 2 + idx * labelStep;
             return (
-              <Text
-                key={`xz-x-${i}-${idx}`}
-                position={[x, y + 0.1, 0]}
-                fontSize={labelSize}
-                color={labelColor}
-                anchorX="center"
-                anchorY="bottom"
-              >
+              <Text key={`xz-x-${i}-${idx}`} position={[x, y + 0.1, 0]} fontSize={labelSize} color={labelColor} anchorX="center" anchorY="bottom">
                 {x.toFixed(0)}
               </Text>
             );
@@ -57,42 +50,25 @@ const Cartesian3DGrid = ({ size = 50, divisions = 10, colorCenter = '#888888', c
     return grids;
   }, [size, divisions, colorCenter, colorGrid, planeCount, showLabels]);
 
-  // XY planes (back wall-like, parallel to XY, varying Z)
   const xyGrids = useMemo(() => {
     const grids = [];
     for (let i = 0; i < planeCount; i++) {
       const z = -size / 2 + i * step;
       const grid = new THREE.GridHelper(size, divisions, colorCenter, colorGrid);
-      const labels = showLabels && Math.abs(z) < 0.001 ? ( // Only show labels for plane at Z=0
+      const labels = showLabels && Math.abs(z) < 0.001 ? (
         <>
-          {/* Labels along X-axis where Y=0 */}
           {[...Array(divisions + 1)].map((_, idx) => {
             const x = -size / 2 + idx * labelStep;
             return (
-              <Text
-                key={`xy-x-${i}-${idx}`}
-                position={[x, 0, z + 0.1]}
-                fontSize={labelSize}
-                color={labelColor}
-                anchorX="center"
-                anchorY="top"
-              >
+              <Text key={`xy-x-${i}-${idx}`} position={[x, 0, z + 0.1]} fontSize={labelSize} color={labelColor} anchorX="center" anchorY="top">
                 {x.toFixed(0)}
               </Text>
             );
           })}
-          {/* Labels along Y-axis where X=0 */}
           {[...Array(divisions + 1)].map((_, idx) => {
             const y = -size / 2 + idx * labelStep;
             return (
-              <Text
-                key={`xy-y-${i}-${idx}`}
-                position={[0, y, z + 0.1]}
-                fontSize={labelSize}
-                color={labelColor}
-                anchorX="right"
-                anchorY="middle"
-              >
+              <Text key={`xy-y-${i}-${idx}`} position={[0, y, z + 0.1]} fontSize={labelSize} color={labelColor} anchorX="right" anchorY="middle">
                 {y.toFixed(0)}
               </Text>
             );
@@ -109,26 +85,17 @@ const Cartesian3DGrid = ({ size = 50, divisions = 10, colorCenter = '#888888', c
     return grids;
   }, [size, divisions, colorCenter, colorGrid, planeCount, showLabels]);
 
-  // YZ planes (side wall-like, parallel to YZ, varying X)
   const yzGrids = useMemo(() => {
     const grids = [];
     for (let i = 0; i < planeCount; i++) {
       const x = -size / 2 + i * step;
       const grid = new THREE.GridHelper(size, divisions, colorCenter, colorGrid);
-      const labels = showLabels && Math.abs(x) < 0.001 ? ( // Only show labels for plane at X=0
+      const labels = showLabels && Math.abs(x) < 0.001 ? (
         <>
-          {/* Labels along Y-axis where Z=0 */}
           {[...Array(divisions + 1)].map((_, idx) => {
             const y = -size / 2 + idx * labelStep;
             return (
-              <Text
-                key={`yz-y-${i}-${idx}`}
-                position={[x + 0.1, y, 0]}
-                fontSize={labelSize}
-                color={labelColor}
-                anchorX="left"
-                anchorY="middle"
-              >
+              <Text key={`yz-y-${i}-${idx}`} position={[x + 0.1, y, 0]} fontSize={labelSize} color={labelColor} anchorX="left" anchorY="middle">
                 {y.toFixed(0)}
               </Text>
             );
@@ -145,71 +112,103 @@ const Cartesian3DGrid = ({ size = 50, divisions = 10, colorCenter = '#888888', c
     return grids;
   }, [size, divisions, colorCenter, colorGrid, planeCount, showLabels]);
 
-  return (
-    <group>
-      {xzGrids}
-      {xyGrids}
-      {yzGrids}
-    </group>
-  );
+  return <group>{xzGrids}{xyGrids}{yzGrids}</group>;
 };
 
 const ExoplanetScene = ({ fileContent }) => {
+  // Use a local Leva store so the panel can be placed inline
+  const store = useCreateStore();
+
   const [exoplanets, setExoplanets] = useState(fileContent || EXOPLANETS_ONE);
   const [invalidPlanetNames, setInvalidPlanetNames] = useState([]);
-  const { maxDistance, showGridLabels } = useControls({
-    maxDistance: { value: 10000000, min: 0, max: 20000000, step: 1000 },
-    showGridLabels: { value: true, label: 'Show Grid Labels' },
-  });
+
+  const { maxDistance, showGridLabels } = useControls(
+    {
+      maxDistance: { value: 10000000, min: 0, max: 20000000, step: 1000 },
+      showGridLabels: { value: true, label: 'Show Grid Labels' }
+    },
+    { store } // <-- bind controls to this inline panel
+  );
 
   useEffect(() => {
     const source = fileContent || EXOPLANETS_ONE;
-    const invalidPlanets = [];
-    const filteredExoplanets = source.filter(planet => {
+    const invalid = [];
+    const filtered = source.filter(planet => {
       if (planet.distanceR !== undefined) {
         return planet.distanceR <= maxDistance;
       } else if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
         const r = Math.sqrt(planet.x * planet.x + planet.y * planet.y + planet.z * planet.z);
         return r <= maxDistance;
       }
-      invalidPlanets.push(planet.planetName || 'Unnamed Planet');
+      invalid.push(planet.planetName || 'Unnamed Planet');
       return false;
     });
-    setInvalidPlanetNames(invalidPlanets);
-    setExoplanets(filteredExoplanets);
+    setInvalidPlanetNames(invalid);
+    setExoplanets(filtered);
   }, [fileContent, maxDistance]);
 
   return (
     <>
       {/* Header */}
       <header className="px-6 pt-4 text-center text-white">
-        <h2 className="text-xl font-semibold">
-          Exoplanets Orbiting the Sun
-        </h2>
-        <p className="text-sm mt-1 text-gray-300">
+        <h2 className="gray-box">Exoplanets Orbiting the Sun</h2>
+        <p className="gray-box">
           Filtered by max distance: <span className="font-medium">{maxDistance}</span> units,
           positioned using spherical coordinates on a 3D Cartesian grid.
         </p>
       </header>
 
       {/* Invalid Planets */}
-      {invalidPlanetNames && invalidPlanetNames.length > 0 && (
+      {invalidPlanetNames.length > 0 && (
         <section className="bg-red-50 border-l-4 border-red-400 text-red-700 p-4 rounded-md mx-6 text-left">
           <h3 className="font-semibold mb-2">Exoplanets with invalid coordinates:</h3>
           <ul className="list-disc list-inside text-sm">
-            {invalidPlanetNames.map((planet, idx) => (
-              <li key={idx}>{planet}</li>
-            ))}
+            {invalidPlanetNames.map((planet, idx) => <li key={idx}>{planet}</li>)}
           </ul>
         </section>
       )}
 
       {/* Scene Container */}
       <div className="flex flex-col items-center max-w-screen-xl p-4">
-        <div className="w-full rounded-md overflow-hidden shadow-lg">
+        {/* Make this wrapper relative so the panel can be absolutely positioned INSIDE */}
+        <div className="w-full rounded-md overflow-hidden shadow-lg" style={{ position: 'relative' }}>
+          {/* Leva panel anchored to the top-right INSIDE the black canvas area */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 12,
+              right: 12,
+              zIndex: 5,
+              transform: 'scale(0.9)',
+              transformOrigin: 'top right'
+            }}
+          >
+            <LevaPanel
+              store={store}
+              flat              // render inline (no portal to <body>)
+              collapsed={false} // open so it's visible
+              fill={false}
+              titleBar={{ title: '', drag: false }}
+              theme={{
+                colors: {
+                  elevation1: 'rgba(20,20,20,0.88)',
+                  highlight1: '#00bfff',
+                  accent1: '#00bfff',
+                  folderTextColor: '#ffffff'
+                }
+              }}
+              style={{
+                width: 220,
+                borderRadius: 8,
+                boxShadow: '0 0 12px rgba(0,0,0,0.6)',
+                backdropFilter: 'blur(8px)'
+              }}
+            />
+          </div>
+
           <Canvas
             camera={{ position: [30, 30, 30], fov: 50 }}
-            style={{ height: "80vh", backgroundColor: "#000000" }}
+            style={{ height: '80vh', backgroundColor: '#000000' }}
           >
             <hemisphereLight color="white" groundColor="#222222" intensity={0.5} />
             <ambientLight intensity={0.3} />
@@ -226,9 +225,7 @@ const ExoplanetScene = ({ fileContent }) => {
               {exoplanets.map((planet, index) => {
                 let x, y, z;
                 if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
-                  x = planet.x;
-                  y = planet.y;
-                  z = planet.z;
+                  x = planet.x; y = planet.y; z = planet.z;
                 } else {
                   const theta = (planet.theta ?? 0) * (Math.PI / 180);
                   const phi = planet.phi * (Math.PI / 180);
@@ -237,15 +234,8 @@ const ExoplanetScene = ({ fileContent }) => {
                   z = (planet.distanceR / 50000) * Math.sin(theta) * Math.sin(phi);
                 }
 
-                let planetSize = planet.planetRadiusSize > 5 ? planet.planetRadiusSize / 10 : planet.planetRadiusSize;
-                if (planet.planetRadiusSize > 100) {
-                  planetSize = planet.planetRadiusSize / 50;
-                } else if (planet.planetRadiusSize > 10) {
-                  planetSize = planet.planetRadiusSize / 5;
-                } else {
-                  planetSize = planet.planetRadiusSize / .5;
-                }
-                planetSize = planet.planetRadiusSize;
+                // Keep the size logic simple; use provided radius directly
+                const planetSize = planet.planetRadiusSize;
 
                 return (
                   <group key={index}>
@@ -253,13 +243,7 @@ const ExoplanetScene = ({ fileContent }) => {
                       <sphereGeometry args={[planetSize, 32, 32]} />
                       <meshStandardMaterial color={planet.color} />
                     </mesh>
-                    <Text
-                      position={[x, y + planetSize + 0.5, z]}
-                      fontSize={0.5}
-                      color="white"
-                      anchorX="center"
-                      anchorY="bottom"
-                    >
+                    <Text position={[x, y + planetSize + 0.5, z]} fontSize={0.5} color="white" anchorX="center" anchorY="bottom">
                       {planet.planetName}
                     </Text>
                   </group>
@@ -271,18 +255,17 @@ const ExoplanetScene = ({ fileContent }) => {
             </group>
 
             <EffectComposer>
-              <Bloom
-                intensity={2}
-                // radius={0.7}
-                luminanceThreshold={0.3}
-              />
+              <Bloom intensity={2} luminanceThreshold={0.3} />
             </EffectComposer>
+
             <OrbitControls />
           </Canvas>
         </div>
-        <div className="w-full max-w-xs mt-4"></div>
+
+        {/* Spacer to keep layout consistent with your original structure */}
+        <div className="w-full max-w-xs mt-4" />
       </div>
-      <Leva />
+      {/* Removed <Leva /> so the menu doesn't portal to the page top-right */}
     </>
   );
 };

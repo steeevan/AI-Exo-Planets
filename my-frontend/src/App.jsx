@@ -3,8 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './App.css'
 import LightThing from './assets/luminescence-mark.svg'
-import ModelScene from './ModelScene'
-
+import ExoplanetScene from './ExoplanetScene'
 export default function Home() {
   // Apply background only on Home
   useEffect(() => {
@@ -156,10 +155,10 @@ export default function Home() {
 
           <div style={{ flex: "0 0 auto" }}>
             <Link
-              to="/renderexo"
+              to="/exoplanetinfo"
               className="member-page"
             >
-              Carousel →
+              Exoplanet Info →
             </Link>
           </div>
 
@@ -175,7 +174,7 @@ export default function Home() {
       {/* MAIN CONTENT */}
       <main id="main" style={{ padding: "0.75rem", marginTop: `${HEADER_H + NAV_H - 50}px` }}>
         <Section id="what" title="What We’re Doing">
-          <p className="gray-box">We are making an exoplanet viewer and finder using 3D models and simulations.</p>
+          <p className="gray-box">We are making an exoplanet renderer using 3D models and simulations.</p>
         </Section>
 
         <Section id="why" title="Why It Matters">
@@ -189,7 +188,7 @@ export default function Home() {
         <Section id="simulation" title="Simulation (3D Demo)">
           <p className="gray-box">Simple 3D scene with orbit controls and exoplanets.</p>
           <div className="section-bg section-bg--cover">
-            <ModelScene />
+            <ExoplanetScene></ExoplanetScene>
           </div>
         </Section>
 

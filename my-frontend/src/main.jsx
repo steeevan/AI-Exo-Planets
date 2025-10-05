@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.css'
 import App from './App';
 import NewPage from './NewPage.jsx';
-import ExoplanetPage from './exoplanetpage';
 import MemberPage from './MemberPage.jsx';
 import RenderExoplanets from './RenderExoplanets.jsx';
 import ExoplanetPage from './ExoplanetPage.jsx';
