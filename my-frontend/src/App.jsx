@@ -5,7 +5,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import NewPage from './NewPage'
 
-function Home() {
+export default function Home() {
   const [count, setCount] = useState(0)
 
   return (
@@ -30,27 +30,16 @@ function Home() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <p className="read-the-docs">
-        Hi my name is boon and I am here to code!
-      </p>
 
-      {/* Add a link to go to your new page */}
-      <Link to="/new" className="read-the-docs">
+      <Link to="/new" className="link">
         Go to New Page
       </Link>
+
+      <div>
+        <Link to="/mem" className="member-page"> Go to Member Page </Link>
+      </div>
     </>
   )
 }
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/new" element={<NewPage />} />
-      </Routes>
-    </Router>
-  )
-}
 
-export default App
