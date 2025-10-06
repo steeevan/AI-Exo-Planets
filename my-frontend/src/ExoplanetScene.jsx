@@ -7,11 +7,11 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
 
 // Define a list of exoplanets with spherical coordinates
 const EXOPLANETS_ONE = [
-  { planetName: 'Exoplanet A', x: 20, y: 30, z: 10,          color: 'red',    planetRadiusSize: 0.5 },
-  { planetName: 'Exoplanet B', x: -10, y: 5, z: 6,          color: 'blue',   planetRadiusSize: 0.7 },
-  { planetName: 'Exoplanet C', x: -22, y: -10, z: -6,          color: 'green',  planetRadiusSize: 0.6 },
-  { planetName: 'Exoplanet D', x: 23, y: 23, z: 4,          color: 'purple', planetRadiusSize: 0.8 },
-  { planetName: 'Exoplanet E', x: -6, y: 15, z: -25,                       color: 'orange', planetRadiusSize: 0.9 },
+  { planetName: 'Exoplanet A', x: 20, y: 30, z: 10,          color: 'red',    planetRadiusSize: 16.5 },
+  { planetName: 'Exoplanet B', x: -10, y: 5, z: 6,          color: 'blue',   planetRadiusSize: 15.7 },
+  { planetName: 'Exoplanet C', x: -22, y: -10, z: -6,          color: 'green',  planetRadiusSize: 17.6 },
+  { planetName: 'Exoplanet D', x: 23, y: 23, z: 4,          color: 'purple', planetRadiusSize: 15.8 },
+  { planetName: 'Exoplanet E', x: -6, y: 15, z: -25,                       color: 'orange', planetRadiusSize: 18.9 },
 ];
 
 // 3D grid with three perpendicular planes
@@ -160,8 +160,8 @@ const ExoplanetScene = ({ fileContent }) => {
         <div className="gray-box">
         <h2>Exoplanets Orbiting the Sun</h2>
         <p>
-          Filtered by max distance: <span className="font-medium">{maxDistance}</span> units,
-          positioned using spherical coordinates on a 3D Cartesian grid.
+        Filtered by max distance: <span className="font-medium">{maxDistance}</span> units,
+        positioned using spherical coordinates on a 3D Cartesian grid.
         </p>
       </div>
       </header>
