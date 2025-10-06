@@ -30,16 +30,6 @@ function ExoplanetPage() {
     document.body.classList.add("member-blue");
     return () => document.body.classList.remove("member-blue");
   }, []);
-  const OPTIONS = { dragFree: true, loop: true };
-  const SLIDE_COUNT = 5;
-  const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
-  const IMAGES = [
-    "https://flowbite.com/docs/images/carousel/carousel-1.svg",
-    "https://flowbite.com/docs/images/carousel/carousel-2.svg",
-    "https://flowbite.com/docs/images/carousel/carousel-3.svg",
-    "https://flowbite.com/docs/images/carousel/carousel-4.svg",
-    "https://flowbite.com/docs/images/carousel/carousel-5.svg",
-  ];
 
   const [fileContent, setFileContent] = useState("");
   const [fileName, setFileName] = useState("");
@@ -70,7 +60,6 @@ function ExoplanetPage() {
   return (
     <div className="flex flex-col gap-10">
       <h1>What are exoplanets?</h1>
-      <EmblaCarousel slides={IMAGES} options={OPTIONS} />
 
       <p>
         Exoplanets are planets that orbit stars outside our solar system. Planets are
@@ -81,7 +70,7 @@ function ExoplanetPage() {
         detection method is radial velocity: observing how a star's motion shifts red or
         blue due to the Doppler effect caused by an orbiting planet.
       </p>
-
+<h1>Exoplanet Render</h1>
       {/* Upload Box */}
       <div className="mx-auto mt-8 p-6 bg-white rounded-xl shadow-2xl space-y-4">
         <h2 className="text-xl font-semibold text-gray-800">Upload Exoplanet Data</h2>

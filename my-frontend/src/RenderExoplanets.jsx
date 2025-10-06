@@ -22,6 +22,7 @@ const RenderExoplanets = () => {
       </h2>
       <EmblaCarouselCopy slides={slides} options={OPTIONS} />
     </div>
+    
   );
 };
 
