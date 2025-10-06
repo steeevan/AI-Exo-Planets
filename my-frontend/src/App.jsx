@@ -165,6 +165,10 @@ export default function Home() {
             ))}
           </ul>
 
+          <div style={{ flex: "0 0 auto" }}>
+            <Link to="/test" className="member-page">3D Exoplanets Carousel</Link>
+          </div>
+
           {/* RIGHT: member page link */}
           <div style={{ flex: "0 0 auto" }}>
             <Link to="/mem" className="member-page">Team Member Page</Link>

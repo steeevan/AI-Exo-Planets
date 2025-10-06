@@ -67,62 +67,67 @@ function ExoplanetPage() {
   // }, [fileContent]);
 
   return (
-    <><header
-      id="site-header"
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: `${HEADER_H}px`,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "8px 16px 0",
-        zIndex: 10,
-        color: "white",
-        background: "linear-gradient(90deg, #0b1020 0%, #101a3a 50%, #0b1020 100%)",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.25)",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          left: 16,
-          top: "50%",
-          transform: "translateY(-50%)",
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-        }}
-      >
-        <img
-          src={LightThing}
-          alt="Luminescence logo"
+    <div className="flex flex-col">
+      <div>
+        <header
+          id="site-header"
           style={{
-            height: 100,
-            width: "auto",
-            display: "block",
-          }} />
-        <span style={{ fontWeight: 700, fontSize: "1.5rem", lineHeight: 1 }}>
-          Exo-Existence
-        </span>
-      </div>
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: `${HEADER_H}px`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "8px 16px 0",
+            zIndex: 10,
+            color: "white",
+            background: "linear-gradient(90deg, #0b1020 0%, #101a3a 50%, #0b1020 100%)",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.25)",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              left: 16,
+              top: "50%",
+              transform: "translateY(-50%)",
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+            }}
+          >
+            <img
+              src={LightThing}
+              alt="Luminescence logo"
+              style={{
+                height: 100,
+                width: "auto",
+                display: "block",
+              }}
+            />
+            <span style={{ fontWeight: 700, fontSize: "1.5rem", lineHeight: 1 }}>
+              Exo-Existence
+            </span>
+          </div>
 
-      <h1
-        style={{
-          fontSize: "1.6rem",
-          margin: 0,
-          letterSpacing: "0.3px",
-          fontWeight: 800,
-          textAlign: "center",
-          lineHeight: 1.15,
-        }}
-      >
-        Mapping the Unknown Universe — One Exoplanet at a Time
-      </h1>
-    </header><div className="flex flex-col gap-10">
-        <h1>What are exoplanets?</h1>
+          {/* Title in the center */}
+          <h1
+            style={{
+              fontSize: "1.6rem",
+              margin: 0,
+              letterSpacing: "0.3px",
+              fontWeight: 800,
+              textAlign: "center",
+              lineHeight: 1.15,
+            }}
+          >
+            Mapping the Unknown Universe — One Exoplanet at a Time
+          </h1>
+        </header>
+
+        {/* NAV */}
         <nav
           id="site-nav"
           style={{
@@ -147,16 +152,38 @@ function ExoplanetPage() {
               gap: "0.75rem",
             }}
           >
-            <div style={{ flex: "0 0 auto" }}>
-              <Link to="/" className="member-page">Home</Link>
+            {/* LEFT: section links */}
+            <div>
+              <div style={{ flex: "0 0 auto" }}>
+                <Link to="/" className="member-page">Home</Link>
+              </div>
             </div>
 
-            <div style={{ flex: "0 0 auto" }}>
-              <Link to="/mem" className="member-page">Team Member Page</Link>
+            {/* RIGHT: member page link */}
+            <div className="flex flex-row gap-3">
+              <div style={{ flex: "0 0 auto" }}>
+                <Link to="/test" className="member-page">3D Exoplanets Carousel</Link>
+              </div>
+
+              <div style={{ flex: "0 0 auto" }}>
+                <Link to="/mem" className="member-page">Team Member Page</Link>
+              </div>
             </div>
+
           </div>
         </nav>
-        <h1></h1>
+      </div>
+
+      <div
+        className="flex flex-col gap-10 items-center"
+        // PADDING FIX: Add top padding to push content below the fixed header/nav
+        style={{ paddingTop: `${FIXED_OFFSET}px` }}
+      >
+        <h2 className="text-2xl font-bold mt-4">Exoplanet Simulation Page</h2>
+
+        <p className="px-16">
+          This is our simulation page, and its goal is to show how far away the exoplanets would be. In order to get this information, we would pull the exoplanet name, declination, RA, radius of the planet, and distance in parsecs. We would then multiply the distance in parsecs by 206265 to convert them into astronomical units(au).
+        </p>
         {/* Upload Box */}
         <div className="mx-auto mt-8 p-6 bg-white rounded-xl shadow-2xl space-y-4">
           <h2 className="text-xl font-semibold text-gray-800">Upload Exoplanet Data</h2>
@@ -195,7 +222,8 @@ function ExoplanetPage() {
             Go Back
           </Link>
         </div>
-      </div></>
+      </div >
+    </div>
   );
 }
 

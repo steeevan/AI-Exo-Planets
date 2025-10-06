@@ -113,14 +113,20 @@ export default function MemberPage() {
               <Link to="/" className="member-page">Home</Link>
             </div>
 
-            <div style={{ flex: "0 0 auto" }}>
-              <Link to="/mem" className="member-page">Team Member Page</Link>
+            <div className="flex flex-row gap-3">
+              <div style={{ flex: "0 0 auto" }}>
+                <Link to="/test" className="member-page">3D Exoplanets Carousel</Link>
+              </div>
+              <div style={{ flex: "0 0 auto" }}>
+                <Link to="/mem" className="member-page">Team Member Page</Link>
+              </div>
             </div>
+
           </div>
         </nav>
 
         {/* Page header or title */}
-        <div style={{ paddingTop: `${HEADER_H + 20}px`, textAlign: "center" }}>
+        <div style={{ paddingTop: `${HEADER_H + 60}px`, textAlign: "center" }}>
           <h1>Team Members</h1>
         </div>
 
