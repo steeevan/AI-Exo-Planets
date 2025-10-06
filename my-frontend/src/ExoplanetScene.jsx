@@ -167,7 +167,13 @@ const ExoplanetScene = ({ fileContent }) => {
     const invalidPlanets = [];
     const filteredExoplanets = source.filter(planet => {
       if (planet.distanceR !== undefined) {
-        return planet.distanceR <= maxDistance;
+        const largestDistanceR = 516023463.75;
+        const xx = 3000000000 / 100;
+        const G = 1500;
+        const dFirstLog = Math.log(1 + (Math.abs(planet.distanceR) / xx));
+        const dSecondlog = Math.log(1 + (largestDistanceR / xx))
+        const planetNewDistance = G * (Math.sign(planet.distanceR) * (dFirstLog / dSecondlog));
+        return planetNewDistance <= maxDistance;
       } else if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
         const r = Math.sqrt(planet.x * planet.x + planet.y * planet.y + planet.z * planet.z);
         return r <= maxDistance;
@@ -224,6 +230,8 @@ const ExoplanetScene = ({ fileContent }) => {
 
               {/* Exoplanets */}
               {exoplanets.map((planet, index) => {
+                const largestDistanceR = 516023463.75;
+                const xx = 3000000000 / 100;
                 let x, y, z;
                 if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
                   x = planet.x;
@@ -232,29 +240,31 @@ const ExoplanetScene = ({ fileContent }) => {
                 } else {
                   const theta = (planet.theta ?? 0) * (Math.PI / 180);
                   const phi = planet.phi * (Math.PI / 180);
-                  x = (planet.distanceR / 50000) * Math.cos(theta) * Math.sin(phi);
-                  y = (planet.distanceR / 50000) * Math.cos(phi);
-                  z = (planet.distanceR / 50000) * Math.sin(theta) * Math.sin(phi);
+
+                  const G = 1500;
+                  const dFirstLog = Math.log(1 + (Math.abs(planet.distanceR) / xx));
+                  const dSecondlog = Math.log(1 + (largestDistanceR / xx))
+                  const planetNewDistance = G * (Math.sign(planet.distanceR) * dFirstLog / dSecondlog);
+                  x = planetNewDistance * Math.cos(theta) * Math.sin(phi);
+                  y = planetNewDistance * Math.cos(phi);
+                  z = planetNewDistance * Math.sin(theta) * Math.sin(phi);
                 }
 
-                let planetSize = planet.planetRadiusSize > 5 ? planet.planetRadiusSize / 10 : planet.planetRadiusSize;
-                if (planet.planetRadiusSize > 100) {
-                  planetSize = planet.planetRadiusSize / 50;
-                } else if (planet.planetRadiusSize > 10) {
-                  planetSize = planet.planetRadiusSize / 5;
-                } else {
-                  planetSize = planet.planetRadiusSize / .5;
-                }
-                planetSize = planet.planetRadiusSize;
+                const planetLargestRadius = 77.342;
+                const rMin = 0.1;
+                const rMax = 5;
+                const rFirstLog = Math.log(1 + (planet.planetRadiusSize / xx));
+                const rSecondLog = Math.log(1 + (planetLargestRadius / xx));
+                const planetNewSize = rMin + ((rMax - rMin) * (rFirstLog / rSecondLog));
 
                 return (
                   <group key={index}>
                     <mesh position={[x, y, z]}>
-                      <sphereGeometry args={[planetSize, 32, 32]} />
+                      <sphereGeometry args={[planetNewSize, 32, 32]} />
                       <meshStandardMaterial color={planet.color} />
                     </mesh>
                     <Text
-                      position={[x, y + planetSize + 0.5, z]}
+                      position={[x, y + planetNewSize + 0.5, z]}
                       fontSize={0.5}
                       color="white"
                       anchorX="center"
