@@ -75,7 +75,7 @@ html, body, #root {
 /* -------- HOME PAGE -------- */
 body.home-bg {
   background-color: #0b1020;
-  background-image: url("/space-bg.png");
+  background-image: url("./assets/the-lion-nebula-3840x3840-10347.jpg");
   background-size: cover;
   background-position: center;
   /* background-attachment: fixed;   <-- remove this line */
