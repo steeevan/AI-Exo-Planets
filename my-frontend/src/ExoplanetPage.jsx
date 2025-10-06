@@ -198,13 +198,7 @@ function ExoplanetPage() {
         <h2 className="text-2xl font-bold mt-4">Exoplanet Simulation Page</h2>
         
         <p>
-          Exoplanets are planets that orbit stars outside our solar system. Planets are
-          rocky, icy, or gaseous bodies that do not radiate light and orbit a star. They
-          also clear their orbital path and have enough gravity to stay spherical from
-          hydrostatic equilibrium. We often find exoplanets by observing periodic dimming
-          of stars — when a planet passes in front of its star, it blocks light. Another
-          detection method is radial velocity: observing how a star's motion shifts red or
-          blue due to the Doppler effect caused by an orbiting planet.
+          This is our simulation page, and its goal is to show how far away the exoplanets would be. In order to get this information, we would pull the exoplanet name, declination, RA, radius of the planet, and distance in parsecs. We would then multiply the distance in parsecs by 206265 to convert them into astronomical units(au).
         </p>
 
         {/* Upload Box */}
