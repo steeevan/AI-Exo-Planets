@@ -1,13 +1,11 @@
 // src/Home.jsx
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './App.css'
 import LightThing from './assets/luminescence-mark.svg'
 import ExoplanetScene from './ExoplanetScene'
-
-//import LightThing from '/src/assets/luminescence-mark.svg'
-//import ExoplanetScene from './ExoplanetScene'
 export default function Home() {
+  // Apply background only on Home
   useEffect(() => {
     document.body.classList.add('home-bg')
     return () => document.body.classList.remove('home-bg')
@@ -80,6 +78,7 @@ export default function Home() {
           </span>
         </div>
 
+        {/* Title in the center */}
         <h1
           style={{
             fontSize: "1.6rem",
@@ -119,6 +118,7 @@ export default function Home() {
             gap: "0.75rem",
           }}
         >
+          {/* LEFT: section links */}
           <ul
             style={{
               margin: 0,
@@ -135,7 +135,7 @@ export default function Home() {
             }}
           >
             {[
-              ["what-we-are-doing", "Project Overview"],
+              ["project overview", "Project Overview"],
               ["simulation", "Simulation"],
             ].map(([id, label]) => (
               <li key={id}>
@@ -151,70 +151,53 @@ export default function Home() {
           </ul>
 
           <div style={{ flex: "0 0 auto" }}>
-            <Link to="/exoplanetinfo" className="member-page">Exoplanet Info</Link>
+            <Link
+              to="/exoplanetinfo"
+              className="member-page"
+            >
+              Exoplanet Info
+            </Link>
           </div>
 
+          {/* RIGHT: member page link */}
           <div style={{ flex: "0 0 auto" }}>
             <Link to="/mem" className="member-page">Team Member Page</Link>
           </div>
         </div>
       </nav>
 
+
+
       {/* MAIN CONTENT */}
       <main id="main" style={{ padding: "0.75rem", marginTop: `${HEADER_H + NAV_H - 50}px` }}>
+        <Section id="project overview" title="What We’re Doing">
+          <p className="gray-box">We are making an exoplanet renderer using 3D models and simulations.</p>
+        </Section>
 
-        {/* GROUPED SECTIONS IN ONE BIG GRAY BOX */}
-        <div className="gray-box" style={{ margin: "2rem auto", maxWidth: 960 }}>
-          <Section id="what-we-are-doing" title="What We’re Doing">
-            <p>We are making an exoplanet renderer using 3D models and simulations.</p>
-          </Section>
+        <Section id="project overview" title="Why It Matters">
+          <p className="gray-box">We are doing this because we want to help with finding exoplanets more easily.</p>
+        </Section>
 
-          <Section id="why-it-matters" title="Why It Matters">
-            <p>We are doing this because we want to help with finding exoplanets more easily.</p>
-          </Section>
+        <Section id="project overview" title="How It Works">
+          <p className="gray-box">You can look at the 3D model simulation, insert a json file, and then you will see the exoplanets on the simulation. You can also change the settings for it and move the camera around.</p>
+        </Section>
 
-          <Section id="how-it-works" title="How It Works">
-            <p>
-              You can look at the 3D model simulation, insert a JSON file, and then
-              you will see the exoplanets on the simulation. You can also change
-              the settings for it and move the camera around.
-            </p>
-          </Section>
-        </div>
+        <Section id="simulation" title="Simulation (3D Demo)">
+          <p className="gray-box">Simple 3D scene with orbit controls and exoplanets.</p>
+          <div className="section-bg section-bg--cover">
+            <ExoplanetScene></ExoplanetScene>
+          </div>
+        </Section>
 
-        {/* SIMULATION DESCRIPTION INSIDE BOX */}
-        <div className="gray-box" style={{ marginTop: "1rem", maxWidth: 960 }}>
-          <Section id="simulation" title="Simulation (3D Demo)">
-            <p>Simple 3D scene with orbit controls and exoplanets.</p>
-          </Section>
-        </div>
-
-        {/* 3D Simulation OUTSIDE BOX */}
-        <ExoplanetScene />
-
-        {/* TEAM SECTION INSIDE BOX */}
-        <div className="gray-box" style={{ marginTop: "1rem", maxWidth: 960 }}>
-          <Section id="team" title="Team & Credits">
-            <p>Built by the Luminescence team.</p>
-          </Section>
-        </div>
+        <Section id="team" title="Team & Credits">
+          <p className="gray-box">Built by the Luminescence team.</p>
+        </Section>
       </main>
 
       <footer className="footer">
         <small>© {new Date().getFullYear()} Luminescence • Exoplanet AI</small>
       </footer>
     </>
-  )
-}
-
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/new" element={<NewPage />} />
-      </Routes>
-    </Router>
   )
 }
 
@@ -237,3 +220,4 @@ function Section({ id, title, children }) {
     </section>
   );
 }
+
