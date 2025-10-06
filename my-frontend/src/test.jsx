@@ -148,7 +148,7 @@ export default function Controlled3D() {
             <Canvas camera={{ position: [0, 1, 5], fov: 50 }}>
               <ambientLight intensity={1.0} />
               <directionalLight position={[2, 2, 2]} color="#72d4f3" />
-              <pointLight position={[0, 0, 0]} intensity={0.5} color="#64ddc" />
+              <pointLight position={[0, 0, 0]} intensity={0.5} color="#64ddcc" />
               <OrbitControls
                 enableZoom={true}
                 enablePan={true}
