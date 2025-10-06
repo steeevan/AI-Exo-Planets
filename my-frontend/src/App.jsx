@@ -137,7 +137,6 @@ export default function Home() {
             {[
               ["project overview", "Project Overview"],
               ["simulation", "Simulation"],
-              ["team", "Team"],
             ].map(([id, label]) => (
               <li key={id}>
                 <a
@@ -156,13 +155,13 @@ export default function Home() {
               to="/exoplanetinfo"
               className="member-page"
             >
-              Exoplanet Info →
+              Exoplanet Info 
             </Link>
           </div>
 
           {/* RIGHT: member page link */}
           <div style={{ flex: "0 0 auto" }}>
-            <Link to="/mem" className="member-page">Team Member Page →</Link>
+            <Link to="/mem" className="member-page">Team Member Page</Link>
           </div>
         </div>
       </nav>
