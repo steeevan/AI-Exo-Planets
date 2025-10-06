@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ExoplanetScene from "./ExoplanetScene";
-// Import necessary assets from the second page, assuming LightThing is accessible
-// You may need to adjust this path based on your project structure
-import LightThing from './assets/luminescence-mark.svg';
-
+import LightThing from './assets/luminescence-mark.svg'
+const HEADER_H = 96
+const NAV_H = 50
 const readJsonFile = (file) => {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
@@ -68,133 +67,126 @@ function ExoplanetPage() {
   // }, [fileContent]);
 
   return (
-    <>
-      {/* HEADER structure from Home.jsx */}
-      <header
-        id="site-header"
+    <><header
+      id="site-header"
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: `${HEADER_H}px`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "8px 16px 0",
+        zIndex: 10,
+        color: "white",
+        background: "linear-gradient(90deg, #0b1020 0%, #101a3a 50%, #0b1020 100%)",
+        boxShadow: "0 2px 10px rgba(0,0,0,0.25)",
+      }}
+    >
+      <div
         style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: `${HEADER_H}px`,
+          position: "absolute",
+          left: 16,
+          top: "50%",
+          transform: "translateY(-50%)",
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
-          padding: "8px 16px 0",
-          zIndex: 10,
-          color: "white",
-          background: "linear-gradient(90deg, #0b1020 0%, #101a3a 50%, #0b1020 100%)",
-          boxShadow: "0 2px 10px rgba(0,0,0,0.25)",
+          gap: 10,
         }}
       >
-        <div
+        <img
+          src={LightThing}
+          alt="Luminescence logo"
           style={{
-            position: "absolute",
-            left: 16,
-            top: "50%",
-            transform: "translateY(-50%)",
-            display: "flex",
-            alignItems: "center",
-            gap: 10,
-          }}
-        >
-          <img
-            src={LightThing}
-            alt="Luminescence logo"
-            style={{
-              height: 100,
-              width: "auto",
-              display: "block",
-            }}
-          />
-          <span style={{ fontWeight: 700, fontSize: "1.5rem", lineHeight: 1 }}>
-            Exo-Existence
-          </span>
-        </div>
+            height: 100,
+            width: "auto",
+            display: "block",
+          }} />
+        <span style={{ fontWeight: 700, fontSize: "1.5rem", lineHeight: 1 }}>
+          Exo-Existence
+        </span>
+      </div>
 
-        {/* Title in the center */}
-        <h1
-          style={{
-            fontSize: "1.6rem",
-            margin: 0,
-            letterSpacing: "0.3px",
-            fontWeight: 800,
-            textAlign: "center",
-            lineHeight: 1.15,
-          }}
-        >
-          Mapping the Unknown Universe — One Exoplanet at a Time
-        </h1>
-      </header>
-
-      {/* NAV structure from Home.jsx */}
-      <nav
-        id="site-nav"
+      <h1
         style={{
-          position: "fixed",
-          top: HEADER_H,
-          left: 0,
-          width: "100%",
-          background: "#0b1020",
-          color: "white",
-          borderTop: "1px solid rgba(255,255,255,0.08)",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
-          zIndex: 9,
+          fontSize: "1.6rem",
+          margin: 0,
+          letterSpacing: "0.3px",
+          fontWeight: 800,
+          textAlign: "center",
+          lineHeight: 1.15,
         }}
       >
-        <div
+        Mapping the Unknown Universe — One Exoplanet at a Time
+      </h1>
+    </header><div className="flex flex-col gap-10">
+        <h1>What are exoplanets?</h1>
+        <nav
+          id="site-nav"
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            height: "44px",
-            padding: "0 0.75rem",
-            gap: "0.75rem",
+            position: "fixed",
+            top: HEADER_H,
+            left: 0,
+            width: "100%",
+            background: "#0b1020",
+            color: "white",
+            borderTop: "1px solid rgba(255,255,255,0.08)",
+            borderBottom: "1px solid rgba(255,255,255,0.08)",
+            zIndex: 9,
           }}
         >
-          {/* LEFT: section links - Removed unnecessary links for this page */}
-          <ul
+          <div
             style={{
-              margin: 0,
-              padding: 0,
               display: "flex",
               alignItems: "center",
+              justifyContent: "space-between",
+              height: "44px",
+              padding: "0 0.75rem",
               gap: "0.75rem",
-              listStyle: "none",
-              overflowX: "auto",
-              whiteSpace: "nowrap",
-              fontSize: "1.1rem",
-              flex: "1 1 0",
-              minWidth: 0,
             }}
           >
-            <li>
-              <Link to="/" className="toplink">
-                Home
-              </Link>
-            </li>
-          </ul>
+            <ul
+              style={{
+                margin: 0,
+                padding: 0,
+                display: "flex",
+                alignItems: "center",
+                gap: "0.75rem",
+                listStyle: "none",
+                overflowX: "auto",
+                whiteSpace: "nowrap",
+                fontSize: "1.1rem",
+                flex: "1 1 0",
+                minWidth: 0,
+              }}
+            >
+              {[
 
-          {/* RIGHT: member page link */}
-          <div style={{ flex: "0 0 auto" }}>
-            <Link to="/mem" className="member-page">Team Member Page</Link>
+              ].map(([id, label]) => (
+                <li key={id}>
+                  <a
+                    href={`#${id}`}
+                    className="toplink"
+                    onClick={(e) => { e.preventDefault(); scrollToSectionCenter(id); }}
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <div style={{ flex: "0 0 auto" }}>
+              <Link to="/exoplanetinfo" className="member-page">Exoplanet Info</Link>
+            </div>
+
+            <div style={{ flex: "0 0 auto" }}>
+              <Link to="/mem" className="member-page">Team Member Page</Link>
+            </div>
           </div>
-        </div>
-      </nav>
-      {/* END HEADER/NAV */}
-
-      <div
-        className="flex flex-col gap-10 items-center"
-        // PADDING FIX: Add top padding to push content below the fixed header/nav
-        style={{ paddingTop: `${FIXED_OFFSET}px` }}
-      >
-        <h2 className="text-2xl font-bold mt-4">Exoplanet Simulation Page</h2>
-
-        <p className="px-16">
-          This is our simulation page, and its goal is to show how far away the exoplanets would be. In order to get this information, we would pull the exoplanet name, declination, RA, radius of the planet, and distance in parsecs. We would then multiply the distance in parsecs by 206265 to convert them into astronomical units(au).
-        </p>
-
+        </nav>
+        <h1></h1>
         {/* Upload Box */}
         <div className="mx-auto mt-8 p-6 bg-white rounded-xl shadow-2xl space-y-4">
           <h2 className="text-xl font-semibold text-gray-800">Upload Exoplanet Data</h2>
@@ -223,7 +215,7 @@ function ExoplanetPage() {
         {/* Exoplanet Simulation */}
         <ExoplanetScene fileContent={fileContent} />
 
-        {/* Go Back button at the bottom */}
+        {/* ✅ Go Back button at the bottom */}
         <div className="flex justify-center mt-8 mb-4">
           <Link
             to="/"
@@ -233,8 +225,7 @@ function ExoplanetPage() {
             Go Back
           </Link>
         </div>
-      </div>
-    </>
+      </div></>
   );
 }
 

@@ -7,11 +7,11 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
 
 // Define a list of exoplanets with spherical coordinates
 const EXOPLANETS_ONE = [
-  { planetName: 'Exoplanet A', x: 20, y: 30, z: 10, color: 'red', planetRadiusSize: 0.5 },
-  { planetName: 'Exoplanet B', x: -10, y: 5, z: 6, color: 'blue', planetRadiusSize: 0.7 },
-  { planetName: 'Exoplanet C', x: -22, y: -10, z: -6, color: 'green', planetRadiusSize: 0.6 },
-  { planetName: 'Exoplanet D', x: 23, y: 23, z: 4, color: 'purple', planetRadiusSize: 0.8 },
-  { planetName: 'Exoplanet E', x: -6, y: 15, z: -25, color: 'orange', planetRadiusSize: 0.9 },
+  { planetName: 'Exoplanet A', x: 20, y: 30, z: 10, color: 'red', planetRadiusSize: 16.5 },
+  { planetName: 'Exoplanet B', x: -10, y: 5, z: 6, color: 'blue', planetRadiusSize: 15.7 },
+  { planetName: 'Exoplanet C', x: -22, y: -10, z: -6, color: 'green', planetRadiusSize: 17.6 },
+  { planetName: 'Exoplanet D', x: 23, y: 23, z: 4, color: 'purple', planetRadiusSize: 15.8 },
+  { planetName: 'Exoplanet E', x: -6, y: 15, z: -25, color: 'orange', planetRadiusSize: 18.9 },
 ];
 
 const PLANE_SIZE = 3000;
