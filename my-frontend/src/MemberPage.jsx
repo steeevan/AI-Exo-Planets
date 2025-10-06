@@ -85,68 +85,39 @@ export default function MemberPage() {
         </header>
 
         <nav
-        id="site-nav"
-        style={{
-          position: "fixed",
-          top: HEADER_H,
-          left: 0,
-          width: "100%",
-          background: "#0b1020",
-          color: "white",
-          borderTop: "1px solid rgba(255,255,255,0.08)",
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
-          zIndex: 9,
-        }}
-      >
-        <div
+          id="site-nav"
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            height: "44px",
-            padding: "0 0.75rem",
-            gap: "0.75rem",
+            position: "fixed",
+            top: HEADER_H,
+            left: 0,
+            width: "100%",
+            background: "#0b1020",
+            color: "white",
+            borderTop: "1px solid rgba(255,255,255,0.08)",
+            borderBottom: "1px solid rgba(255,255,255,0.08)",
+            zIndex: 9,
           }}
         >
-          <ul
+          <div
             style={{
-              margin: 0,
-              padding: 0,
               display: "flex",
               alignItems: "center",
+              justifyContent: "space-between",
+              height: "44px",
+              padding: "0 0.75rem",
               gap: "0.75rem",
-              listStyle: "none",
-              overflowX: "auto",
-              whiteSpace: "nowrap",
-              fontSize: "1.1rem",
-              flex: "1 1 0",
-              minWidth: 0,
             }}
           >
-            {[
-      ,
-            ].map(([id, label]) => (
-              <li key={id}>
-                <a
-                  href={`#${id}`}
-                  className="toplink"
-                  onClick={(e) => { e.preventDefault(); scrollToSectionCenter(id); }}
-                >
-                  {label}
-                </a>
-              </li>
-            ))}
-          </ul>
 
-          <div style={{ flex: "0 0 auto" }}>
-            <Link to="/exoplanetinfo" className="member-page">Exoplanet Info</Link>
-          </div>
+            <div style={{ flex: "0 0 auto" }}>
+              <Link to="/" className="member-page">Home</Link>
+            </div>
 
-          <div style={{ flex: "0 0 auto" }}>
-            <Link to="/mem" className="member-page">Team Member Page</Link>
+            <div style={{ flex: "0 0 auto" }}>
+              <Link to="/mem" className="member-page">Team Member Page</Link>
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
         {/* Page header or title */}
         <div style={{ paddingTop: `${HEADER_H + 20}px`, textAlign: "center" }}>

@@ -147,38 +147,8 @@ function ExoplanetPage() {
               gap: "0.75rem",
             }}
           >
-            <ul
-              style={{
-                margin: 0,
-                padding: 0,
-                display: "flex",
-                alignItems: "center",
-                gap: "0.75rem",
-                listStyle: "none",
-                overflowX: "auto",
-                whiteSpace: "nowrap",
-                fontSize: "1.1rem",
-                flex: "1 1 0",
-                minWidth: 0,
-              }}
-            >
-              {[
-
-              ].map(([id, label]) => (
-                <li key={id}>
-                  <a
-                    href={`#${id}`}
-                    className="toplink"
-                    onClick={(e) => { e.preventDefault(); scrollToSectionCenter(id); }}
-                  >
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-
             <div style={{ flex: "0 0 auto" }}>
-              <Link to="/exoplanetinfo" className="member-page">Exoplanet Info</Link>
+              <Link to="/" className="member-page">Home</Link>
             </div>
 
             <div style={{ flex: "0 0 auto" }}>

@@ -146,7 +146,7 @@ export default function Home() {
                   **************************************************
                 */}
                 {label === "Simulation" ? (
-                  <Link 
+                  <Link
                     to="/exoplanetsim" // <--- **CHANGE THIS PATH** to your desired page
                     className="toplink"
                   >
@@ -164,15 +164,6 @@ export default function Home() {
               </li>
             ))}
           </ul>
-
-          <div style={{ flex: "0 0 auto" }}>
-            <Link
-              to="/exoplanetinfo"
-              className="member-page"
-            >
-              Exoplanet Info
-            </Link>
-          </div>
 
           {/* RIGHT: member page link */}
           <div style={{ flex: "0 0 auto" }}>
