@@ -135,9 +135,7 @@ export default function Home() {
             }}
           >
             {[
-              ["what", "What"],
-              ["why", "Why"],
-              ["how", "How"],
+              ["project overview", "Project Overview"],
               ["simulation", "Simulation"],
               ["team", "Team"],
             ].map(([id, label]) => (
@@ -173,16 +171,16 @@ export default function Home() {
 
       {/* MAIN CONTENT */}
       <main id="main" style={{ padding: "0.75rem", marginTop: `${HEADER_H + NAV_H - 50}px` }}>
-        <Section id="what" title="What We’re Doing">
+        <Section id="project overview" title="What We’re Doing">
           <p className="gray-box">We are making an exoplanet renderer using 3D models and simulations.</p>
         </Section>
 
-        <Section id="why" title="Why It Matters">
+        <Section id="project overview" title="Why It Matters">
           <p className="gray-box">We are doing this because we want to help with finding exoplanets more easily.</p>
         </Section>
 
-        <Section id="how" title="How It Works">
-          <p className="gray-box">You can look at the 3D model and move the camera around. You can also change the settings for it.</p>
+        <Section id="project overview" title="How It Works">
+          <p className="gray-box">You can look at the 3D model simulation, insert a json file, and then you will see the exoplanets on the simulation. You can also change the settings for it and move the camera around.</p>
         </Section>
 
         <Section id="simulation" title="Simulation (3D Demo)">

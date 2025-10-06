@@ -12,11 +12,11 @@ export default function MemberPage() {
   }, []);
 
   const images = [
-    { id: 1, src: Estevan, alt: "Image of Estevan", header: "Estevan", paragraph: "T" },
-    { id: 2, src: Lily, alt: "Image of Lily", header: "Lily", paragraph: "A" },
-    { id: 3, src: Brista, alt: "Image of Brista", header: "Brista", paragraph: "Hello. My name is Brista and I am currently in 9th grade in Diamond Bar High School. I am immune to getting ragebaited." },
-    { id: 4, src: Alisa, alt: "Image of Alisa", header: "Alisa", paragraph: "Hello. My name is Alisa and I am currently in 8th grade in Chaparral Middle School." },
-    { id: 5, src: Yanming, alt: "Image of Yanming", header: "Yanming", paragraph: "Hello. My name is Yanming and I am currently in 7th grade in Suzanne Middle School. I am a programmer in the team. I am nonchalant. " },
+    { id: 1, src: Estevan, alt: "Image of Estevan", header: "Estevan", paragraph: "Hello. I am Estevan and I am a team manager and a mathematician for the team. 3D modeling needs a lot of math." },
+    { id: 2, src: Lily, alt: "Image of Lily", header: "Lily", paragraph: "Hello. I am Lily, and I am a backend coder on the team. 3D modeling takes a lot of iterations to fix."},
+    { id: 3, src: Brista, alt: "Image of Brista", header: "Brista", paragraph: "Hello. I am Brista and I am currently in 9th grade in Diamond Bar High School. I am a coder on the team. Fixing coding errors is pain." },
+    { id: 4, src: Alisa, alt: "Image of Alisa", header: "Alisa", paragraph: "Hello. I am Alisa and I am currently in 8th grade in Chaparral Middle School. I am a coder on the team. Math wasted 2 hours of my life." },
+    { id: 5, src: Yanming, alt: "Image of Yanming", header: "Yanming", paragraph: "Hello. My name is Yanming and I am currently in 7th grade in Suzanne Middle School. I am a front-end programmer in the team. I'm silently working the whole time. " },
   ];
 
   return (
@@ -94,7 +94,7 @@ export default function MemberPage() {
                     marginTop: "10px",
                     textAlign: "center",
                     color: "white",
-                    fontSize: "1.4rem",
+                    fontSize: "1.5rem",
                     width: "100%",
                     boxSizing: "border-box",
                   }}
