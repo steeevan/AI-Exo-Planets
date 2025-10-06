@@ -132,7 +132,7 @@ const ExoplanetScene = ({ fileContent }) => {
 
   const { maxDistance, maxPlanetSize, showGridLabels } = useControls(
     {
-      maxDistance: { value: 10000000, min: 0, max: 20000000, step: 1000 },
+      maxDistance: { value: 20000000, min: 0, max: 20000000, step: 1000 },
       maxPlanetSize: { value: 5, min: 0, max: 5, step: 0.1 },
       showGridLabels: { value: true, label: 'Show Grid Labels' }
     },
@@ -145,8 +145,9 @@ const ExoplanetScene = ({ fileContent }) => {
     const filtered = source.filter(planet => {
       let passesDistance = false;
       if (planet.distanceR !== undefined) {
-        const largestDistanceR = stats?.largestDistance?.distanceR ?? 10;
-        const xx = largestDistanceR / 10;
+        const largestDistanceR = stats?.largestDistance?.distanceR ?? 100000;
+        const xx = largestDistanceR > 100000 ? largestDistanceR / 10 : largestDistanceR * 10000;
+        // const xx = largestDistanceR / 10;
         const G = PLANE_SIZE / 2;
         const dFirstLog = Math.log(1 + (Math.abs(planet.distanceR) / xx));
         const dSecondlog = Math.log(1 + (largestDistanceR / xx))
@@ -164,7 +165,7 @@ const ExoplanetScene = ({ fileContent }) => {
     });
     setInvalidPlanetNames(invalid);
     setExoplanets(filtered);
-  }, [fileContent, maxDistance, maxPlanetSize]);
+  }, [fileContent, maxDistance, maxPlanetSize, stats]);
 
   useEffect(() => {
     const source = fileContent || EXOPLANETS_ONE;
@@ -188,9 +189,9 @@ const ExoplanetScene = ({ fileContent }) => {
         }
       }
 
-      console.log(">>> largestDistance:", largestDistance);
-      console.log(">>> largestRadius:", largestRadius);
-      console.log(">>> smallestRadius:", smallestRadius);
+      // console.log(">>> largestDistance:", largestDistance);
+      // console.log(">>> largestRadius:", largestRadius);
+      // console.log(">>> smallestRadius:", smallestRadius);
 
       setStats({
         largestDistance,
@@ -279,8 +280,9 @@ const ExoplanetScene = ({ fileContent }) => {
 
               {/* Exoplanets */}
               {exoplanets.map((planet, index) => {
-                const largestDistanceR = stats?.largestDistance?.distanceR ?? 10;
-                const xx = largestDistanceR / 10;
+                const largestDistanceR = stats?.largestDistance?.distanceR ?? 100000;
+                const xx = largestDistanceR > 100000 ? largestDistanceR / 10 : largestDistanceR * 10000;
+                // const xx = largestDistanceR / 10;
                 let x, y, z;
                 if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
                   x = planet.x; y = planet.y; z = planet.z;
