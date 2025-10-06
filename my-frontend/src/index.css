@@ -1,3 +1,4 @@
+
 @import "tailwindcss";
 
 :root {
@@ -26,8 +27,8 @@ a:hover {
 
 body {
   margin: 0;
-  place-items: center;
   min-width: 320px;
+  place-items: center;
   min-height: 100vh;
 }
 
@@ -67,3 +68,4 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+

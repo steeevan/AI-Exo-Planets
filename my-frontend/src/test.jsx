@@ -40,8 +40,8 @@ export default function Controlled3D() {
     { url: "src/assets/pixel_planet_proxima_centauri_b.glb", label: "Proxima Centauri B" },
     { url: "src/assets/pixel_planet_toi-849_b.glb", label: "Toi-849 B" },
     { url: "src/assets/pixel_planet_trappist-1-e.glb", label: "Trappist-1E" },
-    
-    
+
+
   ];
 
   const prevSlide = () => setIndex((index - 1 + slides.length) % slides.length);
