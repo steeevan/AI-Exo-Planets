@@ -206,8 +206,8 @@ const ExoplanetScene = ({ fileContent }) => {
   return (
     <>
       {/* Header */}
-      <header className="px-6 pt-4 text-center text-white">
-        <div className="gray-box">
+      <header className="px-6 pt-4 text-center text-white justify-center items-center">
+        <div className="py-1 px-4 rounded-[10px] text-white mt-2 mb-[0.7rem] leading-[1.6] shadow-[0_2px_10px_rgba(0,0,0,0.5)] text-center text-[1.2rem] w-4/5 mx-auto flex flex-col justify-center items-center backdrop-blur ">
           <h2>Exoplanets Orbiting the Sun</h2>
           <p>
             Filtered by max distance: <span className="font-medium">{maxDistance}</span> units,

@@ -181,24 +181,26 @@ export default function Home() {
       {/* MAIN CONTENT */}
       {/* ... (Main content and Section function remains the same) ... */}
       <main id="main" style={{ padding: "0.75rem", marginTop: `${HEADER_H + NAV_H - 50}px` }}>
-        <Section id="project overview" title="What We’re Doing">
-          <p className="gray-box">We are making an exoplanet renderer using 3D models and simulations.</p>
-        </Section>
+        <div className='bg-[#b8b7b752] rounded-3xl backdrop-blur-[20px]'>
+          <Section id="project overview" title="What We’re Doing">
+            <p className="gray-box">Exo-Existence is a web application that visualizes exoplanets in 3D simulations using real NASA data and employs AI to identify potential new exoplanets.</p>
+          </Section>
+          <Section id="project overview" title="Why It Matters">
+            <p className="gray-box">Our project makes exoplanet exploration interactive and educational, aiding scientists, students, and enthusiasts in discovering and understanding distant worlds.</p>
+          </Section>
+          <Section id="project overview" title="How It Works">
+            <p className="gray-box">Users can upload CSV or JSON files with exoplanet data to render 3D orbital simulations, explore detailed planet information, and use our AI model to classify potential exoplanets.</p>
+          </Section>
+        </div>
 
-        <Section id="project overview" title="Why It Matters">
-          <p className="gray-box">We are doing this because we want to help with finding exoplanets more easily.</p>
-        </Section>
-
-        <Section id="project overview" title="How It Works">
-          <p className="gray-box">You can look at the 3D model simulation, insert a json file, and then you will see the exoplanets on the simulation. You can also change the settings for it and move the camera around.</p>
-        </Section>
-
-        <Section id="simulation" title="Simulation (3D Demo)">
-          <p className="gray-box">Simple 3D scene with orbit controls and exoplanets.</p>
-          <div className="section-bg section-bg--cover">
-            <ExoplanetScene></ExoplanetScene>
-          </div>
-        </Section>
+        <div className='bg-[#b8b7b742] rounded-3xl backdrop-blur-[20px]'>
+          <Section id="simulation" title="Simulation (3D Demo)">
+            <p className="gray-box">Simple 3D scene with orbit controls and exoplanets.</p>
+            <div className="section-bg section-bg--cover w-[100%] justify-center items-center">
+              <ExoplanetScene></ExoplanetScene>
+            </div>
+          </Section>
+        </div>
 
         <Section id="team" title="Team & Credits">
           <p className="gray-box">Built by the Luminescence team.</p>
