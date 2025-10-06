@@ -61,7 +61,7 @@ export default function MemberPage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
               gap: "2rem",
               justifyContent: "center",
             }}
@@ -75,7 +75,7 @@ export default function MemberPage() {
                   alignItems: "center",
                   background: "linear-gradient(145deg, #1a2a3a 0%, #0c1525 100%)",
                   borderRadius: "20px",
-                  padding: "25px",
+                  padding: "20px",
                   boxSizing: "border-box",
                   boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
                   border: "1px solid #3c8c8c",
@@ -106,8 +106,8 @@ export default function MemberPage() {
                 <h3
                   style={{
                     color: "#64dcdc",
-                    marginBottom: "20px",
-                    fontSize: "1.8rem",
+                    marginBottom: "15px",
+                    fontSize: "1.5rem",
                     textAlign: "center",
                     fontWeight: "600",
                     textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
@@ -126,11 +126,12 @@ export default function MemberPage() {
                     alt={image.alt}
                     style={{
                       width: "100%",
-                      height: "220px",
-                      objectFit: "cover",
-                      borderRadius: "15px",
+                      height: "200px",
+                      objectFit: "contain",
+                      borderRadius: "10px",
                       border: "2px solid #447894",
-                      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.4)"
+                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+                      backgroundColor: "black",
                     }}
                   />
 
@@ -138,17 +139,17 @@ export default function MemberPage() {
                     style={{
                       background: "rgba(12, 21, 37, 0.9)",
                       border: "1px solid #72d4f3",
-                      padding: "20px",
-                      borderRadius: "12px",
-                      marginTop: "20px",
+                      padding: "15px",
+                      borderRadius: "8px",
+                      marginTop: "15px",
                       textAlign: "center",
                       color: "#ffffff",
-                      fontSize: "1.1rem",
-                      lineHeight: "1.6",
+                      fontSize: "0.95rem",
+                      lineHeight: "1.5",
                       width: "100%",
                       boxSizing: "border-box",
                       backdropFilter: "blur(10px)",
-                      boxShadow: "0 4px 20px rgba(114, 212, 243, 0.1)"
+                      boxShadow: "0 4px 12px rgba(114, 212, 243, 0.1)"
                     }}
                   >
                     {image.paragraph}
