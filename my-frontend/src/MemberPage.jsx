@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Alisa from '/assets/alisa.png'
-import Brista from '/assets/brista.png'
-import Yanming from '/assets/yanming.png'
-import Estevan from '/assets/estevan.png'
-import Lily from '/assets/lily.png'
+import Alisa from './assets/alisa.png'
+import Brista from './assets/brista.png'
+import Yanming from './assets/yanming.png'
+import Estevan from './assets/estevan.png'
+import Lily from './assets/lily.png'
 export default function MemberPage() {
    useEffect(() => {
     document.body.classList.add("member-blue");
