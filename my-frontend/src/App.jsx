@@ -35,6 +35,7 @@ export default function Home() {
       <a href="#main" className="skip-link">Skip to content</a>
 
       {/* HEADER */}
+      {/* ... (Header code remains the same) ... */}
       <header
         id="site-header"
         style={{
@@ -136,16 +137,30 @@ export default function Home() {
           >
             {[
               ["project overview", "Project Overview"],
+              // The "simulation" link will now go to the new page path
               ["simulation", "Simulation"],
             ].map(([id, label]) => (
               <li key={id}>
-                <a
-                  href={`#${id}`}
-                  className="toplink"
-                  onClick={(e) => { e.preventDefault(); scrollToSectionCenter(id); }}
-                >
-                  {label}
-                </a>
+                {/* **************************************************
+                  * CHANGE HERE                   *
+                  **************************************************
+                */}
+                {label === "Simulation" ? (
+                  <Link 
+                    to="/exoplanetsim" // <--- **CHANGE THIS PATH** to your desired page
+                    className="toplink"
+                  >
+                    {label}
+                  </Link>
+                ) : (
+                  <a
+                    href={`#${id}`}
+                    className="toplink"
+                    onClick={(e) => { e.preventDefault(); scrollToSectionCenter(id); }}
+                  >
+                    {label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -169,6 +184,7 @@ export default function Home() {
 
 
       {/* MAIN CONTENT */}
+      {/* ... (Main content and Section function remains the same) ... */}
       <main id="main" style={{ padding: "0.75rem", marginTop: `${HEADER_H + NAV_H - 50}px` }}>
         <Section id="project overview" title="What We’re Doing">
           <p className="gray-box">We are making an exoplanet renderer using 3D models and simulations.</p>
@@ -220,4 +236,3 @@ function Section({ id, title, children }) {
     </section>
   );
 }
-

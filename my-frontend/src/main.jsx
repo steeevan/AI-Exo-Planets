@@ -18,7 +18,7 @@ createRoot(document.getElementById("root")).render(
         {/* New blank page */}
         <Route path="/new" element={<NewPage />} />
 
-        <Route path="/exoplanetinfo" element={<ExoplanetPage />} />
+        <Route path="/exoplanetsim" element={<ExoplanetPage />} />
         <Route path="/mem" element={<MemberPage />} />
         <Route path="/test" element={<Controlled3D />} />
       </Routes>
