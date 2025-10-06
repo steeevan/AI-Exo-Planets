@@ -1,10 +1,7 @@
 // src/Home.jsx
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 import './App.css'
-import LightThing from './assets/luminescence-mark.svg'
 import ExoplanetScene from './ExoplanetScene'
-import Header from './HeaderComponent'
 import HeaderComponent from './HeaderComponent'
 import FooterComponent from './FooterComponent'
 export default function Home() {
