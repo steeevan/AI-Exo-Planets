@@ -207,12 +207,13 @@ const ExoplanetScene = ({ fileContent }) => {
     <>
       {/* Header */}
       <header className="px-6 pt-4 text-center text-white">
-        <h2 className="gray-box">Exoplanets Orbiting the Sun</h2>
-        <p className="gray-box">
-          Filtered by max distance: <span className="font-medium">{maxDistance}</span> units
-          and max size: <span className="font-medium">{maxPlanetSize || 5}</span>,
-          positioned using spherical coordinates on a 3D Cartesian grid.
-        </p>
+        <div className="gray-box">
+          <h2>Exoplanets Orbiting the Sun</h2>
+          <p>
+            Filtered by max distance: <span className="font-medium">{maxDistance}</span> units,
+            positioned using spherical coordinates on a 3D Cartesian grid.
+          </p>
+        </div>
       </header>
 
       {/* Invalid Planets */}

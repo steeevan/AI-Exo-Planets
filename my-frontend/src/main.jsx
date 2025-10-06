@@ -6,6 +6,7 @@ import App from './App';
 import NewPage from './NewPage.jsx';
 import MemberPage from './MemberPage.jsx';
 import ExoplanetPage from './ExoplanetPage.jsx';
+import Controlled3D from './test.jsx';
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -17,8 +18,9 @@ createRoot(document.getElementById("root")).render(
         {/* New blank page */}
         <Route path="/new" element={<NewPage />} />
 
-        <Route path="/exoplanetinfo" element={<ExoplanetPage />} />
+        <Route path="/exoplanetsim" element={<ExoplanetPage />} />
         <Route path="/mem" element={<MemberPage />} />
+        <Route path="/test" element={<Controlled3D />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
