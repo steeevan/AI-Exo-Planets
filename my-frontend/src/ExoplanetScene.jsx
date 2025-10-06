@@ -7,12 +7,15 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
 
 // Define a list of exoplanets with spherical coordinates
 const EXOPLANETS_ONE = [
-  { planetName: 'Exoplanet A', x: 20, y: 30, z: 10,          color: 'red',    planetRadiusSize: 0.5 },
-  { planetName: 'Exoplanet B', x: -10, y: 5, z: 6,          color: 'blue',   planetRadiusSize: 0.7 },
-  { planetName: 'Exoplanet C', x: -22, y: -10, z: -6,          color: 'green',  planetRadiusSize: 0.6 },
-  { planetName: 'Exoplanet D', x: 23, y: 23, z: 4,          color: 'purple', planetRadiusSize: 0.8 },
-  { planetName: 'Exoplanet E', x: -6, y: 15, z: -25,                       color: 'orange', planetRadiusSize: 0.9 },
+  { planetName: 'Exoplanet A', x: 20, y: 30, z: 10, color: 'red', planetRadiusSize: 0.5 },
+  { planetName: 'Exoplanet B', x: -10, y: 5, z: 6, color: 'blue', planetRadiusSize: 0.7 },
+  { planetName: 'Exoplanet C', x: -22, y: -10, z: -6, color: 'green', planetRadiusSize: 0.6 },
+  { planetName: 'Exoplanet D', x: 23, y: 23, z: 4, color: 'purple', planetRadiusSize: 0.8 },
+  { planetName: 'Exoplanet E', x: -6, y: 15, z: -25, color: 'orange', planetRadiusSize: 0.9 },
 ];
+
+const PLANE_SIZE = 3000;
+const TOTAL_DIVISION = 300;
 
 // 3D grid with three perpendicular planes
 const Cartesian3DGrid = ({
@@ -121,10 +124,16 @@ const ExoplanetScene = ({ fileContent }) => {
 
   const [exoplanets, setExoplanets] = useState(fileContent || EXOPLANETS_ONE);
   const [invalidPlanetNames, setInvalidPlanetNames] = useState([]);
+  const [stats, setStats] = useState({
+    largestDistance: null,
+    largestRadius: null,
+    smallestRadius: null
+  });
 
-  const { maxDistance, showGridLabels } = useControls(
+  const { maxDistance, maxPlanetSize, showGridLabels } = useControls(
     {
-      maxDistance: { value: 10000000, min: 0, max: 20000000, step: 1000 },
+      maxDistance: { value: 20000000, min: 0, max: 20000000, step: 1000 },
+      maxPlanetSize: { value: 5, min: 0, max: 5, step: 0.1 },
       showGridLabels: { value: true, label: 'Show Grid Labels' }
     },
     { store } // <-- bind controls to this inline panel
@@ -134,24 +143,65 @@ const ExoplanetScene = ({ fileContent }) => {
     const source = fileContent || EXOPLANETS_ONE;
     const invalid = [];
     const filtered = source.filter(planet => {
+      let passesDistance = false;
       if (planet.distanceR !== undefined) {
-        const largestDistanceR = 516023463.75;
-        const xx = 3000000000 / 100;
-        const G = 1500;
+        const largestDistanceR = stats?.largestDistance?.distanceR ?? 100000;
+        const xx = largestDistanceR > 100000 ? largestDistanceR / 10 : largestDistanceR * 10000;
+        // const xx = largestDistanceR / 10;
+        const G = PLANE_SIZE / 2;
         const dFirstLog = Math.log(1 + (Math.abs(planet.distanceR) / xx));
         const dSecondlog = Math.log(1 + (largestDistanceR / xx))
         const planetNewDistance = G * (Math.sign(planet.distanceR) * (dFirstLog / dSecondlog));
-        return planetNewDistance <= maxDistance;
+        passesDistance = planetNewDistance <= maxDistance;
       } else if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
         const r = Math.sqrt(planet.x * planet.x + planet.y * planet.y + planet.z * planet.z);
-        return r <= maxDistance;
+        passesDistance = r <= maxDistance;
+      } else {
+        invalid.push(planet.planetName || 'Unnamed Planet');
+        return false;
       }
-      invalid.push(planet.planetName || 'Unnamed Planet');
-      return false;
+      const passesSize = planet.planetRadiusSize <= maxPlanetSize;
+      return passesDistance && passesSize;
     });
     setInvalidPlanetNames(invalid);
     setExoplanets(filtered);
-  }, [fileContent, maxDistance]);
+  }, [fileContent, maxDistance, maxPlanetSize, stats]);
+
+  useEffect(() => {
+    const source = fileContent || EXOPLANETS_ONE;
+
+    const calculateStats = () => {
+      if (source.length === 0) return;
+
+      let largestDistance = source[0];
+      let largestRadius = source[0];
+      let smallestRadius = source[0];
+
+      for (let planet of source) {
+        if (planet.distanceR > largestDistance.distanceR) {
+          largestDistance = planet;
+        }
+        if (planet.planetRadiusSize > largestRadius.planetRadiusSize) {
+          largestRadius = planet;
+        }
+        if (planet.planetRadiusSize < smallestRadius.planetRadiusSize) {
+          smallestRadius = planet;
+        }
+      }
+
+      // console.log(">>> largestDistance:", largestDistance);
+      // console.log(">>> largestRadius:", largestRadius);
+      // console.log(">>> smallestRadius:", smallestRadius);
+
+      setStats({
+        largestDistance,
+        largestRadius,
+        smallestRadius
+      });
+    };
+
+    calculateStats();
+  }, [fileContent]);
 
   return (
     <>
@@ -159,7 +209,8 @@ const ExoplanetScene = ({ fileContent }) => {
       <header className="px-6 pt-4 text-center text-white">
         <h2 className="gray-box">Exoplanets Orbiting the Sun</h2>
         <p className="gray-box">
-          Filtered by max distance: <span className="font-medium">{maxDistance}</span> units,
+          Filtered by max distance: <span className="font-medium">{maxDistance}</span> units
+          and max size: <span className="font-medium">{maxPlanetSize || 5}</span>,
           positioned using spherical coordinates on a 3D Cartesian grid.
         </p>
       </header>
@@ -229,8 +280,9 @@ const ExoplanetScene = ({ fileContent }) => {
 
               {/* Exoplanets */}
               {exoplanets.map((planet, index) => {
-                const largestDistanceR = 516023463.75;
-                const xx = 3000000000 / 100;
+                const largestDistanceR = stats?.largestDistance?.distanceR ?? 100000;
+                const xx = largestDistanceR > 100000 ? largestDistanceR / 10 : largestDistanceR * 10000;
+                // const xx = largestDistanceR / 10;
                 let x, y, z;
                 if (planet.x !== undefined && planet.y !== undefined && planet.z !== undefined) {
                   x = planet.x; y = planet.y; z = planet.z;
@@ -238,7 +290,7 @@ const ExoplanetScene = ({ fileContent }) => {
                   const theta = (planet.theta ?? 0) * (Math.PI / 180);
                   const phi = planet.phi * (Math.PI / 180);
 
-                  const G = 1500;
+                  const G = PLANE_SIZE / 2;
                   const dFirstLog = Math.log(1 + (Math.abs(planet.distanceR) / xx));
                   const dSecondlog = Math.log(1 + (largestDistanceR / xx))
                   const planetNewDistance = G * (Math.sign(planet.distanceR) * dFirstLog / dSecondlog);
@@ -247,8 +299,8 @@ const ExoplanetScene = ({ fileContent }) => {
                   z = planetNewDistance * Math.sin(theta) * Math.sin(phi);
                 }
 
-                const planetLargestRadius = 77.342;
-                const rMin = 0.1;
+                const planetLargestRadius = stats?.largestRadius?.planetRadiusSize ?? 77.3421;
+                const rMin = stats?.smallestRadius?.planetRadiusSize ?? 0.1;
                 const rMax = 5;
                 const rFirstLog = Math.log(1 + (planet.planetRadiusSize / xx));
                 const rSecondLog = Math.log(1 + (planetLargestRadius / xx));
@@ -274,7 +326,7 @@ const ExoplanetScene = ({ fileContent }) => {
               })}
 
               {/* Grid */}
-              <Cartesian3DGrid size={3000} divisions={300} planeCount={3} showLabels={showGridLabels} />
+              <Cartesian3DGrid size={PLANE_SIZE} divisions={TOTAL_DIVISION} planeCount={3} showLabels={showGridLabels} />
             </group>
 
             <EffectComposer>
