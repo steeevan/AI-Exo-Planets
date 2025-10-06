@@ -63,9 +63,9 @@ function ExoplanetPage() {
     }
   };
 
-  useEffect(() => {
-    console.log(">>> fileContent:", fileContent);
-  }, [fileContent]);
+  // useEffect(() => {
+  //   console.log(">>> fileContent:", fileContent);
+  // }, [fileContent]);
 
   return (
     <div className="flex flex-col gap-10">
