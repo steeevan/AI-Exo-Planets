@@ -16,11 +16,13 @@
     "@react-three/postprocessing": "^3.0.4",
     "@tailwindcss/vite": "^4.1.14",
     "@types/three": "^0.180.0",
+    "bootstrap": "^5.3.8",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "leva": "^0.10.0",
     "postprocessing": "^6.37.8",
     "react": "^19.1.1",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.3",
     "three": "^0.180.0"

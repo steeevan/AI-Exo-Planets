@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './App.css'
-import LightThing from './assets/luminescence-mark.svg'
-import ExoplanetScene from './ExoplanetScene'
+//import LightThing from '/src/assets/luminescence-mark.svg'
+//import ExoplanetScene from './ExoplanetScene'
 export default function Home() {
   // Apply background only on Home
   useEffect(() => {
