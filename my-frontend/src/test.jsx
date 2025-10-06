@@ -6,6 +6,16 @@ import { Link } from 'react-router-dom'
 import LightThing from './assets/luminescence-mark.svg'
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
+import samplePlanet1 from "./assets/pixel_planet_hd-17156-b.glb";
+import samplePlanet2 from "./assets/pixel_planet_55_cancri_e.glb";
+import samplePlanet3 from "./assets/pixel_planet_kepler-22-b.glb";
+import samplePlanet4 from "./assets/pixel_planet_hd-40307-g.glb";
+import samplePlanet5 from "./assets/pixel_planet_kepler-16_b.glb";
+import samplePlanet6 from "./assets/pixel_planet_kepler-37-b.glb";
+import samplePlanet7 from "./assets/pixel_planet_kepler-186-f.glb";
+import samplePlanet8 from "./assets/pixel_planet_proxima_centauri_b.glb";
+import samplePlanet9 from "./assets/pixel_planet_toi-849_b.glb";
+import samplePlanet10 from "./assets/pixel_planet_trappist-1-e.glb";
 
 const HEADER_H = 96
 const NAV_H = 50
@@ -34,16 +44,16 @@ export default function Controlled3D() {
   const [index, setIndex] = useState(0);
 
   const slides = [
-    { url: "src/assets/pixel_planet_hd-17156-b.glb", label: "HD-17156b" },
-    { url: "src/assets/pixel_planet_55_cancri_e.glb", label: "55 Cancri E" },
-    { url: "src/assets/pixel_planet_kepler-22-b.glb", label: "Kepler-22b" },
-    { url: "src/assets/pixel_planet_hd-40307-g.glb", label: "HD-40307G" },
-    { url: "src/assets/pixel_planet_kepler-16_b.glb", label: "Kepler-16B" },
-    { url: "src/assets/pixel_planet_kepler-37-b.glb", label: "Kepler-37B" },
-    { url: "src/assets/pixel_planet_kepler-186-f.glb", label: "Kepler-186F" },
-    { url: "src/assets/pixel_planet_proxima_centauri_b.glb", label: "Proxima Centauri B" },
-    { url: "src/assets/pixel_planet_toi-849_b.glb", label: "TOI-849 B" },
-    { url: "src/assets/pixel_planet_trappist-1-e.glb", label: "Trappist-1E" },
+    { url: samplePlanet1, label: "HD-17156b" },
+    { url: samplePlanet2, label: "55 Cancri E" },
+    { url: samplePlanet3, label: "Kepler-22b" },
+    { url: samplePlanet4, label: "HD-40307G" },
+    { url: samplePlanet5, label: "Kepler-16B" },
+    { url: samplePlanet6, label: "Kepler-37B" },
+    { url: samplePlanet7, label: "Kepler-186F" },
+    { url: samplePlanet8, label: "Proxima Centauri B" },
+    { url: samplePlanet9, label: "TOI-849 B" },
+    { url: samplePlanet10, label: "Trappist-1E" },
   ];
 
   const prevSlide = () => setIndex((index - 1 + slides.length) % slides.length);
