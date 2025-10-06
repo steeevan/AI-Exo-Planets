@@ -1,30 +1,28 @@
-import EmblaCarousel from "./EmblaCarousel";
 
 
-function RenderExoplanets() {
+// RenderExoplanets.jsx
+import React from "react";
+import EmblaCarouselCopy from "./EmblaCarouselCopy.jsx";
 
-  const OPTIONS = { dragFree: true, loop: true }
-  const SLIDE_COUNT = 5
-  const SLIDES = Array.from(Array(SLIDE_COUNT).keys())
 
-  const IMAGES123 = [
-    "https://flowbite.com/docs/images/carousel/carousel-1.svg",
-    "https://flowbite.com/docs/images/carousel/carousel-2.svg",
-    "https://flowbite.com/docs/images/carousel/carousel-3.svg",
-    "https://flowbite.com/docs/images/carousel/carousel-4.svg",
-    "https://flowbite.com/docs/images/carousel/carousel-5.svg",
+const RenderExoplanets = () => {
+  const slides = [
+    "/assets/55_Cancri_e_1_24364.glb",
+    "/assets/pixel_planet_kepler_22-b.glb",
+    "/assets/Proxima_b_1_13776.glb",
+    "/assets/WASP-12b_1_249888.glb",
   ];
 
-  // useEffect(() => {
-  //   console.log(">>> IMAGES:", IMAGES);
-  // }, []);
+  const OPTIONS = { dragFree: true, loop: true };
 
-  return (<div>
-      <EmblaCarousel slides={IMAGES123} options={OPTIONS} />
-      <p> </p>
-      
+  return (
+    <div>
+      <h2 style={{ textAlign: "center", color: "white", marginBottom: "1rem" }}>
+        Exoplanet 3D Carousel
+      </h2>
+      <EmblaCarouselCopy slides={slides} options={OPTIONS} />
     </div>
-  )
+  );
 };
 
 export default RenderExoplanets;
