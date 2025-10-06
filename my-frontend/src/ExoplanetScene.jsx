@@ -266,7 +266,7 @@ const ExoplanetScene = ({ fileContent }) => {
 
           <Canvas
             camera={{ position: [30, 30, 30], fov: 50 }}
-            style={{ height: '80vh', backgroundColor: '#000000' }}
+            style={{ width: "80vw", height: '80vh', backgroundColor: '#000000' }}
           >
             <hemisphereLight color="white" groundColor="#222222" intensity={0.5} />
             <ambientLight intensity={0.3} />

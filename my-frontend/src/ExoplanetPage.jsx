@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ExoplanetScene from "./ExoplanetScene";
 // Import necessary assets from the second page, assuming LightThing is accessible
 // You may need to adjust this path based on your project structure
-import LightThing from './assets/luminescence-mark.svg'; 
+import LightThing from './assets/luminescence-mark.svg';
 
 const readJsonFile = (file) => {
   return new Promise((resolve, reject) => {
@@ -38,7 +38,7 @@ function ExoplanetPage() {
     document.body.classList.add("member-blue");
     return () => document.body.classList.remove("member-blue");
   }, []);
-  
+
   // Removed OPTIONS, SLIDE_COUNT, SLIDES, IMAGES (from deleted carousel)
 
   const [fileContent, setFileContent] = useState("");
@@ -176,12 +176,6 @@ function ExoplanetPage() {
             </li>
           </ul>
 
-          <div style={{ flex: "0 0 auto" }}>
-            <span className="member-page" style={{ opacity: 0.6, cursor: 'default' }}>
-              Exoplanet Info
-            </span>
-          </div>
-
           {/* RIGHT: member page link */}
           <div style={{ flex: "0 0 auto" }}>
             <Link to="/mem" className="member-page">Team Member Page</Link>
@@ -190,14 +184,14 @@ function ExoplanetPage() {
       </nav>
       {/* END HEADER/NAV */}
 
-      <div 
-        className="flex flex-col gap-10"
+      <div
+        className="flex flex-col gap-10 items-center"
         // PADDING FIX: Add top padding to push content below the fixed header/nav
-        style={{ paddingTop: `${FIXED_OFFSET}px` }} 
+        style={{ paddingTop: `${FIXED_OFFSET}px` }}
       >
         <h2 className="text-2xl font-bold mt-4">Exoplanet Simulation Page</h2>
-        
-        <p>
+
+        <p className="px-16">
           This is our simulation page, and its goal is to show how far away the exoplanets would be. In order to get this information, we would pull the exoplanet name, declination, RA, radius of the planet, and distance in parsecs. We would then multiply the distance in parsecs by 206265 to convert them into astronomical units(au).
         </p>
 
