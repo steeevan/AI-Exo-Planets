@@ -5,9 +5,10 @@ import Brista from './assets/brista.png'
 import Yanming from './assets/yanming.png'
 import Estevan from './assets/estevan.png'
 import Lily from './assets/lily.png'
-import LightThing from './assets/luminescence-mark.svg'  // added import
+import HeaderComponent from "./HeaderComponent";
+import FooterComponent from "./FooterComponent";
 
-const HEADER_H = 96;  // define header height constant
+const HEADER_H = 96;
 
 export default function MemberPage() {
   useEffect(() => {
@@ -25,119 +26,44 @@ export default function MemberPage() {
 
   return (
     <>
-      <div>
-        {/* Fixed header */}
-        <header
-          id="site-header"
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: `${HEADER_H}px`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "8px 16px 0",
-            zIndex: 10,
-            color: "white",
-            background: "linear-gradient(90deg, #0b1020 0%, #101a3a 50%, #0b1020 100%)",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.25)",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              left: 16,
-              top: "50%",
-              transform: "translateY(-50%)",
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-            }}
-          >
-            <img
-              src={LightThing}
-              alt="Luminescence logo"
-              style={{
-                height: 100,
-                width: "auto",
-                display: "block",
-              }}
-            />
-            <span style={{ fontWeight: 700, fontSize: "1.5rem", lineHeight: 1 }}>
-              Exo-Existence
-            </span>
-          </div>
+      <div style={{ backgroundColor: "#0c1525", minHeight: "100vh" }}>
+        <HeaderComponent />
 
-          <h1
-            style={{
-              fontSize: "1.6rem",
-              margin: 0,
-              letterSpacing: "0.3px",
-              fontWeight: 800,
-              textAlign: "center",
-              lineHeight: 1.15,
-            }}
-          >
-            Mapping the Unknown Universe — One Exoplanet at a Time
+        {/* Page header with gradient */}
+        <div style={{
+          paddingTop: `${HEADER_H + 80}px`,
+          textAlign: "center",
+          background: "linear-gradient(135deg, #0c1525 0%, #447894 100%)",
+          paddingBottom: "60px",
+          marginBottom: "40px"
+        }}>
+          <h1 style={{
+            color: "#64dcdc",
+            fontSize: "3rem",
+            fontWeight: "700",
+            margin: 0,
+            textShadow: "0 2px 10px rgba(114, 212, 243, 0.3)",
+            letterSpacing: "1px"
+          }}>
+            Team Members
           </h1>
-        </header>
-
-        <nav
-          id="site-nav"
-          style={{
-            position: "fixed",
-            top: HEADER_H,
-            left: 0,
-            width: "100%",
-            background: "#0b1020",
-            color: "white",
-            borderTop: "1px solid rgba(255,255,255,0.08)",
-            borderBottom: "1px solid rgba(255,255,255,0.08)",
-            zIndex: 9,
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              height: "44px",
-              padding: "0 0.75rem",
-              gap: "0.75rem",
-            }}
-          >
-
-            <div style={{ flex: "0 0 auto" }}>
-              <Link to="/" className="member-page">Home</Link>
-            </div>
-
-            <div className="flex flex-row gap-3">
-              <div style={{ flex: "0 0 auto" }}>
-                <Link to="/test" className="member-page">3D Exoplanets Carousel</Link>
-              </div>
-              <div style={{ flex: "0 0 auto" }}>
-                <Link to="/mem" className="member-page">Team Member Page</Link>
-              </div>
-            </div>
-
-          </div>
-        </nav>
-
-        {/* Page header or title */}
-        <div style={{ paddingTop: `${HEADER_H + 60}px`, textAlign: "center" }}>
-          <h1>Team Members</h1>
+          <p style={{
+            color: "#72d4f3",
+            fontSize: "1.2rem",
+            marginTop: "1rem",
+            opacity: 0.9
+          }}>
+            Meet the talented individuals behind our project
+          </p>
         </div>
 
-        <main style={{ padding: "1rem", marginTop: "3rem" }}>
+        <main style={{ padding: "2rem", maxWidth: "1400px", margin: "0 auto" }}>
           <div
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "1rem",
-              justifyContent: "space-evenly",
-              fontWeight: 500,
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "2rem",
+              justifyContent: "center",
             }}
           >
             {images.map((image) => (
@@ -147,47 +73,83 @@ export default function MemberPage() {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  backgroundColor: "#222",
-                  borderRadius: "10px",
-                  padding: "10px",
-                  width: "400px",
+                  background: "linear-gradient(145deg, #1a2a3a 0%, #0c1525 100%)",
+                  borderRadius: "20px",
+                  padding: "20px",
                   boxSizing: "border-box",
+                  boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
+                  border: "1px solid #3c8c8c",
+                  transition: "all 0.3s ease",
+                  position: "relative",
+                  overflow: "hidden"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-8px)";
+                  e.currentTarget.style.boxShadow = "0 15px 40px rgba(114, 212, 243, 0.2)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "0 8px 32px rgba(0, 0, 0, 0.3)";
                 }}
               >
+                {/* Decorative accent */}
+                <div style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: "4px",
+                  background: "linear-gradient(90deg, #72d4f3, #64dcdc, #3c8c8c)",
+                  borderRadius: "20px 20px 0 0"
+                }} />
+
                 <h3
                   style={{
-                    color: "white",
-                    marginBottom: "10px",
+                    color: "#64dcdc",
+                    marginBottom: "15px",
                     fontSize: "1.5rem",
                     textAlign: "center",
+                    fontWeight: "600",
+                    textShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+                    zIndex: 1
                   }}
                 >
                   {image.header}
                 </h3>
 
-                <div style={{ width: "100%" }}>
+                <div style={{
+                  width: "100%",
+                  position: "relative"
+                }}>
                   <img
                     src={image.src}
                     alt={image.alt}
                     style={{
                       width: "100%",
-                      height: "475px",
-                      objectFit: "cover",
+                      height: "200px",
+                      objectFit: "contain",
                       borderRadius: "10px",
+                      border: "2px solid #447894",
+                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+                      backgroundColor: "black",
                     }}
                   />
 
                   <div
                     style={{
-                      border: "2px solid white",
-                      padding: "10px",
-                      borderRadius: "5px",
-                      marginTop: "10px",
+                      background: "rgba(12, 21, 37, 0.9)",
+                      border: "1px solid #72d4f3",
+                      padding: "15px",
+                      borderRadius: "8px",
+                      marginTop: "15px",
                       textAlign: "center",
-                      color: "white",
-                      fontSize: "1.5rem",
+                      color: "#ffffff",
+                      fontSize: "0.95rem",
+                      lineHeight: "1.5",
                       width: "100%",
                       boxSizing: "border-box",
+                      backdropFilter: "blur(10px)",
+                      boxShadow: "0 4px 12px rgba(114, 212, 243, 0.1)"
                     }}
                   >
                     {image.paragraph}
@@ -197,12 +159,44 @@ export default function MemberPage() {
             ))}
           </div>
 
-          <div style={{ textAlign: "center", marginTop: "20px" }}>
-            <Link to="/" className="link">
-              Go Back
+          <div style={{
+            textAlign: "center",
+            marginTop: "60px",
+            marginBottom: "40px"
+          }}>
+            <Link
+              to="/"
+              style={{
+                display: "inline-block",
+                padding: "12px 30px",
+                backgroundColor: "transparent",
+                color: "#72d4f3",
+                textDecoration: "none",
+                borderRadius: "25px",
+                border: "2px solid #72d4f3",
+                fontSize: "1.1rem",
+                fontWeight: "600",
+                transition: "all 0.3s ease",
+                position: "relative",
+                overflow: "hidden"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "#72d4f3";
+                e.currentTarget.style.color = "#0c1525";
+                e.currentTarget.style.transform = "scale(1.05)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+                e.currentTarget.style.color = "#72d4f3";
+                e.currentTarget.style.transform = "scale(1)";
+              }}
+            >
+              ← Go Back to Home
             </Link>
           </div>
         </main>
+
+        <FooterComponent />
       </div>
     </>
   );
