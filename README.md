@@ -1,12 +1,68 @@
-# AI-Exo-Planets
 
-<img width="293" height="263" alt="Capture" src="https://github.com/user-attachments/assets/cbf2efa8-3b44-4824-9377-860d8a01b7c2" />
+## 🌌 **Exo-Existence – Summary**
 
+**Overview:**
 
-<img width="1044" height="673" alt="Screenshot_2025-10-05_at_10 15 44_PM" src="https://github.com/user-attachments/assets/ea37a3f7-b158-4016-a8f5-1f6376b6c573" />
+Exo-Existence is a web app that lets users explore **3D visualizations of real exoplanets** using data from  **NASA’s Kepler and TESS missions** . It combines **science, artificial intelligence, and interactivity** to make learning about space more exciting. Users can view planets orbiting their stars, see details about each world, and use AI to analyze real NASA data for possible new exoplanets.
 
-<img width="1044" height="673" alt="Screenshot_2025-10-05_at_10 07 15_PM" src="https://github.com/user-attachments/assets/f8dc7d1b-b7be-4c36-bc7b-00b5db883cee" />
-<img width="718" height="832" alt="Screenshot_2025-10-05_at_23 47 04" src="https://github.com/user-attachments/assets/fd7afb5d-551d-42b7-a7b9-af023df63dfe" />
-<img width="1213" height="791" alt="Screenshot_2025-10-05_at_23 56 29" src="https://github.com/user-attachments/assets/4ab759bc-ea0f-4781-86e3-b38eec4b7f9a" />
-<img width="1210" height="792" alt="Screenshot_2025-10-05_at_23 56 44" src="https://github.com/user-attachments/assets/d70f515a-f087-4c59-8cf2-14a1b8ff109f" />
-<img width="1207" height="794" alt="Screenshot_2025-10-05_at_23 57 34" src="https://github.com/user-attachments/assets/f4d0c0b7-6600-4611-b7d5-0dc64eb8e1cc" />
+---
+
+## **Problem & Goal**
+
+NASA’s telescopes gather  **huge amounts of star data** , but it’s hard for scientists to manually identify which signals are real planets and which are false.
+
+Our goal was to:
+
+* Use **machine learning** to classify signals as  *confirmed, candidate, or false positive* .
+* Build a **web app** where users can visualize and interact with this data.
+
+---
+
+## **Why It Works**
+
+The project merges  **real astrophysics and AI** :
+
+* **Kepler’s Laws** and **orbital mechanics** determine motion and placement.
+* **Parallax theorem** helps measure distance.
+* **K-Nearest Neighbors (KNN)** model predicts if data represents a real planet.
+* **Logarithmic scaling** keeps vast distances realistic inside the 3D viewer.
+
+Result: users can **see** planets moving around their stars while the **AI analyzes** NASA data to help find new ones.
+
+---
+
+## **Users & Use Cases**
+
+* **Students & Teachers:** visualize orbital motion and real data in class.
+* **Scientists & Researchers:** upload CSV files for AI-based classification.
+* **Space Enthusiasts:** explore 3D models, compare planet sizes, and learn.
+
+---
+
+## **Datasets Used**
+
+* **Kepler:** star brightness dips (transits).
+* **TESS:** full-sky light curves.
+* **NASA Exoplanet Archive:** confirmed, candidate, and false-positive planets (for training the model).
+
+These datasets provided real measurements like orbital period, radius, and distance.
+
+---
+
+## **Solution Overview**
+
+**Frontend:** React, JSX, CSS, Vite, THREE.js – renders 3D exoplanet systems and image carousels.
+
+**Backend:** Python with NumPy, Pandas, Astropy, Lightkurve, Astroquery, Scikit-Learn, and Matplotlib – cleans, processes, and analyzes NASA data.
+
+**Workflow:** Followed SDLC for structure and quality.
+
+Users can upload `.csv` or `.json` files or use our default dataset to explore accurate 3D renderings of planets.
+
+---
+
+### In short:
+
+**Exo-Existence = Science + AI + Visualization.**
+
+It brings NASA’s data to life, helps identify new worlds, and turns exoplanet exploration into an **interactive learning experience** for everyone.
