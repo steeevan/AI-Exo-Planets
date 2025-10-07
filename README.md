@@ -1,253 +1,164 @@
-# AI-Exo-Planets
-# 🌌 Exo-Existence
+# 🌌 Exoplanet Detection and Visualization Using AI
 
-**Exo-Existence** is an interactive web application that helps users **learn about exoplanets** through real NASA data, **3D visualizations**, and **machine learning**.  
-Our project combines data from **NASA’s Kepler**, **TESS**, and the **NASA Exoplanet Archive** to simulate planetary systems, explore detailed information about exoplanets, and even help identify new ones.
+##  Project Overview
 
----
+The main problem we wanted to solve was how to use **Artificial Intelligence (AI)** and **Machine Learning (ML)** to help identify new **exoplanets** using real data from NASA’s missions.
 
-## 🚀 Project Overview
+NASA’s **Kepler**, **K2**, and **TESS** telescopes have observed thousands of stars, each potentially hosting one or more planets. However, analyzing all of this data manually takes an enormous amount of time. It’s also difficult to distinguish real planetary signals from false alarms.
 
-Exo-Existence allows users to:
-- Explore **3D simulations** of real exoplanets using **Three.js** and **React**.  
-- Upload `.csv` or `.json` files in the correct format to **render exoplanets** in 3D.  
-- View close-up visuals, facts, and characteristics of each planet.  
-- Use our **machine learning model** to analyze raw data and identify possible new exoplanets.  
-- Learn how variables like **orbital period**, **transit duration**, and **planetary radius** affect exoplanet classification.
+Our challenge was to design a **machine learning model** capable of analyzing NASA’s open-source datasets and predicting whether a detected signal represents:
 
----
+* A **confirmed exoplanet**
+* A **planetary candidate**, or
+* A **false positive**
 
-## 🧠 Problem Statement
-
-Finding new exoplanets in the vast amount of telescope data is difficult and time-consuming. Scientists must look through huge datasets to separate **real planets** from **false signals**.  
-Our challenge was to create a **machine learning model** trained on NASA’s open-source data to identify new exoplanets and a **web interface** that lets users interact with the data in an educational way.
+To complement this, we built an **interactive web application** that allows users to explore exoplanet data, visualize planetary systems in 3D, and understand how our model makes predictions.
 
 ---
 
-## 💡 Why Our Solution Works
+##  Objectives
 
-Our solution combines **data science**, **physics**, and **interactive design**:
-- We use **Kepler’s Laws of Planetary Motion** and **the Parallax Theorem** to calculate positions and distances.  
-- A **K-Nearest Neighbors (KNN)** machine learning algorithm helps classify exoplanet data.  
-- We scale orbital data with **logarithmic formulas** to create realistic 3D visualizations.  
-- The web app renders each exoplanet on a **3D Cartesian plane**, allowing real-time exploration.  
-- Users can either upload their own formatted `.csv` or `.json` files, or use our **default NASA dataset**.
+1. Develop a machine learning algorithm to classify potential exoplanet signals.
+2. Process and visualize data from NASA’s open datasets.
+3. Build an educational 3D simulation for users to interact with exoplanetary data.
+4. Combine scientific reasoning and computational modeling to make the experience both **accurate and engaging**.
 
 ---
 
-## 🧾 Datasets Used
+##  Scientific & Mathematical Foundations
 
-We used real open-source data from:
-1. **NASA Kepler Mission** – measured tiny dips in star brightness to find exoplanets.
-2. **NASA TESS Mission** – observed nearly the whole sky for planets around bright nearby stars.
-3. **NASA Exoplanet Archive** – provided labeled data on confirmed exoplanets, candidates, and false positives.
+Our project combines **astrophysical formulas**, **mathematical models**, and **machine learning algorithms** to create realistic simulations and accurate predictions.
 
-From these datasets we used values like:
-- Orbital period  
-- Transit depth and duration  
-- Planetary radius  
-- Right ascension and declination  
-- Distance from Earth  
+### Core Theories and Formulas:
 
-All datasets are available under NASA’s Open Data policy.
+* **Kepler’s Laws of Planetary Motion**
+  Describe how planets move in elliptical orbits with predictable relationships between orbital period and distance from their stars.
 
----
+* **Parallax Theorem**
+  Used to estimate the distance of stars and planets from Earth using angular displacement.
 
-## 🧩 Solution Overview
+* **Orbital Mechanics Equations**
+  Provide the basis for simulating planetary motion and determining orbital paths.
 
-We built **Exo-Existence** using both **frontend** and **backend** technologies.
+* **Logarithmic Scaling**
+  Helps compress astronomical distances (measured in AU) to a manageable scale for 3D visualization without losing proportional relationships.
 
-**Frontend:**  
-- `JSX`, `CSS`, `Vite`, `React`, `Three.js`  
-- Displays exoplanets in a 3D simulation  
-- Includes image and render carousels made with **Embla Carousel**
+### Machine Learning Algorithms:
 
-**Backend / AI Components:**  
-- `Python`, `NumPy`, `Pandas`, `Astropy`, `Lightkurve`, `Astroquery`, `Scikit-learn`, `Matplotlib`  
-- Cleans, filters, and analyzes `.csv` data from NASA  
-- Trains machine learning models to classify exoplanet data  
+* **K-Nearest Neighbors (KNN)**
+  Used to classify data points (e.g., potential exoplanet signals) based on the closest known examples in the dataset.
 
-We followed the **Software Development Life Cycle (SDLC)** to ensure a clean, well-structured, and high-quality project.
+By combining these mathematical tools and algorithms, our model can make predictions while the visualization system brings the data to life.
 
 ---
 
-## 💻 How It Works
+##  Implementation
 
-1. Users upload a `.csv` file containing data like:
-   ```json
-   { "name": "Exoplanet A", "r": 5, "theta": 0, "phi": 90, "color": "red", "size": 0.5 }
-   Absolutely! Here’s a **clean, detailed README.md** (GitHub-ready) for your project **Exo-Existence**.
-It’s formatted in Markdown, professional yet clear enough for a middle-school-to-high-school audience, and includes badges, descriptions, setup instructions, and project sections.
+### 1. Machine Learning Model
 
----
+We trained our model using features such as:
 
-````markdown
-# 🌌 Exo-Existence
+* **Orbital Period**
+* **Transit Duration**
+* **Planetary Radius**
+* **Stellar Magnitude**
+* **Signal-to-Noise Ratio**
 
-**Exo-Existence** is an interactive web application that helps users **learn about exoplanets** through real NASA data, **3D visualizations**, and **machine learning**.  
-Our project combines data from **NASA’s Kepler**, **TESS**, and the **NASA Exoplanet Archive** to simulate planetary systems, explore detailed information about exoplanets, and even help identify new ones.
+These values were processed, normalized, and input into our ML pipeline to determine the likelihood of an exoplanet being real or a false detection.
 
----
+### 2. Web Application
 
-## 🚀 Project Overview
+Our web app allows users to:
 
-Exo-Existence allows users to:
-- Explore **3D simulations** of real exoplanets using **Three.js** and **React**.  
-- Upload `.csv` or `.json` files in the correct format to **render exoplanets** in 3D.  
-- View close-up visuals, facts, and characteristics of each planet.  
-- Use our **machine learning model** to analyze raw data and identify possible new exoplanets.  
-- Learn how variables like **orbital period**, **transit duration**, and **planetary radius** affect exoplanet classification.
+* Upload or select preloaded **NASA datasets** (Kepler, K2, TESS).
+* View **3D renderings** of exoplanets using `Three.js`.
+* Observe exoplanet orbits in real time with adjustable scaling.
+* See machine learning predictions for planetary classification.
 
----
+Sample formatted data used in our visualization:
 
-## 🧠 Problem Statement
-
-Finding new exoplanets in the vast amount of telescope data is difficult and time-consuming. Scientists must look through huge datasets to separate **real planets** from **false signals**.  
-Our challenge was to create a **machine learning model** trained on NASA’s open-source data to identify new exoplanets and a **web interface** that lets users interact with the data in an educational way.
-
----
-
-## 💡 Why Our Solution Works
-
-Our solution combines **data science**, **physics**, and **interactive design**:
-- We use **Kepler’s Laws of Planetary Motion** and **the Parallax Theorem** to calculate positions and distances.  
-- A **K-Nearest Neighbors (KNN)** machine learning algorithm helps classify exoplanet data.  
-- We scale orbital data with **logarithmic formulas** to create realistic 3D visualizations.  
-- The web app renders each exoplanet on a **3D Cartesian plane**, allowing real-time exploration.  
-- Users can either upload their own formatted `.csv` or `.json` files, or use our **default NASA dataset**.
-
----
-
-## 🧾 Datasets Used
-
-We used real open-source data from:
-1. **NASA Kepler Mission** – measured tiny dips in star brightness to find exoplanets.
-2. **NASA TESS Mission** – observed nearly the whole sky for planets around bright nearby stars.
-3. **NASA Exoplanet Archive** – provided labeled data on confirmed exoplanets, candidates, and false positives.
-
-From these datasets we used values like:
-- Orbital period  
-- Transit depth and duration  
-- Planetary radius  
-- Right ascension and declination  
-- Distance from Earth  
-
-All datasets are available under NASA’s Open Data policy.
-
----
-
-## 🧩 Solution Overview
-
-We built **Exo-Existence** using both **frontend** and **backend** technologies.
-
-**Frontend:**  
-- `JSX`, `CSS`, `Vite`, `React`, `Three.js`  
-- Displays exoplanets in a 3D simulation  
-- Includes image and render carousels made with **Embla Carousel**
-
-**Backend / AI Components:**  
-- `Python`, `NumPy`, `Pandas`, `Astropy`, `Lightkurve`, `Astroquery`, `Scikit-learn`, `Matplotlib`  
-- Cleans, filters, and analyzes `.csv` data from NASA  
-- Trains machine learning models to classify exoplanet data  
-
-We followed the **Software Development Life Cycle (SDLC)** to ensure a clean, well-structured, and high-quality project.
-
----
-
-## 💻 How It Works
-
-1. Users upload a `.csv` file containing data like:
-   ```json
-   { "name": "Exoplanet A", "r": 5, "theta": 0, "phi": 90, "color": "red", "size": 0.5 }
-````
-
-2. The program parses the data using Python and sorts it by radius, distance, or other parameters.
-3. The React + Three.js frontend takes the formatted data and renders exoplanets in 3D space.
-4. The machine learning model predicts whether each data point is a **confirmed exoplanet**, **candidate**, or **false positive**.
-5. Users can visualize and compare the results directly on the web interface.
-
----
-
-## 🌠 Features
-
-* 🌎 **3D Simulation:** Interactive orbiting planets in real scale
-* 📊 **Machine Learning:** Classifies exoplanet data from NASA archives
-* 📂 **Data Upload:** Supports `.csv` and `.json` formats
-* 🧮 **Scientific Formulas:** Uses Kepler’s Laws and Parallax calculations
-* 🪐 **Visualization Tools:** Explore, rotate, and learn from real datasets
-* 📸 **Image Carousel:** Custom-built Embla carousel for exoplanet renders
-
----
-
-## 🧪 Technologies Used
-
-| Area             | Tools & Libraries                                      |
-| ---------------- | ------------------------------------------------------ |
-| Frontend         | React, Vite, JSX, CSS, Three.js, Embla Carousel        |
-| Backend / Data   | Python, NumPy, Pandas, Astropy, Lightkurve, Astroquery |
-| Machine Learning | Scikit-learn, Matplotlib                               |
-| Data Sources     | NASA Kepler, TESS, and Exoplanet Archive               |
-| Methodology      | SDLC (Software Development Life Cycle)                 |
-
----
-
-## 👩‍💻 Team
-
-**Team Name:** Exo-Existence
-**Member:** Lily
-**Project:** AI and 3D Visualization of Exoplanets
-**Contact:** [Insert contact email here]
-
----
-
-## 🧭 Future Improvements
-
-* Add orbit trails and rotation animations for each planet
-* Use more advanced AI models (like Random Forest or Neural Networks)
-* Allow users to visualize entire star systems with multiple planets
-* Add mobile support and better 3D performance
-
----
-
-## 🛰️ How to Run the Project
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
+```json
+{
+  "name": "Exoplanet A",
+  "r": 5,
+  "theta": 0,
+  "phi": 90,
+  "color": "red",
+  "size": 0.5
+}
 ```
 
-### Backend (Python)
-
-```bash
-cd backend
-pip install -r requirements.txt
-python app.py
-```
-
-Make sure your data files (`.csv` or `.json`) are in the correct format before uploading!
+Each planet’s position in 3D space is determined using **spherical coordinates** `(r, θ, φ)` converted into **Cartesian coordinates** `(x, y, z)` relative to its star.
 
 ---
 
-## 📜 License
+##  Technologies Used
 
-This project uses **NASA’s Open Data** and is shared for educational purposes under the **MIT License**.
+**Frontend:**
+
+* React + Vite
+* Three.js for 3D visualization
+* CSS3 and modern layout design
+
+**Backend:**
+
+* Python (Flask)
+* NumPy, Pandas, Scikit-Learn, AstroPy, Matplotlib, Astroquery
+
+**Data Sources:**
+
+* NASA Exoplanet Archive (Kepler, K2, TESS datasets)
+* JPL Small-Body Database
 
 ---
 
+##  Why Our Solution Works
 
+Our solution works because it **bridges science and technology**:
 
+* It uses **real astronomical data** and **scientifically accurate formulas**.
+* It applies **machine learning** to improve efficiency and accuracy.
+* It offers **interactive 3D visualizations** that make learning and discovery intuitive.
 
+Users can visually explore exoplanets, analyze their properties, and even understand how the AI model predicts new planetary candidates. This fusion of **education**, **data science**, and **astronomy** makes our solution both engaging and informative.
 
-<img width="293" height="263" alt="Capture" src="https://github.com/user-attachments/assets/cbf2efa8-3b44-4824-9377-860d8a01b7c2" />
+---
 
+##  Users & Use Cases
 
-<img width="1044" height="673" alt="Screenshot_2025-10-05_at_10 15 44_PM" src="https://github.com/user-attachments/assets/ea37a3f7-b158-4016-a8f5-1f6376b6c573" />
+**Primary Users:**
 
-<img width="1044" height="673" alt="Screenshot_2025-10-05_at_10 07 15_PM" src="https://github.com/user-attachments/assets/f8dc7d1b-b7be-4c36-bc7b-00b5db883cee" />
-<img width="718" height="832" alt="Screenshot_2025-10-05_at_23 47 04" src="https://github.com/user-attachments/assets/fd7afb5d-551d-42b7-a7b9-af023df63dfe" />
-<img width="1213" height="791" alt="Screenshot_2025-10-05_at_23 56 29" src="https://github.com/user-attachments/assets/4ab759bc-ea0f-4781-86e3-b38eec4b7f9a" />
-<img width="1210" height="792" alt="Screenshot_2025-10-05_at_23 56 44" src="https://github.com/user-attachments/assets/d70f515a-f087-4c59-8cf2-14a1b8ff109f" />
-<img width="1207" height="794" alt="Screenshot_2025-10-05_at_23 57 34" src="https://github.com/user-attachments/assets/f4d0c0b7-6600-4611-b7d5-0dc64eb8e1cc" />
+* Students and educators exploring planetary science.
+* Data scientists and astronomers analyzing NASA datasets.
+* Space enthusiasts curious about exoplanets.
+
+**Use Cases:**
+
+1. **Educational Visualization:**
+   Users can visualize exoplanet positions, sizes, and orbits.
+2. **Scientific Research:**
+   Researchers can classify potential exoplanets quickly using the ML model.
+3. **Public Engagement:**
+   Makes exoplanet discovery accessible and visually stunning.
+
+---
+
+##  Future Work
+
+* Integrate **neural networks** for better classification performance.
+* Include **real-time NASA API updates** for live data feeds.
+* Add **exoplanet fact cards** and **orbit trail tracking**.
+* Improve **scaling accuracy** using logarithmic transformations.
+* Enable **collaborative data annotation** for researchers.
+
+---
+
+##  Team Credits
+
+**Developed by:**
+Lily, Estevan, and Team — NASA Space Apps Challenge 2024
+**Organization:** Bytewise Lab
+
+---
+
+Would you like me to make this into a **Markdown file (`REPORT.md`)** that includes badges (like “Built with React”, “Made with NASA Data”, etc.) and automatic table of contents for GitHub display?
