@@ -1,10 +1,5 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Alisa from './assets/alisa.png'
-import Brista from './assets/brista.png'
-import Yanming from './assets/yanming.png'
-import Estevan from './assets/estevan.png'
-import Lily from './assets/lily.png'
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
@@ -17,11 +12,11 @@ export default function MemberPage() {
   }, []);
 
   const images = [
-    { id: 1, src: Estevan, alt: "Image of Estevan", header: "Estevan", paragraph: "Hello. I am Estevan and I am a team manager and a mathematician for the team. 3D modeling needs a lot of math." },
-    { id: 2, src: Lily, alt: "Image of Lily", header: "Lily", paragraph: "Hello. I am Lily, and I am a backend coder on the team. 3D modeling takes a lot of iterations to fix." },
-    { id: 3, src: Brista, alt: "Image of Brista", header: "Brista", paragraph: "Hello. I am Brista and I am currently in 9th grade in Diamond Bar High School. I am a coder on the team. Fixing coding errors is pain." },
-    { id: 4, src: Alisa, alt: "Image of Alisa", header: "Alisa", paragraph: "Hello. I am Alisa and I am currently in 8th grade in Chaparral Middle School. I am a coder on the team. Math wasted 2 hours of my life." },
-    { id: 5, src: Yanming, alt: "Image of Yanming", header: "Yanming", paragraph: "Hello. My name is Yanming and I am currently in 7th grade in Suzanne Middle School. I am a front-end programmer in the team. I'm silently working the whole time. " },
+    { id: 1, src: './assets/estevan.png', alt: "Image of Estevan", header: "Estevan", paragraph: "Hello. I am Estevan and I am a team manager and a mathematician for the team. 3D modeling needs a lot of math." },
+    { id: 2, src: './assets/lily.png', alt: "Image of Lily", header: "Lily", paragraph: "Hello. I am Lily, and I am a backend coder on the team. 3D modeling takes a lot of iterations to fix." },
+    { id: 3, src: './assets/brista.png', alt: "Image of Brista", header: "Brista", paragraph: "Hello. I am Brista and I am currently in 9th grade in Diamond Bar High School. I am a coder on the team. Fixing coding errors is pain." },
+    { id: 4, src: './assets/alisa.png', alt: "Image of Alisa", header: "Alisa", paragraph: "Hello. I am Alisa and I am currently in 8th grade in Chaparral Middle School. I am a coder on the team. Math wasted 2 hours of my life." },
+    { id: 5, src: './assets/yanming.png', alt: "Image of Yanming", header: "Yanming", paragraph: "Hello. My name is Yanming and I am currently in 7th grade in Suzanne Middle School. I am a front-end programmer in the team. I'm silently working the whole time. " },
   ];
 
   return (

@@ -3,7 +3,6 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { Link } from 'react-router-dom'
-import LightThing from './assets/luminescence-mark.svg'
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
@@ -34,16 +33,16 @@ export default function Controlled3D() {
   const [index, setIndex] = useState(0);
 
   const slides = [
-    { url: "src/assets/pixel_planet_hd-17156-b.glb", label: "HD-17156b" },
-    { url: "src/assets/pixel_planet_55_cancri_e.glb", label: "55 Cancri E" },
-    { url: "src/assets/pixel_planet_kepler-22-b.glb", label: "Kepler-22b" },
-    { url: "src/assets/pixel_planet_hd-40307-g.glb", label: "HD-40307G" },
-    { url: "src/assets/pixel_planet_kepler-16_b.glb", label: "Kepler-16B" },
-    { url: "src/assets/pixel_planet_kepler-37-b.glb", label: "Kepler-37B" },
-    { url: "src/assets/pixel_planet_kepler-186-f.glb", label: "Kepler-186F" },
-    { url: "src/assets/pixel_planet_proxima_centauri_b.glb", label: "Proxima Centauri B" },
-    { url: "src/assets/pixel_planet_toi-849_b.glb", label: "TOI-849 B" },
-    { url: "src/assets/pixel_planet_trappist-1-e.glb", label: "Trappist-1E" },
+    { url: "./assets/pixel_planet_hd-17156-b.glb", label: "HD-17156b" },
+    { url: "./assets/pixel_planet_55_cancri_e.glb", label: "55 Cancri E" },
+    { url: "./assets/pixel_planet_kepler-22-b.glb", label: "Kepler-22b" },
+    { url: "./assets/pixel_planet_hd-40307-g.glb", label: "HD-40307G" },
+    { url: "./assets/pixel_planet_kepler-16_b.glb", label: "Kepler-16B" },
+    { url: "./assets/pixel_planet_kepler-37-b.glb", label: "Kepler-37B" },
+    { url: "./assets/pixel_planet_kepler-186-f.glb", label: "Kepler-186F" },
+    { url: "./assets/pixel_planet_proxima_centauri_b.glb", label: "Proxima Centauri B" },
+    { url: "./assets/pixel_planet_toi-849_b.glb", label: "TOI-849 B" },
+    { url: "./assets/pixel_planet_trappist-1-e.glb", label: "Trappist-1E" },
   ];
 
   const prevSlide = () => setIndex((index - 1 + slides.length) % slides.length);

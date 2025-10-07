@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import LightThing from './assets/luminescence-mark.svg'
 
 const HEADER_H = 80;
 
@@ -45,7 +44,7 @@ const HeaderComponent = () => {
           }}
         >
           <img
-            src={LightThing}
+            src="../public/assets/luminescence-mark.svg"
             alt="Luminescence logo"
             style={{
               height: '50px',
