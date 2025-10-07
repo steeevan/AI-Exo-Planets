@@ -156,8 +156,7 @@ Users can visually explore exoplanets, analyze their properties, and even unders
 ##  Team Credits
 
 **Developed by:**
-Lily, Estevan, and Team — NASA Space Apps Challenge 2024
-**Organization:** Bytewise Lab
+**Organization:** Exo Existence
 
 ---
 
