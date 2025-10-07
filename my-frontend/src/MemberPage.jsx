@@ -12,11 +12,11 @@ export default function MemberPage() {
   }, []);
 
   const images = [
-    { id: 1, src: './assets/estevan.png', alt: "Image of Estevan", header: "Estevan", paragraph: "Hello. I am Estevan and I am a team manager and a mathematician for the team. 3D modeling needs a lot of math." },
-    { id: 2, src: './assets/lily.png', alt: "Image of Lily", header: "Lily", paragraph: "Hello. I am Lily, and I am a backend coder on the team. 3D modeling takes a lot of iterations to fix." },
-    { id: 3, src: './assets/brista.png', alt: "Image of Brista", header: "Brista", paragraph: "Hello. I am Brista and I am currently in 9th grade in Diamond Bar High School. I am a coder on the team. Fixing coding errors is pain." },
-    { id: 4, src: './assets/alisa.png', alt: "Image of Alisa", header: "Alisa", paragraph: "Hello. I am Alisa and I am currently in 8th grade in Chaparral Middle School. I am a coder on the team. Math wasted 2 hours of my life." },
-    { id: 5, src: './assets/yanming.png', alt: "Image of Yanming", header: "Yanming", paragraph: "Hello. My name is Yanming and I am currently in 7th grade in Suzanne Middle School. I am a front-end programmer in the team. I'm silently working the whole time. " },
+    { id: 1, src: './assets/estevan.png', alt: "Image of Estevan", header: "Estevan", paragraph: "Hello, I’m Estevan, the Team Manager and Mathematician for our project. My role focuses on deriving and applying the mathematical formulas needed to scale real astronomical data into usable forms for our 3D simulations. I also contributed to data analysis and the development and training of our machine learning models." },
+    { id: 2, src: './assets/lily.png', alt: "Image of Lily", header: "Lily", paragraph: "Hello, I’m Lily, a Backend Developer and Computer Scientist on our team. 3D modeling requires many iterations to perfect, and I worked on implementing the mathematical formulas and numerical methods that power our simulation. I also contributed to the full-stack development of the project, ensuring smooth integration between the frontend and backend systems." },
+    { id: 3, src: './assets/brista.png', alt: "Image of Brista", header: "Brista", paragraph: "I’m Brista, a Frontend Developer and Data Processing Coder from Diamond Bar High School.\nI designed and implemented the 3D simulation interface and created Python algorithms for data formatting to ensure compatibility with our machine learning pipeline." },
+    { id: 4, src: './assets/alisa.png', alt: "Image of Alisa", header: "Alisa", paragraph: "Hello, I’m Alisa, a Frontend Developer currently in 8th grade at Chaparral Middle School.\nI worked on the calculation and transformation of orbital space units into grid units for our simulator, contributing to the mathematical and visual accuracy of the project." },
+    { id: 5, src: './assets/yanming.png', alt: "Image of Yanming", header: "Yanming", paragraph: "Hello, I’m Yanming, a Frontend Developer currently in 7th grade at Suzanne Middle School.\nI worked on implementing updates to the website using a mainstream development pipeline, ensuring consistency with the team’s templates and design standards. My focus was on making rapid, efficient changes that kept the project cohesive and visually aligned." },
   ];
 
   return (
