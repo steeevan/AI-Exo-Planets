@@ -44,7 +44,7 @@ const HeaderComponent = () => {
           }}
         >
           <img
-            src="../public/assets/luminescence-mark.svg"
+            src="./assets/luminescence-mark.svg"
             alt="Luminescence logo"
             style={{
               height: '50px',
@@ -203,6 +203,52 @@ const HeaderComponent = () => {
             }}
           >
             Team Members
+          </Link>
+          <Link
+            to="/ml-details"
+            style={{
+              color: 'white',
+              textDecoration: 'none',
+              fontWeight: '500',
+              padding: '0.5rem 1rem',
+              borderRadius: '20px',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#0c1525';
+              e.currentTarget.style.backgroundColor = '#72d4f3';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = 'white';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            Machine Learning Details
+          </Link>
+          <Link
+            to="/machine-learning"
+            style={{
+              color: 'white',
+              textDecoration: 'none',
+              fontWeight: '500',
+              padding: '0.5rem 1rem',
+              borderRadius: '20px',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#0c1525';
+              e.currentTarget.style.backgroundColor = '#72d4f3';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = 'white';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            Find Exo Planets
           </Link>
         </div>
 

@@ -5,16 +5,6 @@ import * as THREE from "three";
 import { Link } from 'react-router-dom'
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
-import samplePlanet1 from "./assets/pixel_planet_hd-17156-b.glb";
-import samplePlanet2 from "./assets/pixel_planet_55_cancri_e.glb";
-import samplePlanet3 from "./assets/pixel_planet_kepler-22-b.glb";
-import samplePlanet4 from "./assets/pixel_planet_hd-40307-g.glb";
-import samplePlanet5 from "./assets/pixel_planet_kepler-16_b.glb";
-import samplePlanet6 from "./assets/pixel_planet_kepler-37-b.glb";
-import samplePlanet7 from "./assets/pixel_planet_kepler-186-f.glb";
-import samplePlanet8 from "./assets/pixel_planet_proxima_centauri_b.glb";
-import samplePlanet9 from "./assets/pixel_planet_toi-849_b.glb";
-import samplePlanet10 from "./assets/pixel_planet_trappist-1-e.glb";
 
 const HEADER_H = 96
 const NAV_H = 50
@@ -180,7 +170,7 @@ export default function Controlled3D() {
                 fontSize: "2rem",
                 fontWeight: "600",
                 textShadow: "0 2px 8px rgba(0, 0, 0, 0.8)",
-                zIndex: 10
+                zIndex: 5
               }}
             >
               {slide.label}
@@ -215,7 +205,7 @@ export default function Controlled3D() {
             top: "50%",
             left: "20px",
             transform: "translateY(-50%)",
-            zIndex: 10,
+            zIndex: 5,
             padding: "1rem 1.2rem",
             fontSize: "1.2rem",
             cursor: "pointer",
@@ -253,7 +243,7 @@ export default function Controlled3D() {
             top: "50%",
             right: "20px",
             transform: "translateY(-50%)",
-            zIndex: 10,
+            zIndex: 5,
             padding: "1rem 1.2rem",
             fontSize: "1.2rem",
             cursor: "pointer",

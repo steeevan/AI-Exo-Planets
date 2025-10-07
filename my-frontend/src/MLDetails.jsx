@@ -211,10 +211,10 @@ export default function MLDetails() {
             gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
             gap: "1.5rem"
           }}>
-            <ImageBox src="../public/assets/rawlight-curve.png" caption="Raw Light Curve" desc="Spacecraft systematics + stellar variability." />
-            <ImageBox src="../public/assets/BLS.png" caption="Detrended & De-noised" desc="Co-trending, normalization, outlier clipping." />
-            <ImageBox src="../public/assets/phase-foled.png" caption="Phase-Folded" desc="Fold at detected period & bin for clarity." />
-            <ImageBox src="../public/assets/rawlight-curve.png" caption="BLS Periodogram" desc="Peak identifies candidate orbital period." />
+            <ImageBox src="./assets/rawlight-curve.png" caption="Raw Light Curve" desc="Spacecraft systematics + stellar variability." />
+            <ImageBox src="./assets/BLS.png" caption="Detrended & De-noised" desc="Co-trending, normalization, outlier clipping." />
+            <ImageBox src="./assets/phase-foled.png" caption="Phase-Folded" desc="Fold at detected period & bin for clarity." />
+            <ImageBox src="./assets/rawlight-curve.png" caption="BLS Periodogram" desc="Peak identifies candidate orbital period." />
           </div>
         </section>
 
@@ -437,9 +437,9 @@ export default function MLDetails() {
             gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
             gap: "1.5rem"
           }}>
-            <ImageBox src="../public/assets/confusionmatrix.png" caption="Confusion Matrix" />
-            <ImageBox src="../public/assets/heatmap.png" caption="Heat Map" />
-            <ImageBox src="../public/assets/tab.png" caption="NASA Table" />
+            <ImageBox src="./assets/confusionmatrix.png" caption="Confusion Matrix" />
+            <ImageBox src="./assets/heatmap.png" caption="Heat Map" />
+            <ImageBox src="./assets/tab.png" caption="NASA Table" />
           </div>
         </section>
 
