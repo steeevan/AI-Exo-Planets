@@ -1,6 +1,5 @@
 // src/pages/ExoCatalog.jsx
 import React, { useMemo, useState } from "react";
-import "./exo.css";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 
