@@ -73,8 +73,8 @@ export default function MLDetails() {
               >
                 Open Exo Catalog
               </Link>
-              <a
-                href="#pipeline"
+              {/* <a
+                href="#/#pipeline"
                 style={{
                   padding: "1rem 2rem",
                   backgroundColor: "transparent",
@@ -98,7 +98,7 @@ export default function MLDetails() {
                 }}
               >
                 Jump to Pipeline
-              </a>
+              </a> */}
             </div>
           </div>
           <div style={{
