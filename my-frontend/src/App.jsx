@@ -39,7 +39,7 @@ export default function Home() {
           <Section id="simulation" title="Simulation (3D Demo)">
             <p className="gray-box">Simple 3D scene with orbit controls and exoplanets.</p>
             <div className="section-bg section-bg--cover w-[100%] justify-center items-center">
-              <ExoplanetScene></ExoplanetScene>
+              <ExoplanetScene />
             </div>
           </Section>
         </div>
