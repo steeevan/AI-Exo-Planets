@@ -1,3 +1,4 @@
+Link to Website -> https://ai-exo-planets.onrender.com/#/
 
 ## 🌌 **Exo-Existence – Summary**
 
@@ -36,6 +37,11 @@ Result: users can **see** planets moving around their stars while the **AI analy
 * **Students & Teachers:** visualize orbital motion and real data in class.
 * **Scientists & Researchers:** upload CSV files for AI-based classification.
 * **Space Enthusiasts:** explore 3D models, compare planet sizes, and learn.
+<img width="893" height="411" alt="detrended   De-noised" src="https://github.com/user-attachments/assets/b6d0002e-2b09-4051-9f54-e6db5776cb03" />
+<img width="685" height="876" alt="confusionmatrix" src="https://github.com/user-attachments/assets/4e1a89c2-25b3-46b4-aeb3-99387ba096b0" />
+<img width="947" height="418" alt="BLS" src="https://github.com/user-attachments/assets/abdb78a7-bd31-4856-951b-8b5a453b6ab8" />
+<img width="966" height="456" alt="Screenshot 2025-10-06 002615" src="https://github.com/user-attachments/assets/b836ced0-9b48-456f-8fdf-371d6128875a" />
+<img width="826" height="605" alt="heatmap" src="https://github.com/user-attachments/assets/471d6669-8228-4f02-89dc-745cf066628f" />
 
 ---
 
@@ -44,6 +50,7 @@ Result: users can **see** planets moving around their stars while the **AI analy
 * **Kepler:** star brightness dips (transits).
 * **TESS:** full-sky light curves.
 * **NASA Exoplanet Archive:** confirmed, candidate, and false-positive planets (for training the model).
+<img width="737" height="699" alt="Screenshot_2025-10-05_at_4 03 33_PM" src="https://github.com/user-attachments/assets/719bfedb-2692-47a0-a071-cd5092c8393b" />
 
 These datasets provided real measurements like orbital period, radius, and distance.
 
