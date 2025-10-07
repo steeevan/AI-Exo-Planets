@@ -1,5 +1,5 @@
 // src/Home.jsx
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import ExoplanetScene from './ExoplanetScene'
 import HeaderComponent from './HeaderComponent'

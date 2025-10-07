@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ExoplanetScene from "./ExoplanetScene";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
-import presetExoplanetData from "./assets/presetExoplanetsData.json";
+import presetExoplanetData from "./presetExoplanetsData.json";
 
 const readJsonFile = (file) => {
   return new Promise((resolve, reject) => {
