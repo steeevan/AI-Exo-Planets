@@ -1,5 +1,5 @@
 [CLICK ME TO GET TO WEBSITE
-]([url](https://ai-exo-planets.onrender.com/#/))
+]([url](https://ai-exo-planets.onrender.com/#/)
 ## 🌌 **Exo-Existence – Summary**
 
 **Overview:**
