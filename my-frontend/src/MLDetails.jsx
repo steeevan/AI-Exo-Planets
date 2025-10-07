@@ -43,7 +43,7 @@ export default function MLDetails() {
               marginBottom: "2rem",
               opacity: 0.9
             }}>
-              A transparent view of our end-to-end pipeline—how we transform raw Kepler/TESS light curves into
+              A transparent view of our end to end pipeline. We transform raw Kepler/TESS light curves into
               candidate classifications and confident confirmations.
             </p>
             <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
@@ -197,13 +197,13 @@ export default function MLDetails() {
             fontSize: "2rem",
             marginBottom: "1rem",
             fontWeight: "600"
-          }}>Signal Evolution (Example)</h2>
+          }}>Signal Evolution </h2>
           <p style={{
             color: "#72d4f3",
             marginBottom: "2rem",
             opacity: 0.9
           }}>
-            From raw to folded—each stage the model sees. Replace the image paths with your exported figures.
+            From raw to folded each stage the model sees. 
           </p>
           <div style={{
             display: "grid",

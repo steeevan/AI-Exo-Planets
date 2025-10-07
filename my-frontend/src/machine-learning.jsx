@@ -311,7 +311,7 @@ TESS,123456789,TOI-700 d,CONFIRMED,37.4,1.14,`;
                   e.currentTarget.style.transform = "scale(1)";
                 }}
               >
-                <span>📁</span>
+                <span></span>
                 Choose CSV File
                 <input
                   type="file"
@@ -344,8 +344,8 @@ TESS,123456789,TOI-700 d,CONFIRMED,37.4,1.14,`;
                   }}
                 >
                   <option value="">— Select sample dataset —</option>
-                  <option value="public:kepler">Kepler KOI (generated CSV)</option>
-                  <option value="public:tess">TESS TOI (generated CSV)</option>
+                  <option value="public:kepler">Kepler KOI [live data]</option>
+                  <option value="public:tess">TESS TOI [live data]</option>
                   <option value="demo:kepler">Demo Kepler (tiny)</option>
                   <option value="demo:tess">Demo TESS (tiny)</option>
                 </select>
