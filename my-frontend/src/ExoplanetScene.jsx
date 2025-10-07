@@ -19,7 +19,7 @@ const TOTAL_DIVISION = 300;
 
 // 3D grid with three perpendicular planes
 const Cartesian3DGrid = ({
-  size = 50, divisions = 10, colorCenter = '#888888', colorGrid = '#444444', planeCount = 3, showLabels = true
+  size = 50, divisions = 10, colorCenter = '#545050ff', colorGrid = '#444444', planeCount = 3, showLabels = true
 }) => {
   const step = size / (planeCount - 1);
   const labelSize = 1;
@@ -327,7 +327,7 @@ const ExoplanetScene = ({ fileContent }) => {
               })}
 
               {/* Grid */}
-              <Cartesian3DGrid size={PLANE_SIZE} divisions={TOTAL_DIVISION} planeCount={3} showLabels={showGridLabels} />
+              {/* <Cartesian3DGrid size={PLANE_SIZE} divisions={TOTAL_DIVISION} planeCount={3} showLabels={showGridLabels} /> */}
             </group>
 
             <EffectComposer>
