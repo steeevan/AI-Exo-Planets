@@ -175,8 +175,8 @@ TESS,123456789,TOI-700 d,CONFIRMED,37.4,1.14,`;
     if (sample.startsWith("public:")) {
       const BASE = (import.meta.env && import.meta.env.BASE_URL) || "/";
       const path =
-        sample === "public:kepler" ? `${BASE}public/data/kepler_koi.csv` :
-          sample === "public:tess" ? `${BASE}public/data/tess_toi.csv` :
+        sample === "public:kepler" ? `${BASE}data/kepler_koi.csv` :
+          sample === "public:tess" ? `${BASE}data/tess_toi.csv` :
             null;
       if (!path) return;
       const resp = await fetch(path, { cache: "no-cache" });
