@@ -7,11 +7,22 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
 
 // Define a list of exoplanets with spherical coordinates
 const EXOPLANETS_ONE = [
-  { planetName: 'Exoplanet A', x: 20, y: 30, z: 10, color: 'red', planetRadiusSize: 16.5 },
-  { planetName: 'Exoplanet B', x: -10, y: 5, z: 6, color: 'blue', planetRadiusSize: 15.7 },
-  { planetName: 'Exoplanet C', x: -22, y: -10, z: -6, color: 'green', planetRadiusSize: 17.6 },
-  { planetName: 'Exoplanet D', x: 23, y: 23, z: 4, color: 'purple', planetRadiusSize: 15.8 },
-  { planetName: 'Exoplanet E', x: -6, y: 15, z: -25, color: 'orange', planetRadiusSize: 18.9 },
+  { planetName: 'Exoplanet A', x: 120, y: 130, z: 110, color: 'red', planetRadiusSize: 4.5 },
+  { planetName: 'Exoplanet B', x: -110, y: 15, z: 16, color: 'blue', planetRadiusSize: 4.7 },
+  { planetName: 'Exoplanet C', x: -122, y: -110, z: -16, color: 'green', planetRadiusSize: 2.6 },
+  { planetName: 'Exoplanet D', x: 123, y: 123, z: 14, color: 'purple', planetRadiusSize: 4.8 },
+  { planetName: 'Exoplanet E', x: -16, y: 115, z: -125, color: 'orange', planetRadiusSize: 1.9 },
+  { planetName: 'Exoplanet F', x: 95, y: -75, z: 132, color: 'cyan', planetRadiusSize: 3.2 },
+  { planetName: 'Exoplanet G', x: -140, y: 64, z: 80, color: 'magenta', planetRadiusSize: 4.6 },
+  { planetName: 'Exoplanet H', x: 42, y: 150, z: -99, color: 'gray', planetRadiusSize: 2.8 },
+  { planetName: 'Exoplanet I', x: -38, y: -88, z: 111, color: 'teal', planetRadiusSize: 4.3 },
+  { planetName: 'Exoplanet J', x: 76, y: -132, z: -48, color: 'lime', planetRadiusSize: 1.7 },
+  { planetName: 'Exoplanet K', x: 121, y: 20, z: 65, color: 'pink', planetRadiusSize: 3.9 },
+  { planetName: 'Exoplanet L', x: -95, y: -67, z: 144, color: 'brown', planetRadiusSize: 4.2 },
+  { planetName: 'Exoplanet M', x: 58, y: 97, z: -123, color: 'olive', planetRadiusSize: 2.4 },
+  { planetName: 'Exoplanet N', x: -104, y: 134, z: 19, color: 'navy', planetRadiusSize: 3.1 },
+  { planetName: 'Exoplanet O', x: 66, y: -143, z: 39, color: 'gold', planetRadiusSize: 4.0 },
+
 ];
 
 const PLANE_SIZE = 3000;
@@ -134,7 +145,7 @@ const ExoplanetScene = ({ fileContent }) => {
     {
       maxDistance: { value: 20000000, min: 0, max: 20000000, step: 1000 },
       maxPlanetSize: { value: 5, min: 0, max: 5, step: 0.1 },
-      showGridLabels: { value: true, label: 'Show Grid Labels' }
+      // showGridLabels: { value: true, label: 'Show Grid Labels' }
     },
     { store } // <-- bind controls to this inline panel
   );
@@ -265,11 +276,11 @@ const ExoplanetScene = ({ fileContent }) => {
           </div>
 
           <Canvas
-            camera={{ position: [30, 30, 30], fov: 50 }}
+            camera={{ position: [-100, -100, 150], fov: 50 }}
             style={{ width: "80vw", height: '80vh', backgroundColor: '#000000' }}
           >
             <hemisphereLight color="white" groundColor="#222222" intensity={0.5} />
-            <ambientLight intensity={0.3} />
+            <ambientLight intensity={0.5} />
             <pointLight position={[0, 0, 0]} intensity={2} color="yellow" />
 
             <group position={[0, 0, 0]}>
@@ -334,7 +345,11 @@ const ExoplanetScene = ({ fileContent }) => {
               <Bloom intensity={2} luminanceThreshold={0.3} />
             </EffectComposer>
 
-            <OrbitControls />
+            <OrbitControls
+              target={[0, 0, 0]}
+              enableDamping={true}
+              dampingFactor={0.05}
+            />
           </Canvas>
         </div>
 
